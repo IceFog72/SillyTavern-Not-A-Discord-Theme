@@ -248,8 +248,8 @@ MIT License
       .drawer-toggle:has(.openIcon):hover {
         border-radius: 0px 8px 8px 0px !important;
         border: 2px solid white !important;
-        height: 38px;
-        width: 2px;
+        height: 38px !important;
+        width: 2px !important;
       }
   
       .drawer-toggle:hover {
@@ -835,7 +835,6 @@ MIT License
         outline: 1px solid var(--SmartThemeBorderColor);
       }
   
-  
       select,
       .mdHotkeys,
       .text_pole,
@@ -843,7 +842,6 @@ MIT License
       .neo-range-input {
         border-radius: 8px !important;
       }
-  
   
       /*
       #rm_PinAndTabs {
@@ -853,6 +851,45 @@ MIT License
         background-color: var(--SmartThemeBlurTintColor);
       }
       */
+
+      #CharListButtonAndHotSwaps .flexFlowColumn.flex-container{
+        flex-flow: row !important;
+      }
+      
+      #rm_button_panel_pin_div,
+      #rm_button_characters{
+        height: 32px !important;
+        width: 32px !important;
+      }
+
+      #rm_button_panel_pin_div label{
+        height: 32px !important;
+        width: 32px !important;
+      }
+
+      #rm_button_panel_pin{
+        display: none !important;
+      }
+
+      .fa-lock.right_menu_button,
+      .fa-unlock.right_menu_button{
+        padding: 0px !important;
+        height: 32px !important;
+        width: 32px !important;
+      }
+
+      #rm_button_panel_pin:not(:checked) + label .unchecked, #lm_button_panel_pin:not(:checked) + label .unchecked, #WI_panel_pin:not(:checked) + label .unchecked {
+        display: block;
+      }
+
+      #rm_button_panel_pin:checked + label .unchecked, #lm_button_panel_pin:checked + label .unchecked, #WI_panel_pin:checked + label .unchecked {
+        display: none !important;
+      }
+
+      #rm_button_panel_pin:checked + label .checked, #lm_button_panel_pin:checked + label .checked, #WI_panel_pin:checked + label .checked {
+        display: block !important;
+      }
+
       /*********
        Edited Wolfsblvt hide topListAvatButtons
       *********/
@@ -918,8 +955,9 @@ MIT License
       /*********/
       
       .hotswap {
-        max-height: calc(var(--avatar-base-height) * var(--big-avatar-height-factor) + 2 * var(--avatar-base-border-radius)) !important; 
+        max-height: calc(var(--avatar-base-height) + 2 * var(--avatar-base-border-radius)) !important; 
         padding: 0px !important;
+        margin: 0px !important;
         -webkit-overflow-scrolling: touch;
         scroll-behavior: smooth;
         scrollbar-width: none;
@@ -1083,9 +1121,10 @@ MIT License
   
   
   
-      #CharListButtonAndHotSwaps {
-        padding: 8px 8px 0px 8px;
+      #CharListButtonAndHotSwaps {  
+        padding: 8px 8px 0px 8px !important;
         border-bottom: 1px solid var(--SmartThemeBorderColor) !important;
+        min-height: 47px !important;
       }
       
       .select2-container .select2-selection--multiple,
@@ -1689,9 +1728,13 @@ MIT License
       
       }
       
+      .hotswap.avatars_inline{
+        gap:unset !important;
+      }
+
       .hotswap.avatars_inline .avatar {
-        --big-avatar-height-factor: 1.2 !important;
-        --big-avatar-width-factor: 0.8 !important;
+        --big-avatar-height-factor: 0.6 !important;
+        --big-avatar-width-factor: 0.4 !important;
         --big-avatar-border-factor: 5 !important;
       }
       
