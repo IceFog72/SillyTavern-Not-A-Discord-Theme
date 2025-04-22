@@ -151,7 +151,7 @@ MIT License
         right: calc(var(--settings-panel-width) + var(--authors-note-panel-width) + var(--stcdxcodex-with) + var(--injectManagerSideBar-width) + var(--trackerUI-panel-width) + var(--summaryExtensionPopout-width) + var(--notebookPanel-width) + var(--ctsi-drawer-with) + var(--gallery-panel-width) + var(--groupMemberListPopout-panel-width) + var(--cfgConfig-panel-width) + var(--objectiveExtensionPopout-panel-width));
       }
 
-      #WorldInfo .flex-container{
+      #WorldInfo .flex-container.alignitemscenter.gap10px {
         padding: 8px !important;
         border-bottom: 1px solid var(--SmartThemeBorderColor) !important;
         min-height: 48px !important;
@@ -912,7 +912,7 @@ MIT License
         left: 65px !important;
         text-align: left !important;
       }
-      
+
       .topRightInset,
       #clickSlidersTips{
         top: 12px !important;
