@@ -66,7 +66,6 @@ MIT License
       --gallery-panel-width: 0px;
       --trackerUI-panel-width: 0px;
       --summaryExtensionPopout-width: 0px;
-  
       
       --elements-height: 100vh;
       --text-imput-height: 42px;
@@ -98,7 +97,6 @@ MIT License
       }
       
       * {
-  
         -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         box-shadow: unset !important;
         --stcdx--zoomTime: unset !important;
@@ -176,8 +174,6 @@ MIT License
       .toast-close-button {
         filter:opacity(100%) !important;
       }
-      
-  
       
       input[type="radio"], 
       input[type="checkbox"] {
@@ -305,7 +301,6 @@ MIT License
         min-width: calc(var(--nav-bar-width) - 4px) !important;
         height: 44px;
         display: inline;
-        
         height: 100%;
         display: flex;
         align-items: center;
@@ -324,10 +319,6 @@ MIT License
         font-size: calc(var(--mainFontSize) * 1);
       }
       
-  
-  
-  
-  
       #rightSendForm > div:not(.mes_stop), #leftSendForm > div {
         font-weight: 800 !important;
         font-size: calc(var(--bottomFormIconSize) * 0.8);
@@ -385,13 +376,13 @@ MIT License
       body:has(#left-nav-panel.openDrawer) {
         --settings-panel-width: 360px !important;
       }
-  
-  
-  
-      body:has(#WorldInfo:is([style*="display: block;"])) {
+
+      body:has(.drawer-content[style="display: block;"]):has(#qr--settings),
+      body:has(#WorldInfo[style*="display: block;"]) {
         --expression-image-lorebook-width: calc(var(--center-panels-width)/2) !important;
       }
-      body:has(#WorldInfo:is([style*="display: none;"])) {
+      
+      body:has(#WorldInfo[style*="display: none;"]):has(.drawer-content[style="display: none;"]:has(#qr--settings)) {
         --expression-image-lorebook-width: 0px;
       }
   
@@ -506,7 +497,19 @@ MIT License
         --gallery-panel-width: 340px;
       }
       
-  
+      
+      /*********
+      #qr--settings
+      *********/
+
+      div.drawer-content[style="display: block;"]:has(#qr--settings) {
+        right: calc(var(--settings-panel-width) + var(--authors-note-panel-width) + var(--stcdxcodex-with) + var(--injectManagerSideBar-width) + var(--trackerUI-panel-width) + var(--summaryExtensionPopout-width) + var(--notebookPanel-width) + var(--ctsi-drawer-with) + var(--gallery-panel-width) + var(--groupMemberListPopout-panel-width) + var(--cfgConfig-panel-width) + var(--objectiveExtensionPopout-panel-width)) !important;
+        left: unset !important;
+        width: calc(var(--expression-image-lorebook-width)) !important;
+      }
+
+
+
       /*********
       ctsi-drawer
       *********/
@@ -560,42 +563,39 @@ MIT License
       
       #options {
         background-color: var(--SmartThemeBlurTintColor) !important;
-      
       }
       
       /* message block */
       
-      .mes_button
-      {   text-align: center;
-          align-content: center;
-          height: 28px;
-          width: 28px;
-          font-size: calc(var(--mainFontSize) * 1.2);
+      .mes_button{   
+        text-align: center;
+        align-content: center;
+        height: 28px;
+        width: 28px;
+        font-size: calc(var(--mainFontSize) * 1.2);
       }
       
       
       .mes_button:hover {
-          background-color: #333439;
-          cursor: pointer;
-          border-radius: 8px;
-      
+        background-color: #333439;
+        cursor: pointer;
+        border-radius: 8px;
       }
       
       .mes_reasoning_actions .mes_button{
-          font-size: calc(var(--mainFontSize) * 0.7);
-          height: 20px;
-          width: 20px;
+        font-size: calc(var(--mainFontSize) * 0.7);
+        height: 20px;
+        width: 20px;
       }
+
       .mes_reasoning_actions,
       .mes_buttons{
-          
-          border: 1px solid #97979f15;
-          --shadow-medium: 0 4px 8px 0 hsl(none 0% 0%/0.16);
-          box-shadow: var(--shadow-medium) !important;
-          background-color: #2c2d32;
-          padding: 2px;
-          
-          border-radius: 8px;
+        border: 1px solid #97979f15;
+        --shadow-medium: 0 4px 8px 0 hsl(none 0% 0%/0.16);
+        box-shadow: var(--shadow-medium) !important;
+        background-color: #2c2d32;
+        padding: 2px;
+        border-radius: 8px;
       }
   
       .mes_block .ch_name {
@@ -614,6 +614,7 @@ MIT License
         visibility: hidden;
         opacity: 0;
       }
+
       .mes:hover .mes_buttons,
       .mes:hover .mes_reasoning_actions {
         visibility: visible;
@@ -702,13 +703,11 @@ MIT License
         border-radius: 0px 0px 8px 8px;
       }
       
-  
       .standoutHeader {
         border-top-left-radius: 8px !important;
         border-bottom-right-radius: 8px !important;
       }
       
-  
       #extensions_settings .inline-drawer-toggle.inline-drawer-header,
       #extensions_settings2 .inline-drawer-toggle.inline-drawer-header,
       .standoutHeader,
@@ -753,9 +752,7 @@ MIT License
         height: unset;
         position: unset;
       }
-    
-      /*color-mix(in srgb, var(--NSDsmartThemeHiglitesColor) 70%, transparent);*/
-    
+
       textarea,
       .text_pole {
         border: unset !important;
@@ -1146,9 +1143,7 @@ MIT License
         min-width: unset;
         top: 0 !important;
       }
-  
-  
-  
+
       #CharListButtonAndHotSwaps {  
         padding: 8px 8px 0px 8px !important;
         border-bottom: 1px solid var(--SmartThemeBorderColor) !important;
@@ -1176,7 +1171,6 @@ MIT License
         margin: 0px 0px 0px 0px !important;
         border: 0;
         border-radius: 0;
-  
       }
       
       #rm_characters_block {
@@ -1184,7 +1178,6 @@ MIT License
       }
       
       #top-settings-holder {
-        
         background-color: var(--NSDSmartThemeBGColor) !important;
         padding: 8px 0px 8px 0px;
         margin: 0px 0px 0px 0px;
@@ -1194,10 +1187,7 @@ MIT License
         gap: 8px;
         justify-content: unset;
         width: var(--nav-bar-width);
-      
-        
       }
-      
       
       .drawer-content select {
         margin: 2px;
@@ -1283,8 +1273,7 @@ MIT License
         background-color: var(--SmartThemeChatTintColor) !important;
         padding: 8px !important;
       }
-      
-      
+
       #logprobsViewer:not(.maximized),
       #floatingPrompt:not(.maximized),
       #left-nav-panel.drawer-content {
@@ -1321,8 +1310,6 @@ MIT License
         max-height: unset;
       }
       
-  
-    
       #cfgConfig.maximized,
       #vv--root.vv--maximized,
       #logprobsViewer.maximized,
@@ -1403,8 +1390,7 @@ MIT License
       .stwid--blocker{
         margin-top: 28px;
       }
-  
-  
+
       .stwid--list {
         flex: 0 0 auto !important;
         order: 1;
@@ -1414,9 +1400,6 @@ MIT License
         flex: 1 1 auto !important;
         order: 0;
       }
-  
-    
-      
       
       /*********
         notebook
@@ -1493,13 +1476,10 @@ MIT License
         stcdx  
       *********/
       
-      
       .stcdx--tooltip {
         z-index: 60;
       }
       
-
-
       body .stcdx--tooltip {
         position: absolute;
         background-color: var(--SmartThemeBlurTintColor) !important;
@@ -1624,7 +1604,6 @@ MIT License
         position: absolute;
         justify-content: right;
         bottom: 0 !important;
-        
       }
       
       /*********
@@ -1695,15 +1674,12 @@ MIT License
         overflow: hidden;
         text-overflow: ellipsis;
         display: block;
-    
       }
   
       body.charListGrid #rm_print_characters_block .ch_name,
       .avatar-container .ch_name {
         max-width: 80px !important;
       }
-  
-  
       
       body.charListGrid #rm_print_characters_block .bogus_folder_select,
       .character_select,
@@ -1740,7 +1716,6 @@ MIT License
       .avatar_collage{
         min-width: calc(var(--avatar-base-width) * var(--big-avatar-width-factor)) !important;
         max-width: calc(var(--avatar-base-width) * var(--big-avatar-width-factor)) !important;
-  
         aspect-ratio: 2 / 3 !important;
         border-radius: 8px !important;
         border: unset !important;
@@ -1753,7 +1728,6 @@ MIT License
         --big-avatar-height-factor: 2.4;
         --big-avatar-width-factor: 1.6;
         --big-avatar-border-factor: 5;
-      
       }
       
       .hotswap.avatars_inline{
