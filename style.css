@@ -20,7 +20,7 @@ MIT License
     --NSDnormal-char-panel-width: 420;
     --NSDAnimation-duration: 0.01;
     --NSDexpressionVisibility: collapse;
-    --NSDexpressionWidth: 512px;
+    --NSDexpressionWidth: 512;
     --NSDbgImageOpacity: 0.25;
     --NSDSmartThemeBGColor: rgba(18, 18, 20, 1);
     --NSDDrawer-IconColor: rgba(237, 237, 237, 1);
@@ -351,7 +351,7 @@ MIT License
       }
   
       body:has(#injectManagerSideBar.visible) {
-        --injectManagerSideBar-width: 400px !important; 
+        --injectManagerSideBar-width: 360px !important; 
       }
     
       body:has(.stcdx--root.stcdx--codex.stcdx--active) {
@@ -359,15 +359,15 @@ MIT License
       }
       
       body:has(#trackerInterface) {
-        --trackerUI-panel-width: 400px !important;
+        --trackerUI-panel-width: 360px !important;
       }
       
       body:has(#trackerUI) {
-        --trackerUI-panel-width: 400px !important;
+        --trackerUI-panel-width: 360px !important;
       }
       
       body:has(#notebookPanel.flex) {
-        --notebookPanel-width: 400px !important;
+        --notebookPanel-width: 360px !important;
       }
       
       body:has(#notebookPanel.maximized) {
@@ -389,7 +389,7 @@ MIT License
       }
   
       body:has(#expression-wrapper):has(#expression-image:not([src=""])) {
-        --expression-image-lorebook-width: var(--NSDexpressionWidth);
+        --expression-image-lorebook-width: calc(var(--NSDexpressionWidth) * 1px);
       }
   
       body:has(#expression-wrapper):has(#expression-image:not([src=""])).waifuMode {
@@ -397,66 +397,18 @@ MIT License
       }
   
       body:has(.zoomed_avatar.draggable):not(#WorldInfo:is([style*="display: block;"])):not(body.waifuMode) {
-        --expression-image-lorebook-width: var(--NSDexpressionWidth);
+        --expression-image-lorebook-width: calc(var(--NSDexpressionWidth) * 1px);
       }
   
-      /*
-      body:has(#visual-novel-wrapper:is([style*="display: none;"])):has(#WorldInfo:is([style*="display: block;"])) {
-        --expression-image-lorebook-width: calc(var(--center-panels-width)/2) !important;
-      }
-      
-      body:has(#visual-novel-wrapper:not([style*="display: none;"])):has(#WorldInfo:is([style*="display: block;"])) {
-        --expression-image-lorebook-width: calc(var(--center-panels-width)/2) !important;
-      }
-  
-      body.waifuMode:not(#WorldInfo:is([style*="display: block;"])) {
-        --expression-image-lorebook-width: 0px !important;
-      }
-  
-  
-      body:has(#expression-wrapper):has(#expression-image:not([src=""])) {
-        --expression-image-lorebook-width: var(--NSDexpressionWidth) !important;
-      }
-      
-      body.waifuMode:not(#WorldInfo:is([style*="display: block;"])):has(#expression-wrapper):has(#expression-image:not([src=""])) {
-        --expression-image-lorebook-width: 0px !important;
-      }
-  
-      body:has(.zoomed_avatar.draggable):not(#WorldInfo:is([style*="display: block;"])) {
-        --expression-image-lorebook-width: var(--NSDexpressionWidth) !important;
-      }
-  
-      body:has(.zoomed_avatar.draggable):not(#WorldInfo:is([style*="display: block;"])).waifuMode {
-        --expression-image-lorebook-width: 0px !important;
-      }
-  
-      body:has(.zoomed_avatar.draggable).waifuMode {
-        --expression-image-lorebook-width: 0px !important;
-      }
-      
-      body:not(:has(.zoomed_avatar.draggable)) {
-        --expression-image-lorebook-width: 0px;
-      }
-    
-      body:has(#expression-wrapper #expression-image.collapse) {
-        --expression-image-lorebook-width: 0px !important;
-      }
-    
       body:has(#logprobsViewer:is([style*="display: flex; opacity: 1;"])) {
-        --expression-image-lorebook-width: 20vw !important;
-      }
-      
-  
-    */
-      body:has(#logprobsViewer:is([style*="display: flex; opacity: 1;"])) {
-        --expression-image-lorebook-width: var(--NSDexpressionWidth);
+        --expression-image-lorebook-width: calc(var(--NSDexpressionWidth) * 1px);
       }
       body:has(#logprobsViewer.maximized) {
         --expression-image-lorebook-width: 0px !important;
       }
   
       body:has(#summaryExtensionPopout) {
-        --summaryExtensionPopout-width: 400px;
+        --summaryExtensionPopout-width: 360px;
       }
   
       body:has(#ctsi-drawer.maximized) {
@@ -468,7 +420,7 @@ MIT License
       }
     
       body:has(#floatingPrompt:is([style*="display: flex; opacity: 1;"])) {
-        --authors-note-panel-width: 400px;
+        --authors-note-panel-width: 360px;
       }
       
       body:has(#floatingPrompt.maximized) {
@@ -492,16 +444,16 @@ MIT License
       }
     
       body:has(#groupMemberListPopout) {
-        --groupMemberListPopout-panel-width: 340px;
+        --groupMemberListPopout-panel-width: 360px;
       }
 
       body:has(#extensionSideBar.visible) {
-        --extensionSideBar-panel-width: 340px;
+        --extensionSideBar-panel-width: 360px;
       }
       
       
       body:has(#gallery.draggable) {
-        --gallery-panel-width: 340px;
+        --gallery-panel-width: 360px;
       }
       
       
@@ -513,8 +465,7 @@ MIT License
         right: calc(var(--settings-panel-width) + var(--authors-note-panel-width) + var(--stcdxcodex-width) + var(--injectManagerSideBar-width) + var(--trackerUI-panel-width) + var(--summaryExtensionPopout-width) + var(--notebookPanel-width) + var(--ctsi-drawer-width) + var(--gallery-panel-width) + var(--groupMemberListPopout-panel-width) + var(--cfgConfig-panel-width) + var(--objectiveExtensionPopout-panel-width)) !important;
         left: unset !important;
         width: calc(var(--expression-image-lorebook-width)) !important;
-      }
-*/
+      }*/
 
       /*********
       ctsi-drawer
@@ -566,9 +517,12 @@ MIT License
       .options-content {
         border: unset;
       }
-      
+
+      #extensionsMenu,
       #options {
         background-color: var(--SmartThemeBlurTintColor) !important;
+        border-radius: 8px;
+        border: 1px solid color-mix(in srgb, var(--SmartThemeBorderColor) 50%, transparent) !important;
       }
       
       /* message block */
@@ -674,7 +628,7 @@ MIT License
       
       .inline-drawer-header {
         background: var(--black50a);
-        padding: 0px 8px 0px 8px;
+        padding: 8px;
       }
       
       .title_restorable {
@@ -720,7 +674,7 @@ MIT License
       .userSettingsInnerExpandable {
         background: var(--black50a);
         margin: unset !important;
-        padding: 4px;
+        padding: 4px 8px;
         margin-bottom: 0px;
         border-radius: 8px;
         border: unset !important;
@@ -763,15 +717,20 @@ MIT License
       .text_pole {
         border: unset !important;
       }
+
       #extensionTopBarChatName,
       #extensionTopBarSearchInput,
       .drawer-content select,
       #top-settings-holder .text_pole {
         background-color: var(--NSDsmartThemeHiglitesColor);
-        border: 1px solid var(--SmartThemeBorderColor) !important;
+        border: 1px solid color-mix(in srgb, var(--SmartThemeBorderColor) 50%, transparent) !important;
         font-size: 14px;
         font-weight: 500;
         padding: 4px 4px 2px 8px;
+      }
+      
+      .drawer-content select:has(#send_textarea:focus-visible){
+        border: 1px solid var(--SmartThemeBorderColor) !important;
       }
       
       #send_textarea {
@@ -940,14 +899,14 @@ MIT License
         border-radius: 0 0 8px 8px;
         background-color: var(--SmartThemeBlurTintColor);
       }*/
-  
+
+      #rm_ch_create_block
+      {
+        padding: 8px !important;
+      }
+
       #rm_group_chats_block,
       #rm_ch_create_block {
-        /*border-radius: 0px 0px 8px 8px;
-        background-color: var(--SmartThemeBlurTintColor);
-        box-shadow: 0 2px 10px 3px var(--box-shadow-color);
-        margin: 0px 8px 8px 8px !important;
-        padding: 8px;*/
         border-style: none !important;
         border: 0px !important;
         margin: 0px !important;
@@ -1086,14 +1045,20 @@ MIT License
       }
       
       #character_popup_text {
+        margin: 6px -8px;
         z-index: 30001;
         border-bottom: 1px solid var(--SmartThemeBorderColor) !important;
+      }
+
+      #character_popup-button-h3{
+        margin: 0px 8px !important;
       }
       
       #character_cross {
         position: fixed;
         left: calc( var(--char-panel-width) + var(--chat-panel-width)) !important;
         z-index: 30002;
+        width: 36px;
       }
       
       #cfgConfig {
@@ -1198,13 +1163,39 @@ MIT License
       .drawer-content select {
         margin: 2px;
       }
-      
+
+      #user-settings-block{
+        padding: 0px !important;
+      }
+
+      #user-settings-block .flex-container.flexFlowRow.alignitemscenter.spaceBetween{
+        border-bottom: 1px solid var(--SmartThemeBorderColor) !important;
+        padding: 8px !important;
+      }
+
+      #user-settings-block .flex-container.flexFlowRow{
+        padding: 8px !important;
+      }
+
+      #user-settings-block-content .flex-container.flexFlowColumn{
+        padding: 0px !important;
+      }
+
+      #user-settings-block-content{
+        padding: 12px !important;
+      }
+
       #user-settings-block h4,
       .inline-drawer {
         margin: 2px 0px!important;
         border-radius: 8px;
+        border: 1px solid color-mix(in srgb, var(--SmartThemeBorderColor) 50%, transparent) !important;
       }
-      
+
+      .inline-drawer:hover {
+        border: 1px solid var(--SmartThemeBorderColor) !important;
+      }
+
       #user-settings-block h4 {
         background: var(--black50a);
         border: unset !important;
@@ -1272,6 +1263,7 @@ MIT License
         bottom: unset !important;
         gap: 5px;
         margin: 0 !important;
+        border-left: 1px solid var(--SmartThemeBorderColor) !important;
         height: var(--elements-height);
         width: calc(var(--extensionSideBar-panel-width));
         z-index: 40 !important;
@@ -1314,6 +1306,7 @@ MIT License
       #logprobsViewer:not(.maximized) {
         right: calc(var(--settings-panel-width) + var(--authors-note-panel-width) + var(--stcdxcodex-width) + var(--injectManagerSideBar-width) + var(--trackerUI-panel-width) + var(--summaryExtensionPopout-width) + var(--notebookPanel-width) + var(--cfgConfig-panel-width) + var(--objectiveExtensionPopout-panel-width));
         z-index: 30 !important;
+        background-color: var(--SmartThemeChatTintColor) !important;
         border-radius: 0px;
         border: unset;
         bottom: 0 !important;
@@ -1358,7 +1351,6 @@ MIT License
       }
       
       #send_form {
-
         outline: unset !important;
       }
   
