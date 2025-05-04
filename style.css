@@ -726,7 +726,6 @@ MIT License
         border: 1px solid color-mix(in srgb, var(--SmartThemeBorderColor) 50%, transparent) !important;
         font-size: 14px;
         font-weight: 500;
-        padding: 4px 4px 2px 8px;
       }
       
       .drawer-content select:has(#send_textarea:focus-visible){
