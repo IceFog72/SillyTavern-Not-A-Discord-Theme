@@ -6,6 +6,7 @@
     "js": "index.js",
     "css": "style.css",
     "author": "icefog72",
-    "version": "1.0.0",
-    "homePage": "https://github.com/IceFog72/SillyTavern-Not-A-Discord-Theme"
+    "version": "1.0.1",
+    "homePage": "https://github.com/IceFog72/SillyTavern-Not-A-Discord-Theme",
+    "auto_update": true
 }
