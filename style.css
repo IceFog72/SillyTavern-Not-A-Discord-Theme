@@ -489,7 +489,7 @@ MIT License
     .drawer-content{
       border-left: 1px solid var(--SmartThemeBorderColor) !important;
       border-top: 1px solid var(--SmartThemeBorderColor) !important;
-      border-right: 1px solid var(--SmartThemeBorderColor) !important;
+      border-right: 1px solid var(--SmartThemeBorderColor);
     }
 
 
@@ -511,6 +511,7 @@ MIT License
     #ctsi-drawer{
       border-left: 1px solid var(--SmartThemeBorderColor) !important;
       border-top: 1px solid var(--SmartThemeBorderColor) !important;
+      border-right: unset !important;
     }
 
     .zoomed_avatar{
@@ -660,6 +661,10 @@ MIT License
       right: calc(var(--settings-panel-width) + var(--authors-note-panel-width) + var(--gallery-panel-width) + var(--summaryExtensionPopout-width) + var(--groupMemberListPopout-panel-width) + var(--trackerUI-panel-width) + var(--cfgConfig-panel-width) + var(--objectiveExtensionPopout-panel-width) + var(--injectManagerSideBar-width) + var(--extensionSideBar-panel-width) + var(--lvm--root-width) + var(--ctsi-drawer-width) + var(--vv--root-width) + var(--notebookPanel-width)) !important;
       background-color: var(--SmartThemeChatTintColor) !important;;
       width: var(--stcdxcodex-width);
+      border-top: 1px solid var(--SmartThemeBorderColor) !important;
+      border-left: 1px solid var(--SmartThemeBorderColor) !important;
+      border-bottom: unset !important;
+      border-right: unset !important;
     }
     /*17*/
     #expression-wrapper {
@@ -1099,7 +1104,7 @@ MIT License
     }
 
 
-    body .stcdx--root,
+
     select:focus-visible,
     .mdHotkeys:focus-visible,
     .text_pole:focus-visible,
@@ -1398,8 +1403,6 @@ MIT License
       left: unset;
     }
 
-   
-    
     body #send_form,
     #send_form.compact {
       background-color: #222327 !important;
