@@ -35,8 +35,11 @@ MIT License
 
   --topBarBlockSize: 0px;
 
+ 
   --black50a: color-mix(in srgb, var(--NSDSmartThemeBGColor) 30%, transparent);
   --white50a: color-mix(in srgb, var(--SmartThemeUnderlineColor) 60%, rgba(255, 255, 255, 0.5));
+  --lat--color-accent: var(--white50a) !important;
+
   }
 
   body:has(#bg1) {
@@ -351,11 +354,7 @@ MIT License
     #dupeFinderPanel.open {
       z-index: 400 !important;
     }
-    
-    /*
-    body:has(#stcdx--codex.stcdx--active) #WorldInfo {
-      max-width: calc(var(--drawer-content-panel-wit-img-width)/2) !important;
-    }*/
+
     
     body.charListGrid:has(#right-nav-panel.openDrawer):not(#rm_ch_create_block) {
       --char-panel-width: calc(var(--NSDlistGrid-char-panel-width) * 1px);
@@ -401,13 +400,13 @@ MIT License
       --settings-panel-width: 360px !important;
     }
 
-    /*body:has(.drawer-content.openDrawer.closedDrawer[style="display: block;"]):has(#qr--settings),*/
+    body:has(.stqrd--editorPanel:is(body > *)),
+    body:has(#stqrd--drawer-v2[style*="display: block;"]),
     body:has(#WorldInfo[style*="display: block;"]) {
       --expression-image-lorebook-width: calc(var(--center-panels-width)/2) !important;
     }
 
-     /*body:has(#WorldInfo[style*="display: none;"]):has(.drawer-content[style="display: none;"]:has(#qr--settings)) */
-    body:has(#WorldInfo[style*="display: none;"]) {
+    body:has(#WorldInfo[style*="display: none;"]):has(#stqrd--drawer-v2[style*="display: none;"]) {
       --expression-image-lorebook-width: 0px;
     }
 
@@ -507,6 +506,8 @@ MIT License
     #objectiveExtensionPopout,
     .tracker-view-object-container,
     .avatar img,
+    .stqrd--editorPanel:is(body > *),
+    #stqrd--drawer-v2,
     #right-nav-panel,
     #ctsi-drawer{
       border-left: 1px solid var(--SmartThemeBorderColor) !important;
@@ -544,6 +545,7 @@ MIT License
     #notebookPanel,
     #lvm--root,
     #vv--root,
+    #stqrd--drawer-v2,
     #WorldInfo,
     #movingDivs > #ctsi-drawer{
       z-index: 40 !important;
@@ -683,10 +685,11 @@ MIT License
       background-color: transparent !important;
     }
 
+    .stqrd--editorPanel:is(body > *),
+    #stqrd--drawer-v2,
     #WorldInfo {
       right: calc(var(--settings-panel-width) + var(--authors-note-panel-width) + var(--gallery-panel-width) + var(--summaryExtensionPopout-width) + var(--groupMemberListPopout-panel-width) + var(--trackerUI-panel-width) + var(--cfgConfig-panel-width) + var(--objectiveExtensionPopout-panel-width) + var(--injectManagerSideBar-width) + var(--extensionSideBar-panel-width) + var(--lvm--root-width) + var(--ctsi-drawer-width) + var(--vv--root-width) + var(--notebookPanel-width) + var(--stcdxcodex-width)) !important;
-      padding: 0px !important;
-      width: calc(var(--expression-image-lorebook-width) - 8px);
+      width: calc(var(--expression-image-lorebook-width) - 8px) !important;
       border-radius: 8px 0 0 8px !important;
       border-top: 1px solid var(--SmartThemeBorderColor) !important;
       border-right: unset !important;
@@ -697,9 +700,29 @@ MIT License
       background-color: var(--SmartThemeChatTintColor) !important;
       width: calc(var(--expression-image-lorebook-width) );
     }
+
+
     /*18*/
     /*19*/
     /*20*/
+
+    #WorldInfo {
+      padding: 0px !important;
+    }
+
+    #stqrd--drawer-v2,
+    .stqrd--editorPanel:is(body > *) {
+      padding-bottom: 4px !important;
+    }
+
+    .prism-code-editor{
+      --editor__bg: var(--SmartThemeChatTintColor) !important;
+    }
+
+    #stqrd--drawer-v2 .stqrd--body,
+    .stqrd--editorPanel:is(body > *) {
+      background-color: var(--SmartThemeBlurTintColor) !important;
+    }
 
     .drawer-content {
       background-color: var(--SmartThemeBlurTintColor) !important;
@@ -714,6 +737,8 @@ MIT License
       padding: 12px;
       max-height: var(--elements-height);
     }
+
+
 
     #visual-novel-wrapper{
       width: var(--chat-panel-width) !important;
@@ -765,6 +790,8 @@ MIT License
       }
     }
 
+    body:has(.stqrd--editorPanel),
+    body:has(#stqrd--drawer-v2[style*="display: block;"]),
     body:has(#WorldInfo[style*="display: block;"]),
     body:has(#expression-image:not([src=""])),
     body:has(.zoomed_avatar.draggable)
@@ -842,11 +869,6 @@ MIT License
       height: calc(100svh ) !important;
       bottom: unset;
     }
-
-
-
-
-
 
     #movingDivs > #ctsi-drawer .ctsi-flex-container { 
       display: flex;
