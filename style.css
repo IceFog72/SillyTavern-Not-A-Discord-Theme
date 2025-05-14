@@ -410,7 +410,7 @@ body:has(#WorldInfo[style*="display: none;"]):has(#stqrd--drawer-v2[style*="disp
   --expression-image-lorebook-width: 0px;
 }
 
-body:has(#expression-wrapper):has(#expression-image:not([src=""])) {
+body:has(#expression-wrapper):has(#expression-image:not([src=""])):has(#WorldInfo[style*="display: none;"]):has(#stqrd--drawer-v2[style*="display: none;"]) {
   --expression-image-lorebook-width: calc(var(--NSDexpressionWidth) * 1px) !important;
 }
 
