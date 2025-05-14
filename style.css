@@ -74,12 +74,13 @@ body:has(#bg1) {
   --summaryExtensionPopout-width: 0px;
   --lvm--root-width: 0px;
   --vv--root-width: 0px;
+  --logprobsViewer-width: 0px;
 
   --elements-height: 100vh;
   --text-imput-height: 42px;
   --all-panels-width: calc(100vw - var(--nav-bar-width));
 
-  --right-panels-width: calc(var(--settings-panel-width) + var(--authors-note-panel-width) + var(--cfgConfig-panel-width) + var(--stcdxcodex-width) + var(--injectManagerSideBar-width) + var(--objectiveExtensionPopout-panel-width) + var(--trackerUI-panel-width) + var(--summaryExtensionPopout-width) + var(--notebookPanel-width) + var(--ctsi-drawer-width) + var(--gallery-panel-width) + var(--groupMemberListPopout-panel-width) + var(--extensionSideBar-panel-width) + var(--vv--root-width) + var(--lvm--root-width));
+  --right-panels-width: calc(var(--settings-panel-width) + var(--authors-note-panel-width) + var(--cfgConfig-panel-width) + var(--stcdxcodex-width) + var(--injectManagerSideBar-width) + var(--objectiveExtensionPopout-panel-width) + var(--trackerUI-panel-width) + var(--summaryExtensionPopout-width) + var(--notebookPanel-width) + var(--ctsi-drawer-width) + var(--gallery-panel-width) + var(--groupMemberListPopout-panel-width) + var(--extensionSideBar-panel-width) + var(--vv--root-width) + var(--lvm--root-width) + var(--logprobsViewer-width));
   --center-panels-width: calc(var(--all-panels-width) - var(--right-panels-width) - var(--char-panel-width));
   --chat-panel-width: calc(var(--all-panels-width) - var(--right-panels-width) - var(--char-panel-width) - var(--expression-image-lorebook-width));
 /*
@@ -410,7 +411,8 @@ body:has(#WorldInfo[style*="display: none;"]):has(#stqrd--drawer-v2[style*="disp
   --expression-image-lorebook-width: 0px;
 }
 
-body:has(#expression-wrapper):has(#expression-image:not([src=""])):has(#WorldInfo[style*="display: none;"]):has(#stqrd--drawer-v2[style*="display: none;"]) {
+body:has(.zoomed_avatar.draggable):not(:has(#WorldInfo[style*="display: block;"])):not(:has(#stqrd--drawer-v2[style*="display: block;"])):not(:has(.stqrd--editorPanel:is(body > *))):not(.waifuMode),
+body:has(#expression-wrapper):has(#expression-image:not([src=""])):not(:has(#WorldInfo[style*="display: block;"])):not(:has(#stqrd--drawer-v2[style*="display: block;"])):not(:has(.stqrd--editorPanel:is(body > *))):not(.waifuMode){
   --expression-image-lorebook-width: calc(var(--NSDexpressionWidth) * 1px) !important;
 }
 
@@ -418,15 +420,11 @@ body:has(#expression-wrapper):has(#expression-image:not([src=""])).waifuMode {
   --expression-image-lorebook-width: 0px;
 }
 
-body:has(.zoomed_avatar.draggable):not(#WorldInfo:is([style*="display: block;"])):not(body.waifuMode) {
-  --expression-image-lorebook-width: calc(var(--NSDexpressionWidth) * 1px);
-}
-
-body:has(#logprobsViewer:is([style*="display: flex; opacity: 1;"])) {
-  --expression-image-lorebook-width: calc(var(--NSDexpressionWidth) * 1px);
+body:has(#logprobsViewer[style*="display: flex; opacity: 1;"]) {
+  --logprobsViewer-width: 360px;
 }
 body:has(#logprobsViewer.maximized) {
-  --expression-image-lorebook-width: 0px !important;
+  --logprobsViewer-width: 0px !important;
 }
 
 body:has(#summaryExtensionPopout) {
@@ -538,7 +536,7 @@ body:has(#gallery.draggable) {
 #floatingPrompt:not(.maximized),
 #groupMemberListPopout,
 #extensionSideBar,
-#logprobsViewer:not(.maximized),
+#logprobsViewer,
 #cfgConfig,
 #summaryExtensionPopout,
 #objectiveExtensionPopout,
@@ -570,12 +568,14 @@ body:has(#gallery.draggable) {
   padding: 0;
   width: calc(var(--settings-panel-width) );
 }
+
 /*2*/
 #floatingPrompt:not(.maximized) {
   right: calc(var(--settings-panel-width)) !important;
   background-color: var(--SmartThemeChatTintColor) !important;
   width: var(--authors-note-panel-width);
 }
+
 /*3*/
 #gallery {
   right: calc(var(--settings-panel-width) + var(--authors-note-panel-width)) !important;
@@ -584,13 +584,14 @@ body:has(#gallery.draggable) {
   gap: 5px;
   width: calc(var(--gallery-panel-width) );
 }
+
 /*4*/
 #summaryExtensionPopout {
   right: calc(var(--settings-panel-width) + var(--authors-note-panel-width) + var(--gallery-panel-width)) !important;
   width: var(--summaryExtensionPopout-width);
 }
-/*5*/
 
+/*5*/
 #groupMemberListPopout {
   right: calc(var(--settings-panel-width) + var(--authors-note-panel-width) + var(--gallery-panel-width) + var(--summaryExtensionPopout-width)) !important;
   display: flex;
@@ -598,6 +599,7 @@ body:has(#gallery.draggable) {
   gap: 5px;
   width: calc(var(--groupMemberListPopout-panel-width) );
 }
+
 /*6*/
 #trackerInterface,
 #trackerUI {
@@ -613,16 +615,19 @@ body:has(#gallery.draggable) {
   background-color: var(--SmartThemeChatTintColor) !important;
   width: var(--cfgConfig-panel-width);
 }
+
 /*9*/
 #objectiveExtensionPopout {
   right: calc(var(--settings-panel-width) + var(--authors-note-panel-width) + var(--gallery-panel-width) + var(--summaryExtensionPopout-width) + var(--groupMemberListPopout-panel-width) + var(--trackerUI-panel-width) + var(--cfgConfig-panel-width)) !important;
   width: var(--objectiveExtensionPopout-panel-width);
 }
+
 /*10*/
 #injectManagerSideBar {
   right: calc(var(--settings-panel-width) + var(--authors-note-panel-width) + var(--gallery-panel-width) + var(--summaryExtensionPopout-width) + var(--groupMemberListPopout-panel-width) + var(--trackerUI-panel-width) + var(--cfgConfig-panel-width) + var(--objectiveExtensionPopout-panel-width)) !important;
   width: var(--injectManagerSideBar-width);
 }
+
 /*11*/
 #extensionSideBar {
   right: calc(var(--settings-panel-width) + var(--authors-note-panel-width) + var(--gallery-panel-width) + var(--summaryExtensionPopout-width) + var(--groupMemberListPopout-panel-width) + var(--trackerUI-panel-width) + var(--cfgConfig-panel-width) + var(--objectiveExtensionPopout-panel-width) + var(--injectManagerSideBar-width)) !important;
@@ -630,6 +635,7 @@ body:has(#gallery.draggable) {
   gap: 5px;
   width: var(--extensionSideBar-panel-width);
 }
+
 /*12*/
 #lvm--root{
   right: calc(var(--settings-panel-width) + var(--authors-note-panel-width) + var(--gallery-panel-width) + var(--summaryExtensionPopout-width) + var(--groupMemberListPopout-panel-width) + var(--trackerUI-panel-width) + var(--cfgConfig-panel-width) + var(--objectiveExtensionPopout-panel-width) + var(--injectManagerSideBar-width) + var(--extensionSideBar-panel-width)) !important;
@@ -638,6 +644,7 @@ body:has(#gallery.draggable) {
   background-color: var(--SmartThemeChatTintColor) !important;
   width: var(--lvm--root-width);
 }
+
 /*13*/
 #movingDivs > #ctsi-drawer {
   right: calc(var(--settings-panel-width) + var(--authors-note-panel-width) + var(--gallery-panel-width) + var(--summaryExtensionPopout-width) + var(--groupMemberListPopout-panel-width) + var(--trackerUI-panel-width) + var(--cfgConfig-panel-width) + var(--objectiveExtensionPopout-panel-width) + var(--injectManagerSideBar-width) + var(--extensionSideBar-panel-width) + var(--lvm--root-width)) !important;
@@ -646,6 +653,7 @@ body:has(#gallery.draggable) {
   transition: none;
   width: calc(var(--ctsi-drawer-width) ) !important;
 }
+
 /*14*/
 #vv--root {
   right: calc(var(--settings-panel-width) + var(--authors-note-panel-width) + var(--gallery-panel-width) + var(--summaryExtensionPopout-width) + var(--groupMemberListPopout-panel-width) + var(--trackerUI-panel-width) + var(--cfgConfig-panel-width) + var(--objectiveExtensionPopout-panel-width) + var(--injectManagerSideBar-width) + var(--extensionSideBar-panel-width) + var(--lvm--root-width) + var(--ctsi-drawer-width)) !important;
@@ -653,13 +661,14 @@ body:has(#gallery.draggable) {
   border: unset !important;
   width: var(--vv--root-width) !important;
 }
-/*15*/
 
+/*15*/
 #notebookPanel {
   right: calc(var(--settings-panel-width) + var(--authors-note-panel-width) + var(--gallery-panel-width) + var(--summaryExtensionPopout-width) + var(--groupMemberListPopout-panel-width) + var(--trackerUI-panel-width) + var(--cfgConfig-panel-width) + var(--objectiveExtensionPopout-panel-width) + var(--injectManagerSideBar-width) + var(--extensionSideBar-panel-width) + var(--lvm--root-width) + var(--ctsi-drawer-width) + var(--vv--root-width)) !important;
   background-color: var(--SmartThemeChatTintColor) !important;
   width: var(--notebookPanel-width) !important;
 }
+
 /*16*/
 .stcdx--root {
   right: calc(var(--settings-panel-width) + var(--authors-note-panel-width) + var(--gallery-panel-width) + var(--summaryExtensionPopout-width) + var(--groupMemberListPopout-panel-width) + var(--trackerUI-panel-width) + var(--cfgConfig-panel-width) + var(--objectiveExtensionPopout-panel-width) + var(--injectManagerSideBar-width) + var(--extensionSideBar-panel-width) + var(--lvm--root-width) + var(--ctsi-drawer-width) + var(--vv--root-width) + var(--notebookPanel-width)) !important;
@@ -671,8 +680,22 @@ body:has(#gallery.draggable) {
   border-right: unset !important;
 }
 /*17*/
-#expression-wrapper {
+#logprobsViewer:not(.maximized) {
   right: calc(var(--settings-panel-width) + var(--authors-note-panel-width) + var(--gallery-panel-width) + var(--summaryExtensionPopout-width) + var(--groupMemberListPopout-panel-width) + var(--trackerUI-panel-width) + var(--cfgConfig-panel-width) + var(--objectiveExtensionPopout-panel-width) + var(--injectManagerSideBar-width) + var(--extensionSideBar-panel-width) + var(--lvm--root-width) + var(--ctsi-drawer-width) + var(--vv--root-width) + var(--notebookPanel-width) + var(--stcdxcodex-width)) !important;
+  background-color: var(--SmartThemeChatTintColor) !important;
+  width: var(--logprobsViewer-width);
+}
+
+/*18*/
+.stqrd--editorPanel:is(body > *),
+#stqrd--drawer-v2,
+#WorldInfo,
+#expression-wrapper,
+.zoomed_avatar {
+  right: calc(var(--settings-panel-width) + var(--authors-note-panel-width) + var(--gallery-panel-width) + var(--summaryExtensionPopout-width) + var(--groupMemberListPopout-panel-width) + var(--trackerUI-panel-width) + var(--cfgConfig-panel-width) + var(--objectiveExtensionPopout-panel-width) + var(--injectManagerSideBar-width) + var(--extensionSideBar-panel-width) + var(--lvm--root-width) + var(--ctsi-drawer-width) + var(--vv--root-width) + var(--notebookPanel-width) + var(--stcdxcodex-width) + var(--logprobsViewer-width)) !important;
+}
+
+#expression-wrapper {
   width: var(--expression-image-lorebook-width) !important;
   height: 100vh !important;
   display: inline;
@@ -681,7 +704,6 @@ body:has(#gallery.draggable) {
 }
 
 .zoomed_avatar {
-  right: calc(var(--settings-panel-width) + var(--authors-note-panel-width) + var(--gallery-panel-width) + var(--summaryExtensionPopout-width) + var(--groupMemberListPopout-panel-width) + var(--trackerUI-panel-width) + var(--cfgConfig-panel-width) + var(--objectiveExtensionPopout-panel-width) + var(--injectManagerSideBar-width) + var(--extensionSideBar-panel-width) + var(--lvm--root-width) + var(--ctsi-drawer-width) + var(--vv--root-width) + var(--notebookPanel-width) + var(--stcdxcodex-width)) !important;
   width: var(--expression-image-lorebook-width) !important;
   align-items: end !important;
   background-color: transparent !important;
@@ -690,21 +712,12 @@ body:has(#gallery.draggable) {
 .stqrd--editorPanel:is(body > *),
 #stqrd--drawer-v2,
 #WorldInfo {
-  right: calc(var(--settings-panel-width) + var(--authors-note-panel-width) + var(--gallery-panel-width) + var(--summaryExtensionPopout-width) + var(--groupMemberListPopout-panel-width) + var(--trackerUI-panel-width) + var(--cfgConfig-panel-width) + var(--objectiveExtensionPopout-panel-width) + var(--injectManagerSideBar-width) + var(--extensionSideBar-panel-width) + var(--lvm--root-width) + var(--ctsi-drawer-width) + var(--vv--root-width) + var(--notebookPanel-width) + var(--stcdxcodex-width)) !important;
   width: calc(var(--expression-image-lorebook-width) - 8px) !important;
   border-radius: 8px 0 0 8px !important;
   border-top: 1px solid var(--SmartThemeBorderColor) !important;
   border-right: unset !important;
 }
 
-#logprobsViewer:not(.maximized) {
-  right: calc(var(--settings-panel-width) + var(--authors-note-panel-width) + var(--gallery-panel-width) + var(--summaryExtensionPopout-width) + var(--groupMemberListPopout-panel-width) + var(--trackerUI-panel-width) + var(--cfgConfig-panel-width) + var(--objectiveExtensionPopout-panel-width) + var(--injectManagerSideBar-width) + var(--extensionSideBar-panel-width) + var(--lvm--root-width) + var(--ctsi-drawer-width) + var(--vv--root-width) + var(--notebookPanel-width) + var(--stcdxcodex-width)) !important;
-  background-color: var(--SmartThemeChatTintColor) !important;
-  width: calc(var(--expression-image-lorebook-width) );
-}
-
-
-/*18*/
 /*19*/
 /*20*/
 
@@ -739,7 +752,6 @@ body:has(#gallery.draggable) {
   padding: 12px;
   max-height: var(--elements-height);
 }
-
 
 
 #visual-novel-wrapper{
