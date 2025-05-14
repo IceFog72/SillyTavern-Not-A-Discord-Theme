@@ -1140,9 +1140,11 @@ select:focus-visible,
 select,
 .mdHotkeys,
 .text_pole,
-.textarea_compact,
-.neo-range-input {
+.textarea_compact {
   border-radius: 8px !important;
+}
+.neo-range-input{
+  border-radius: 0 0 8px 8px !important;
 }
 
 #CharListButtonAndHotSwaps .flexFlowColumn.flex-container{
