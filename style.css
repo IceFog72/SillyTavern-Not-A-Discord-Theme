@@ -845,7 +845,7 @@ body:has(#WorldInfo[style*="display: block;"]):has(#right-nav-panel.openDrawer){
   height: calc(100svh);
   z-index: 10 !important;
   max-height: unset;
-  min-width: unset;
+  min-width: unset !important;
   padding: 0px !important;
   margin: 0px 0px 0px 0px !important;
   border: 0;
@@ -949,19 +949,21 @@ body:has(#WorldInfo[style*="display: block;"]):has(#right-nav-panel.openDrawer){
   right: 0px !important;
 }
 
-.mes .mes_buttons,
-.mes .mes_reasoning_actions {
-  transition: all 0.3s ease;
-  visibility: hidden;
-  opacity: 0;
-  visibility: hidden;
-  opacity: 0;
-}
+@media screen and (min-width: 1000px) {
+  .mes .mes_buttons,
+  .mes .mes_reasoning_actions {
+    transition: all 0.3s ease;
+    visibility: hidden;
+    opacity: 0;
+    visibility: hidden;
+    opacity: 0;
+  }
 
-.mes:hover .mes_buttons,
-.mes:hover .mes_reasoning_actions {
-  visibility: visible;
-  opacity: 1;
+  .mes:hover .mes_buttons,
+  .mes:hover .mes_reasoning_actions {
+    visibility: visible;
+    opacity: 1;
+  }
 }
 
 body.bubblechat .mes {
@@ -1202,54 +1204,54 @@ select,
 /*********
   Edited Wolfsblvt hide topListAvatButtons
 *********/
+@media screen and (min-width: 1000px) {
+  #charListFixedTop {
+    display: none;
+    transform-origin: left top;
+  }
 
-#charListFixedTop {
-  display: none;
-  transform-origin: left top;
+  #rm_ch_create_block
+  {
+    padding: 8px !important;
+  }
+
+  #rm_group_chats_block,
+  #rm_ch_create_block {
+    border-style: none !important;
+    border: 0px !important;
+    margin: 0px !important;
+  }
+
+  #right-nav-panel:has(#rm_PinAndTabs:hover, #rm_PinAndTabs:focus-within) #charListFixedTop,
+  #charListFixedTop:hover,
+  #charListFixedTop:focus-within {
+    display: block;
+  }
+
+  #right-nav-panel:has(#charListFixedTop:hover, #charListFixedTop:focus-within) #rm_PinAndTabs {
+    display: block;
+  }
+
+  #rm_button_selected_ch h2 {
+    margin: 2px;
+  }
+
+  #rm_button_selected_ch h2::before {
+    text-align: center;
+    content: "\f13a";
+    margin-right: 8px;
+    line-height: 10%;
+    font-family: "Font Awesome 6 Free";
+  }
+
+  #right-nav-panel:has(#rm_ch_create_block:is([style*="display: block; opacity: 1;"])) #rm_button_selected_ch h2::before {
+    content: "" !important;
+  }
+
+  #right-nav-panel:has(#rm_PinAndTabs:hover, #rm_PinAndTabs:focus-within, #charListFixedTop:hover, #charListFixedTop:focus-within) #rm_button_selected_ch h2::before {
+    content: "\f139";
+  }
 }
-
-#rm_ch_create_block
-{
-  padding: 8px !important;
-}
-
-#rm_group_chats_block,
-#rm_ch_create_block {
-  border-style: none !important;
-  border: 0px !important;
-  margin: 0px !important;
-}
-
-#right-nav-panel:has(#rm_PinAndTabs:hover, #rm_PinAndTabs:focus-within) #charListFixedTop,
-#charListFixedTop:hover,
-#charListFixedTop:focus-within {
-  display: block;
-}
-
-#right-nav-panel:has(#charListFixedTop:hover, #charListFixedTop:focus-within) #rm_PinAndTabs {
-  display: block;
-}
-
-#rm_button_selected_ch h2 {
-  margin: 2px;
-}
-
-#rm_button_selected_ch h2::before {
-  text-align: center;
-  content: "\f13a";
-  margin-right: 8px;
-  line-height: 10%;
-  font-family: "Font Awesome 6 Free";
-}
-
-#right-nav-panel:has(#rm_ch_create_block:is([style*="display: block; opacity: 1;"])) #rm_button_selected_ch h2::before {
-  content: "" !important;
-}
-
-#right-nav-panel:has(#rm_PinAndTabs:hover, #rm_PinAndTabs:focus-within, #charListFixedTop:hover, #charListFixedTop:focus-within) #rm_button_selected_ch h2::before {
-  content: "\f139";
-}
-
 /*********/
 
 .hotswap {
@@ -1791,4 +1793,44 @@ body #rm_print_characters_block .group_select,
 .stqrd--blocker .stqrd--menu {
   border: 1px solid var(--SmartThemeBorderColor) !important;
   border-radius: 8px !important;
+}
+
+body.bubblechat .welcomePanel{
+  border-radius: unset !important;
+  border: unset;
+  border-bottom: 1px solid var(--SmartThemeBorderColor) !important;
+}
+
+@media screen and (max-width: 1000px) {
+
+  #chat{
+    border: unset !important;
+    width: unset !important;
+  }
+
+  #right-nav-panel, #left-nav-panel, #floatingPrompt, #cfgConfig, #logprobsViewer, #movingDivs > div{
+    left: var(--nav-bar-width) !important;
+    width: calc(100vw - var(--nav-bar-width)) !important;
+    background-color: var(--SmartThemeBlurTintColor) !important;
+    min-width: unset !important;
+  }
+
+  #sheld,
+  #character_popup,
+  .drawer-content{
+    left: var(--nav-bar-width) !important;
+    width: calc(100vw - var(--nav-bar-width)) !important;
+    position: absolute !important;
+  }
+
+  .stqrd--editorPanel:is(body > *), #stqrd--drawer-v2, #WorldInfo{
+    left: var(--nav-bar-width) !important;
+    width: calc(100vw - var(--nav-bar-width)) !important;
+
+  }
+
+  body.bubblechat .mes[is_user="true"] {
+    width: 100% !important;
+  }
+  
 }
