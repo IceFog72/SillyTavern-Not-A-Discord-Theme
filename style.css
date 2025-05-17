@@ -1801,6 +1801,38 @@ body.bubblechat .welcomePanel{
   border-bottom: 1px solid var(--SmartThemeBorderColor) !important;
 }
 
+
+.stem--filterPanel {
+  flex-wrap: wrap;
+}
+
+.stem--filterGroup:has(.stem--search) {
+  flex: 1;
+  order: 1;
+}
+
+.stem--actions {
+  order: 3; 
+}
+
+.stem--filterGroup:not(:has(.stem--search)) {
+  order: 2; 
+}
+
+.stem--filterGroup:has(.stem--search) {
+  width: 100%;
+  flex-basis: 100%;
+}
+
+.stem--tabUi .stem--body{
+  border: unset !important;
+}
+
+.stem--filterPanel{
+  gap: 0.5em !important;
+}
+
+
 @media screen and (max-width: 1000px) {
 
   #chat{
