@@ -891,7 +891,7 @@ body:has(#WorldInfo[style*="display: block;"]):has(#right-nav-panel.openDrawer){
   background-color: var(--SmartThemeChatTintColor) !important;
   border-bottom: 1px solid var(--SmartThemeBorderColor) !important;
   border: unset;
-  height: 47px !important;
+  height: 48px !important;
 }
 
 #extensionTopBarSearchInput:placeholder-shown {
@@ -1324,7 +1324,7 @@ select,
 #CharListButtonAndHotSwaps {  
   padding: 8px 8px 0px 8px !important;
   border-bottom: 1px solid var(--SmartThemeBorderColor) !important;
-  min-height: 47px !important;
+  min-height: 48px !important;
 }
 
 .select2-container .select2-selection--multiple,
@@ -1356,11 +1356,12 @@ select,
 
 #user-settings-block{
   padding: 0px !important;
+  border-right: 1px solid var(--SmartThemeBorderColor) !important;
 }
 
 #user-settings-block .flex-container.flexFlowRow.alignitemscenter.spaceBetween{
   border-bottom: 1px solid var(--SmartThemeBorderColor) !important;
-  padding: 8px 8px 7px 8px !important;
+  padding: 8px 8px 8px 8px !important;
 }
 
 #user-settings-block .flex-container.flexFlowRow{
@@ -1826,12 +1827,25 @@ body.bubblechat .welcomePanel{
 
 .stem--tabUi .stem--body{
   border: unset !important;
+
+}
+
+.stem--tabUi .stem--tabRow{
+  padding: 1em 1em 0em 1em !important;
+}
+
+.stem--tabUi{
+  margin-top: unset !important;
 }
 
 .stem--filterPanel{
   gap: 0.5em !important;
 }
 
+.stem--tabRow{
+  max-height: 48px;
+  min-height: 48px;
+}
 
 @media screen and (max-width: 1000px) {
 
