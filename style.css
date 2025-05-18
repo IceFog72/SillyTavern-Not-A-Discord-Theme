@@ -498,7 +498,6 @@ body:has(#gallery.draggable) {
 .avatar img,
 .stqrd--editorPanel:is(body > *),
 #stqrd--drawer-v2,
-#right-nav-panel,
 #left-nav-panel,
 #ctsi-drawer{
   border-left: 1px solid var(--SmartThemeBorderColor) !important;
@@ -506,21 +505,10 @@ body:has(#gallery.draggable) {
   border-right: unset !important;
 }
 
-.zoomed_avatar{
-  z-index: 40 !important;
-  bottom: 0 !important;
-  margin: 0 !important;
-  border-radius: 0px !important;
-  filter: unset !important;
-  left: unset !important;
-  border: unset;
-  min-width: unset;
-  max-height: unset !important;
-}
+
 
 #trackerInterface,
 #trackerUI,
-#expression-wrapper,
 .drawer-conten,
 .stcdx--root,
 #left-nav-panel.drawer-content,
@@ -688,17 +676,38 @@ body:has(#gallery.draggable) {
 }
 
 #expression-wrapper {
+  z-index: 20 !important;
   width: var(--expression-image-lorebook-width) !important;
-  height: 100vh !important;
   display: inline;
   position: absolute;
   justify-content: right;
+
+  bottom: 0 !important;
+  top: 4px !important;
+  margin: 0 !important;
+  border-radius: 0px !important;
+  filter: unset !important;
+  left: unset !important;
+  border: unset;
+  min-width: unset;
+  height: var(--elements-height) !important;
+  max-height: unset !important;
+
 }
 
 .zoomed_avatar {
   width: var(--expression-image-lorebook-width) !important;
   align-items: end !important;
   background-color: transparent !important;
+  z-index: 30 !important;
+  bottom: 0 !important;
+  margin: 0 !important;
+  border-radius: 0px !important;
+  filter: unset !important;
+  left: unset !important;
+  border: unset;
+  min-width: unset;
+  max-height: unset !important;
 }
 
 .stqrd--editorPanel:is(body > *),
@@ -738,6 +747,8 @@ body:has(#gallery.draggable) {
   border: unset;
   margin: 0 !important;
   border-radius: 0px;
+  border-top-right-radius: 8px !important;
+  border-bottom-right-radius: 8px !important;
   z-index: 20 !important;
   top: 4px;
   bottom: 0;
@@ -759,6 +770,7 @@ body.waifuMode #expression-wrapper{
 }
 
 body.waifuMode .zoomed_avatar {
+  min-width: 20vw !important;
   margin: 0 !important;
   padding: 0 !important;
   border: 0 !important;
@@ -766,8 +778,7 @@ body.waifuMode .zoomed_avatar {
   background-color: transparent !important;
   right: unset !important;
   left: calc(var(--nav-bar-width) + var(--char-panel-width) +  calc(var(--chat-panel-width) / 2) ) !important;
-  z-index: 50 !important;
-  top: 30vh !important;
+  z-index: 10 !important;
 }
 
 #character_popup
@@ -780,11 +791,12 @@ body.waifuMode .zoomed_avatar {
 
 #sheld {
   height: 100vh !important;
-  margin: 4px 0 0 0 !important;
+  margin: 4px 0 0 -1px !important;
   border-radius: 8px 0px 0 0 !important;
   left: calc(var(--nav-bar-width) + var(--char-panel-width) ) !important;
   border-top: 1px solid var(--SmartThemeBorderColor) !important;
   border-left: 1px solid var(--SmartThemeBorderColor) !important;
+  z-index: 25 !important;
 }
 
 body:has(#right-nav-panel.openDrawer){
@@ -838,8 +850,9 @@ body:has(#WorldInfo[style*="display: block;"]):has(#right-nav-panel.openDrawer){
 #right-nav-panel {
   background-color: var(--NSDSmartThemeBGColor) !important;
   border-top-left-radius: 12px !important;
+  border-left: 1px solid var(--SmartThemeBorderColor) !important;
   border-top: 1px solid var(--SmartThemeBorderColor) !important;
-  border-right: unset !important;
+  border-right: 1px solid var(--SmartThemeBorderColor) !important;
   left: var(--nav-bar-width);
   width: var(--char-panel-width);
   height: calc(100svh);
@@ -1087,6 +1100,11 @@ select,
 .interactable {
   border: unset !important;
   border-radius: 8px;
+}
+
+body.waifuMode #top-bar{
+  border-radius: unset !important;
+  border: unset !important;
 }
 
 #top-bar {
@@ -1346,6 +1364,7 @@ select,
   height: var(--elements-height);
   flex-direction: column;
   gap: 8px;
+  z-index: 30 !important; 
   justify-content: unset;
   width: var(--nav-bar-width);
 }
@@ -1879,4 +1898,42 @@ body.bubblechat .welcomePanel{
     width: 100% !important;
   }
   
+}
+
+
+.resizeHandle {
+    position: fixed;
+    width: 8px;
+    cursor: ew-resize;
+    flex-shrink: 0;
+    height: 100%;
+    z-index: 1000000;
+    background: transparent;
+    transition: background-color 0.2s;
+    pointer-events: auto;
+    left: calc(var(--nav-bar-width) + var(--char-panel-width) + var(--chat-panel-width));
+    
+}
+
+.resizeHandle:hover,
+.resizeHandle:active {
+    background: var(--SmartThemeBorderColor);
+}
+
+.resizeHandle::after {
+    content: '';
+    position: absolute;
+    transform: translateY(-50%);
+    width: 8px;
+    background: var(--SmartThemeBorderColor);
+    left: calc(var(--nav-bar-width) + var(--char-panel-width) + var(--chat-panel-width));
+    opacity: 0.5;
+}
+
+.resizeHandle:hover::after {
+    opacity: 1;
+}
+
+#WI_panel_pin_div{
+  visibility: hidden;
 }
