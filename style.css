@@ -699,7 +699,7 @@ body:has(#gallery.draggable) {
   width: var(--expression-image-lorebook-width) !important;
   align-items: end !important;
   background-color: transparent !important;
-  z-index: 30 !important;
+  z-index: 20 !important;
   bottom: 0 !important;
   margin: 0 !important;
   border-radius: 0px !important;
