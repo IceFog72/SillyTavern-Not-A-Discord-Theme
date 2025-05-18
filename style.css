@@ -771,6 +771,7 @@ body.waifuMode #expression-wrapper{
 
 body.waifuMode .zoomed_avatar {
   min-width: 20vw !important;
+  max-width: var(--maxWidth) !important;
   margin: 0 !important;
   padding: 0 !important;
   border: 0 !important;
@@ -850,6 +851,7 @@ body:has(#WorldInfo[style*="display: block;"]):has(#right-nav-panel.openDrawer){
 #right-nav-panel {
   background-color: var(--NSDSmartThemeBGColor) !important;
   border-top-left-radius: 12px !important;
+  border-top-right-radius: 0px !important;
   border-left: 1px solid var(--SmartThemeBorderColor) !important;
   border-top: 1px solid var(--SmartThemeBorderColor) !important;
   border-right: 1px solid var(--SmartThemeBorderColor) !important;
