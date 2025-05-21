@@ -792,7 +792,7 @@ body.waifuMode .zoomed_avatar {
 
 #sheld {
   height: 100vh !important;
-  margin: 4px 0 0 -1px !important;
+  margin: 4px 0 0 0px !important;
   border-radius: 8px 0px 0 0 !important;
   left: calc(var(--nav-bar-width) + var(--char-panel-width) ) !important;
   border-top: 1px solid var(--SmartThemeBorderColor) !important;
@@ -854,7 +854,6 @@ body:has(#WorldInfo[style*="display: block;"]):has(#right-nav-panel.openDrawer){
   border-top-right-radius: 0px !important;
   border-left: 1px solid var(--SmartThemeBorderColor) !important;
   border-top: 1px solid var(--SmartThemeBorderColor) !important;
-  border-right: 1px solid var(--SmartThemeBorderColor) !important;
   left: var(--nav-bar-width);
   width: var(--char-panel-width);
   height: calc(100svh);
@@ -1377,7 +1376,6 @@ select,
 
 #user-settings-block{
   padding: 0px !important;
-  border-right: 1px solid var(--SmartThemeBorderColor) !important;
 }
 
 #user-settings-block .flex-container.flexFlowRow.alignitemscenter.spaceBetween{
@@ -1413,11 +1411,15 @@ select,
   border: unset !important;
 }
 
+#persona-management-button>.drawer-content,
+#rm_api_block,
+#user-settings-block,
 #Backgrounds,
 #AdvancedFormatting,
 #rm_extensions_block,
 #user-settings-block{
   background-color: var(--SmartThemeBlurTintColor) !important;
+  border-right: 1px solid var(--SmartThemeBorderColor) !important;
 }
 
 body.waifuMode:has(#extensionTopBar) #chat {

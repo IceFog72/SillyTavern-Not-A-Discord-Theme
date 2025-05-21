@@ -100,6 +100,18 @@ function positionAnchor() {
 
 }
 
+function updateThemeColor(color) {
+    let metaThemeColor = document.querySelector("meta[name=theme-color]");
+    if (metaThemeColor) {
+        metaThemeColor.setAttribute("content", color);
+    } else {
+        metaThemeColor = document.createElement("meta");
+        metaThemeColor.setAttribute("name", "theme-color");
+        metaThemeColor.setAttribute("content", color);
+        document.head.appendChild(metaThemeColor);
+    }
+}
+
 function createHiddenWidthDiv() {
     const hiddenDiv = document.createElement('div');
     hiddenDiv.id = 'hidden-width-reference';
@@ -215,6 +227,8 @@ class ThemeSetup {
             watchForExpressionChanges();
             setDrawerClasses();
             positionAnchor();
+            var bgcolor= getComputedStyle(document.documentElement).getPropertyValue('--NSDSmartThemeBGColor');
+            updateThemeColor(bgcolor);
             
             (function() {
                 let resizeHandle = null;
