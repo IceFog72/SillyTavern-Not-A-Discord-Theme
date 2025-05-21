@@ -18,7 +18,9 @@ MIT License
 
   --NSDlistGrid-char-panel-width: 580;
   --NSDnormal-char-panel-width: 420;
-  --NSDAnimation-duration: 0.01;
+
+  --NSDAnimation-duration: 0;
+
   --NSDexpressionVisibility: collapse;
   --NSDexpressionWidth: 512;
   --NSDbgImageOpacity: 0.25;
@@ -89,9 +91,13 @@ body:has(#bg1) {
   --stcdx--zoomTime: unset !important;
   --stcdx--mapZoneZoomTime: unset !important;
   --stcdx--transitionTime: unset !important;
+
+  
+
   --animation-duration: calc(var(--NSDAnimation-duration) * 1s);
   --animation-duration-slow: calc(var(--sheldtransition) * 1s);
   transition-duration: var(--animation-duration) !important;
+
 }
 
 #nonQRFormItems{
@@ -1911,7 +1917,7 @@ body.bubblechat .welcomePanel{
     cursor: ew-resize;
     flex-shrink: 0;
     height: 100%;
-    z-index: 1000000;
+    z-index: 500;
     background: transparent;
     transition: background-color 0.2s;
     pointer-events: auto;
