@@ -189,10 +189,22 @@ function watchForExpressionChanges() {
         const currentWidth = hiddenRef?.offsetWidth || 0;
 
         // Merge conditions - remove width if either both panels are hidden OR we have avatar/expression with no panels
-        if (((((worldInfo?.style.display === 'none' || worldInfo?.style.display === '') && (drawer?.style.display === 'none' || drawer?.style.display === '') && (!(hasZoomedAvatar || hasValidExpression) || body.classList.contains('waifuMode')) && hasNoVisiblePanels)) || currentWidth < 128) && 
-            body.style.getPropertyValue('--expression-image-lorebook-width')) {
-            body.style.removeProperty('--expression-image-lorebook-width');
+        if(drawer===null)
+        {
+            if (((((worldInfo?.style.display === 'none' || worldInfo?.style.display === '') && (!(hasZoomedAvatar || hasValidExpression) || body.classList.contains('waifuMode')) && hasNoVisiblePanels)) || currentWidth < 128) && 
+                body.style.getPropertyValue('--expression-image-lorebook-width')) {
+                body.style.removeProperty('--expression-image-lorebook-width');
+            }
+            
+        }else{
+
+            if (((((worldInfo?.style.display === 'none' || worldInfo?.style.display === '') && (drawer?.style.display === 'none' || drawer?.style.display === '') && (!(hasZoomedAvatar || hasValidExpression) || body.classList.contains('waifuMode')) && hasNoVisiblePanels)) || currentWidth < 128) && 
+                body.style.getPropertyValue('--expression-image-lorebook-width')) {
+                body.style.removeProperty('--expression-image-lorebook-width');
+            }
         }
+
+
     });
 
 
