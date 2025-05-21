@@ -1937,7 +1937,3 @@ body.bubblechat .welcomePanel{
 .resizeHandle:hover::after {
     opacity: 1;
 }
-
-#WI_panel_pin_div{
-  visibility: hidden;
-}
