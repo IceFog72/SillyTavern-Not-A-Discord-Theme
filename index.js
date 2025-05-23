@@ -1,228 +1,317 @@
-import { eventSource, event_types, saveSettingsDebounced } from '../../../../script.js';
+
 import { extension_settings } from '../../../extensions.js';
+import { accountStorage } from '../../../util/AccountStorage.js';
+import { DOMPurify, Bowser, slideToggle } from '../../../../lib.js';
+import {
+    characters,
+    online_status,
+    main_api,
+    api_server,
+    is_send_press,
+    max_context,
+    saveSettingsDebounced,
+    active_group,
+    active_character,
+    setActiveGroup,
+    setActiveCharacter,
+    getEntitiesList,
+    buildAvatarList,
+    selectCharacterById,
+    eventSource,
+    event_types,
+    menu_type,
+    substituteParams,
+    sendTextareaMessage,
+    getSlideToggleOptions,
+} from '../../../../script.js';
 
 const THEME_ID = 'SillyTavern-Not-A-Discord-Theme';
 const THEME_NAME = 'Not A Discord Theme';
 const THEME_VERSION = '1.0.3';
 const THEME_AUTHOR = 'IceFog72';
 
+let isResizing = false;
 
 function positionAnchor() {
-// Feature detection for position-anchor
-    const supportsPositionAnchor = CSS.supports('position-anchor: top left');
+    if (CSS.supports('position-anchor: top left')) return;
 
-    // If the browser supports position-anchor, no need for our fallback
-    if (supportsPositionAnchor) return;
-
-    // Define the prefixes we want to support
     const menuPrefixes = ['stqrd--', 'stwid--'];
-
-    // Store last clicked triggers for each prefix
     window.lastClickedMenuTriggers = {};
 
-    // Use event delegation for dynamically created elements
     document.addEventListener('click', (e) => {
-        // Check for menu triggers with any supported prefix
         menuPrefixes.forEach(prefix => {
-            const triggerClass = `${prefix}action`;
-            const contextClass = `${prefix}context`;
-            const menuTriggerClass = `${prefix}menuTrigger`;
-            
-            // Check for both types of triggers
-            const trigger = e.target.closest(`.${triggerClass}.${contextClass}`) || 
-                            e.target.closest(`.${triggerClass}.${menuTriggerClass}`);
-            
-            if (trigger) {
-                // Store reference to the trigger that was clicked with its prefix
-                window.lastClickedMenuTriggers[prefix] = trigger;
-            }
+            const triggerClass = `.${prefix}action`;
+            const trigger = e.target.closest(`${triggerClass}.${prefix}context`) || 
+                            e.target.closest(`${triggerClass}.${prefix}menuTrigger`);
+            if (trigger) window.lastClickedMenuTriggers[prefix] = trigger;
         });
-    }, true); // Use capture phase to run before the plugin's handlers
+    }, true);
 
-    // Watch for new menu elements being added to the DOM
-    const observer = new MutationObserver((mutations) => {
-        mutations.forEach(mutation => {
-            if (mutation.addedNodes.length) {
-                mutation.addedNodes.forEach(node => {
-                    // Skip non-element nodes
-                    if (node.nodeType !== 1) return;
-                    
-                    // Check for blocker divs with any supported prefix
-                    menuPrefixes.forEach(prefix => {
-                        const blockerClass = `${prefix}blocker`;
-                        
-                        if (node.classList && node.classList.contains(blockerClass)) {
-                            const menuClass = `${prefix}menu`;
-                            const menu = node.querySelector(`.${menuClass}`);
-                            
-                            if (menu && window.lastClickedMenuTriggers[prefix]) {
-                                // Position the menu based on the last clicked trigger for this prefix
-                                positionMenu(window.lastClickedMenuTriggers[prefix], menu);
-                            }
-                        }
-                    });
+    const observer = new MutationObserver(mutations => {
+        mutations.forEach(({ addedNodes }) => {
+            addedNodes.forEach(node => {
+                if (node.nodeType !== 1) return;
+                menuPrefixes.forEach(prefix => {
+                    if (node.classList?.contains(`${prefix}blocker`)) {
+                        const menu = node.querySelector(`.${prefix}menu`);
+                        const trigger = window.lastClickedMenuTriggers[prefix];
+                        if (menu && trigger) positionMenu(trigger, menu);
+                    }
                 });
-            }
+            });
         });
     });
 
-    // Function to position the menu relative to its trigger
     function positionMenu(trigger, menu) {
-        const triggerRect = trigger.getBoundingClientRect();
-        
-        // Set menu position
+        const rect = trigger.getBoundingClientRect();
         menu.style.position = 'absolute';
-        menu.style.top = `${triggerRect.bottom + 5}px`;
-        menu.style.right = `${window.innerWidth - triggerRect.right}px`;
-        menu.style.left = 'auto'; // Clear any left positioning
-        
-        // Make sure the menu stays on screen
+        menu.style.top = `${rect.bottom + 5}px`;
+        menu.style.right = `${window.innerWidth - rect.right}px`;
+        menu.style.left = 'auto';
+
         setTimeout(() => {
             const menuRect = menu.getBoundingClientRect();
-            
-            // If menu is going off the right edge
-            if (menuRect.right > window.innerWidth) {
-                menu.style.right = '10px';
-            }
-            
-            // If menu is going off the bottom edge
+            if (menuRect.right > window.innerWidth) menu.style.right = '10px';
             if (menuRect.bottom > window.innerHeight) {
-                menu.style.top = `${triggerRect.top - menuRect.height - 5}px`;
+                menu.style.top = `${rect.top - menuRect.height - 5}px`;
             }
         }, 0);
     }
 
-    // Start observing the document for added blocker/menu elements
-    observer.observe(document.body, { 
-        childList: true, 
-        subtree: true 
-    });
-
-}
-
-function updateThemeColor(color) {
-    let metaThemeColor = document.querySelector("meta[name=theme-color]");
-    if (metaThemeColor) {
-        metaThemeColor.setAttribute("content", color);
-    } else {
-        metaThemeColor = document.createElement("meta");
-        metaThemeColor.setAttribute("name", "theme-color");
-        metaThemeColor.setAttribute("content", color);
-        document.head.appendChild(metaThemeColor);
-    }
+    observer.observe(document.body, { childList: true, subtree: true });
 }
 
 function createHiddenWidthDiv() {
-    const hiddenDiv = document.createElement('div');
-    hiddenDiv.id = 'hidden-width-reference';
-    hiddenDiv.style.cssText = `
-        position: absolute;
-        visibility: hidden;
-        width: var(--expression-image-lorebook-width);
-        height: 0;
-        pointer-events: none;
-    `;
-    const hiddenDiv2 = document.createElement('div');
-    hiddenDiv2.id = 'hidden-center-panels-width-reference';
-    hiddenDiv2.style.cssText = `
-        position: absolute;
-        visibility: hidden;
-        width: var(--center-panels-width);
-        height: 0;
-        pointer-events: none;
-    `;
-    document.body.appendChild(hiddenDiv);
-    document.body.appendChild(hiddenDiv2);
+    const createDiv = (id, widthVar) => {
+        const div = document.createElement('div');
+        div.id = id;
+        div.style.cssText = `
+            position: absolute;
+            visibility: hidden;
+            width: var(${widthVar});
+            height: 0;
+            pointer-events: none;
+        `;
+        document.body.appendChild(div);
+    };
+    createDiv('hidden-width-reference', '--expression-image-lorebook-width');
+    createDiv('hidden-center-panels-width-reference', '--center-panels-width');
 }
 
 function setDrawerClasses() {
 
-    const drawer = document.getElementById('stqrd--drawer-v2');
-    const qrDrawer = document.getElementById('stqrd--qrDrawer');
-    
-    const wiSpButton = document.getElementById('WI-SP-button');
-    if (wiSpButton) {
-        const drawerToggle = wiSpButton.querySelector('.drawer-toggle');
-        const wIDrawerIcon = wiSpButton.querySelector('.drawer-icon');
-        
-        if (drawerToggle && wIDrawerIcon && wIDrawerIcon.classList.contains('openIcon')) {
-            drawerToggle.click();
-        }
+
+
+
+    var Drawer = document.getElementById('stqrd--drawer-v2');
+    var QrDrawer = document.getElementById('stqrd--qrDrawer');
+    var WIPanelPin = document.getElementById('WI_panel_pin');
+    var WorldInfo = document.getElementById('WorldInfo');
+    var WIDrawerIcon = document.getElementById('WIDrawerIcon');
+
+    accountStorage.setItem('WINavLockOn', $(WIPanelPin).prop('checked'));
+
+
+    if ($(WIPanelPin).prop('checked') == true) 
+    {
+        slideToggle(WorldInfo, getSlideToggleOptions());
     }
 
-    if (drawer) {
-        drawer.className = 'drawer-content pinnedOpen closedDrawer';
-    }
-    
-    if (qrDrawer) {
-        const qrIcon = qrDrawer.querySelector('.drawer-icon');
-        if (qrIcon) {
-            qrIcon.classList.add('drawerPinnedOpen');
-        }
+    $(WorldInfo).addClass('pinnedOpen');
+    $(WIDrawerIcon).addClass('drawerPinnedOpen');
+    WorldInfo.style='display: none;';
+    WorldInfo.className = 'drawer-content pinnedOpen closedDrawer';
+
+    if (Drawer) 
+    {
+        Drawer.className = 'drawer-content pinnedOpen closedDrawer';
+        QrDrawer.querySelector('.drawer-icon')?.classList.add('drawerPinnedOpen');
     }
 }
 
-function watchForExpressionChanges() {
-    const observer = new MutationObserver(() => {
-        const body = document.body;
-        const worldInfo = document.getElementById('WorldInfo');
-        const drawer = document.getElementById('stqrd--drawer-v2');
-        const expressionWrapper = document.getElementById('expression-wrapper');
-        const expressionImage = document.getElementById('expression-image');
-        const editorPanel = document.querySelector('.stqrd--editorPanel');
+function throttle(fn, delay) {
+    let timeoutId;
+    return (...args) => {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => fn.apply(this, args), delay);
+    };
+}
 
-        // Check for conditions that require removing the width property
+function watchForExpressionChangesAndResize() {
+    const body = document.body;
+    let worldInfo = document.getElementById('WorldInfo');
+    let drawer = document.getElementById('stqrd--drawer-v2');
+    let wrapper = document.getElementById('expression-wrapper');
+    let image = document.getElementById('expression-image');
+    let hiddenRef = document.getElementById('hidden-width-reference');
+    let hiddenRef2 = document.getElementById('hidden-center-panels-width-reference');
+
+    let resizeHandle, startX = 0, startWidth = 0;
+
+    // Function to update element references
+    function updateElementReferences() {
+        worldInfo = document.getElementById('WorldInfo');
+        drawer = document.getElementById('stqrd--drawer-v2');
+        wrapper = document.getElementById('expression-wrapper');
+        image = document.getElementById('expression-image');
+        hiddenRef = document.getElementById('hidden-width-reference');
+        hiddenRef2 = document.getElementById('hidden-center-panels-width-reference');
+    }
+
+    // Resize handle functions
+    function createResizeHandle() {
+        if (resizeHandle) return;
+        resizeHandle = document.createElement('div');
+        resizeHandle.className = 'resizeHandle';
+        resizeHandle.addEventListener('mousedown', startResize);
+        document.body.appendChild(resizeHandle);
+    }
+
+    function startResize(e) {
+        updateElementReferences(); // Update references before resize
+        startX = e.clientX;
+        startWidth = hiddenRef?.offsetWidth || 0;
+        document.addEventListener('mousemove', resize);
+        document.addEventListener('mouseup', stopResize);
+        e.preventDefault();
+    }
+
+    function resize(e) {
+        isResizing = true;
+        const diff = startX - e.clientX;
+
+        let maxWidth = getComputedStyle(body).getPropertyValue('--expression-image-lorebook-width').trim();
+
+        if (isNaN(maxWidth)) {
+            maxWidth = hiddenRef2?.clientWidth || 0;
+        } else {
+            maxWidth = parseInt(maxWidth, 10);
+            if (isNaN(maxWidth)) return;
+        }
+
         const hasZoomedAvatar = !!body.querySelector('.zoomed_avatar.draggable:not([style*="display: none"])');
-        const hasValidExpression = expressionWrapper && 
-            expressionImage && 
-            expressionImage.src && 
-            expressionImage.src !== 'undefined' &&
-            expressionImage.src !== window.location.href &&
-            !expressionWrapper.matches('[style*="display: none"]') &&
-            !expressionImage.matches('[style*="display: none"]');
+        const hasValidExpression = wrapper && 
+            image && 
+            image.src && 
+            image.src !== 'undefined' &&
+            image.src !== window.location.href &&
+            !wrapper.matches('[style*="display: none"]') &&
+            !image.matches('[style*="display: none"]');
         const hasNoVisiblePanels = 
             (worldInfo?.style.display !== 'block' || worldInfo?.style.display !== '') &&
             (drawer?.style.display !== 'block' || drawer?.style.display !== '');
 
+        const newWidth = Math.max(8, Math.min(startWidth + diff, maxWidth, window.innerWidth * 0.8));
 
-        const hiddenRef = document.getElementById('hidden-width-reference');
-        const currentWidth = hiddenRef?.offsetWidth || 0;
+        const worldInfoHidden = worldInfo?.style.display === 'none' || worldInfo?.style.display === '';
+        const drawerHidden = drawer === null || drawer?.style.display === 'none' || drawer?.style.display === '';
+        const shouldHideContent = !(hasZoomedAvatar || hasValidExpression) || body.classList.contains('waifuMode');
+        
+        const shouldRemoveWidth = newWidth < 128 || 
+            (worldInfoHidden && (drawer === null ? true : drawerHidden) && shouldHideContent && hasNoVisiblePanels);
 
-        // Merge conditions - remove width if either both panels are hidden OR we have avatar/expression with no panels
-        if(drawer===null)
-        {
-            if (((((worldInfo?.style.display === 'none' || worldInfo?.style.display === '') && (!(hasZoomedAvatar || hasValidExpression) || body.classList.contains('waifuMode')) && hasNoVisiblePanels)) || currentWidth < 128) && 
-                body.style.getPropertyValue('--expression-image-lorebook-width')) {
-                body.style.removeProperty('--expression-image-lorebook-width');
-            }
-            
-        }else{
+        if (shouldRemoveWidth) {
+            body.style.removeProperty('--expression-image-lorebook-width');
+        } else {
+            body.style.setProperty('--expression-image-lorebook-width', `${newWidth}px`, 'important');
+        }
+    }
 
-            if (((((worldInfo?.style.display === 'none' || worldInfo?.style.display === '') && (drawer?.style.display === 'none' || drawer?.style.display === '') && (!(hasZoomedAvatar || hasValidExpression) || body.classList.contains('waifuMode')) && hasNoVisiblePanels)) || currentWidth < 128) && 
-                body.style.getPropertyValue('--expression-image-lorebook-width')) {
-                body.style.removeProperty('--expression-image-lorebook-width');
+    function stopResize() {
+        document.removeEventListener('mousemove', resize);
+        document.removeEventListener('mouseup', stopResize);
+        isResizing = false;
+    }
+
+    // Expression changes check function
+    const checkChanges = throttle(() => {
+        if (isResizing) return;
+        
+        updateElementReferences(); // Update references before checking
+        
+        if (!hiddenRef) return;
+
+        const hasZoomed = !!body.querySelector('.zoomed_avatar.draggable:not([style*="display: none"])');
+        const validImage = image && image.src && image.src !== 'undefined' && image.src !== window.location.href;
+        const validWrapper = wrapper && !wrapper.matches('[style*="display: none"]');
+        const validExpression = validImage && validWrapper && !image.matches('[style*="display: none"]');
+
+        const worldInfoHidden = !worldInfo || worldInfo.style.display === 'none' || worldInfo.style.display === '';
+        const drawerHidden = !drawer || drawer.style.display === 'none' || drawer.style.display === '';
+        const shouldHide = !(hasZoomed || validExpression) || body.classList.contains('waifuMode');
+        const noVisiblePanels = worldInfoHidden && drawerHidden;
+
+        if (parseInt(hiddenRef.offsetWidth) < 128 || (noVisiblePanels && shouldHide)) {
+            body.style.removeProperty('--expression-image-lorebook-width');
+        }
+    }, 50);
+
+    // Initialize resize handle
+    function initResizeHandle() {
+        updateElementReferences(); // Update references before init
+        
+        const panel = document.getElementById('sheld');
+        if (panel) {
+            createResizeHandle();
+            const rect = panel.getBoundingClientRect();
+            resizeHandle.style.display = 'block';
+            resizeHandle.style.height = '100%';
+            resizeHandle.style.right = `${rect.right - 4}px`;
+            resizeHandle.style.top = '4px';
+        }
+    }
+
+    // Set up mutation observers with dynamic element references
+    function setupObservers() {
+        // Observer for DOM changes to update element references
+        const domObserver = new MutationObserver(() => {
+            updateElementReferences();
+            checkChanges();
+        });
+
+        // Observe the entire document for element additions/removals
+        domObserver.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+
+        // Set up observers for existing elements
+        function observeElement(element) {
+            if (element) {
+                new MutationObserver(checkChanges).observe(element, {
+                    attributes: true,
+                    attributeFilter: ['style', 'class', 'src']
+                });
             }
         }
 
+        // Initial observation setup
+        const setupInitialObservers = () => {
+            updateElementReferences();
+            [worldInfo, drawer, wrapper, image, body].forEach(observeElement);
+            
+            // Also observe zoomed avatar if it exists
+            const zoomedAvatar = document.querySelector('.zoomed_avatar');
+            if (zoomedAvatar) observeElement(zoomedAvatar);
+        };
 
-    });
-
-
-    const elements = [
-        document.getElementById('WorldInfo'),
-        document.getElementById('stqrd--drawer-v2'),
-        document.getElementById('expression-wrapper'),
-        document.querySelector('.zoomed_avatar'),
-        document.body  // needed for waifuMode class
-    ].filter(Boolean); // Remove null elements
-    elements.forEach(element => {
-        observer.observe(element, {
-            attributes: true,
-            attributeFilter: ['style', 'class', 'src'],
-            childList: false,
-            subtree: false
+        setupInitialObservers();
+        
+        // Re-setup observers when DOM changes significantly
+        let observerTimeout;
+        domObserver.observe(document.body, {
+            childList: true,
+            subtree: true,
+            callback: () => {
+                clearTimeout(observerTimeout);
+                observerTimeout = setTimeout(setupInitialObservers, 100);
+            }
         });
-    });
+    }
+
+    // Initialize everything
+    setupObservers();
+    initResizeHandle();
 }
 
 
@@ -234,95 +323,11 @@ class ThemeSetup {
     async initialize() {
         eventSource.on(event_types.APP_READY, () => {
             this.isAppReady = true;
-            
             createHiddenWidthDiv();
-            watchForExpressionChanges();
+            watchForExpressionChangesAndResize();
             setDrawerClasses();
             positionAnchor();
-            var bgcolor= getComputedStyle(document.documentElement).getPropertyValue('--NSDSmartThemeBGColor');
-            updateThemeColor(bgcolor);
             
-            (function() {
-                let resizeHandle = null;
-                let startWidth = 0;
-                let startX = 0;
-                let currentPanel = null;
-                let maxWidth= 0;
-
-                function createResizeHandle() {
-                    if (resizeHandle) return;
-                    
-                    resizeHandle = document.createElement('div');
-                    resizeHandle.className = 'resizeHandle';
-
-                    document.body.appendChild(resizeHandle);
-                    
-                    // Add drag functionality
-                    resizeHandle.addEventListener('mousedown', startResize);
-                }
-
-                
-                function setImportantCssVar(element, variableName, value) {
-                    const regex = new RegExp(`\\s*${variableName}:.*?;`, 'i');
-                    const newRule = `${variableName}: ${value} !important;`;
-                    
-                    // Check if the variable is already defined
-                    if (regex.test(element.style.cssText)) {
-                        // Replace the existing variable
-                        element.style.cssText = element.style.cssText.replace(regex, newRule);
-                    } else {
-                        // Append the new variable
-                        element.style.cssText += newRule;
-                    }
-                }
-                
-                function startResize(e) {
-                    startX = e.clientX;
-                    // Get width from hidden reference div
-                    const hiddenRef = document.getElementById('hidden-width-reference');
-                    startWidth = hiddenRef.offsetWidth;
-
-                    document.addEventListener('mousemove', resize);
-                    document.addEventListener('mouseup', stopResize);
-                    
-                    // Prevent text selection while resizing
-                    e.preventDefault();
-                }
-
-                function resize(e) {
-                    if (!currentPanel) return;
-                    
-                    const diff = startX - e.clientX;
-                    const hiddenRef2 = document.getElementById('hidden-center-panels-width-reference');
-                    maxWidth = hiddenRef2.clientWidth;
-                    const newWidth = Math.max(8, Math.min(startWidth + diff, maxWidth, window.innerWidth * 0.8));
-                    
-                    setImportantCssVar(document.body, '--expression-image-lorebook-width', `${newWidth}px`);
-                }
-
-                function stopResize() {
-                    document.removeEventListener('mousemove', resize);
-                    document.removeEventListener('mouseup', stopResize);
-                }
-
-                const sheld = document.getElementById('sheld');
-
-                currentPanel = sheld;
-                positionResizeHandle(sheld);
-              
-                function positionResizeHandle(panel) {
-                    createResizeHandle();
-                    
-                    // Position the handle
-                    const rect = panel.getBoundingClientRect();
-                    resizeHandle.style.display = 'block';
-                    resizeHandle.style.height = `100%`;
-                    resizeHandle.style.right = `${rect.right - 4}px`;
-                    resizeHandle.style.top = `4px`;
-                }
-
-
-            })();
         });
     }
 }

@@ -1,3 +1,4 @@
+
 /*
 Not A Discord Theme for SillyTavern
 
@@ -19,14 +20,40 @@ MIT License
   --NSDlistGrid-char-panel-width: 580;
   --NSDnormal-char-panel-width: 420;
 
-  --NSDAnimation-duration: 0;
+  --NSDAnimation-duration: 0.5;
 
   --NSDexpressionVisibility: collapse;
   --NSDexpressionWidth: 512;
   --NSDbgImageOpacity: 0.25;
-  --NSDSmartThemeBGColor: rgba(18, 18, 20, 1);
+
+  --NSDThemeBG1Color: rgb(26, 26, 30);
+  --NSDThemeBG2Color: rgb(40, 40, 45);
+  --NSDThemeBG3Color: rgb(34, 35, 39);
+  --NSDThemeBG4Color: color-mix(in oklab,var(--neutral-79) 100%,var(--theme-base-color,#000) var(--theme-base-color-amount,0%));
+
+
+  --button-filled-brand-background: var(--SmartThemeUnderlineColor);
+  --button-filled-brand-background-hover: color-mix(in srgb, var(--SmartThemeUnderlineColor) 90%, white);
+  --button-filled-brand-background-active: color-mix(in srgb, var(--SmartThemeUnderlineColor) 90%, black);
+
+
+  --button-outline-danger-background: hsl(var(--opacity-12-hsl)/0.12156862745098039);
+  --button-outline-danger-background-active: hsl(var(--primary-500-hsl)/0.3);
+  --button-outline-danger-background-hover: hsl(var(--opacity-20-hsl)/0.2);
+  
+  --primary-500-hsl:228 calc(var(--saturation-factor, 1)*6.024%) 32.549%;
+  --opacity-12: hsl(var(--opacity-12-hsl)/0.12156862745098039);
+  --opacity-12-hsl: 240 calc(var(--saturation-factor, 1)*4%) 60.784%;
+  --opacity-20: hsl(var(--opacity-20-hsl)/0.2);
+  --opacity-20-hsl: 240 calc(var(--saturation-factor, 1)*4%) 60.784%;
+
+  --neutral-79: hsl(var(--neutral-79-hsl)/1);
+  --neutral-79-hsl: 240 calc(var(--saturation-factor, 1)*6.494%) 15.098%;
+
+  --saturation-factor: 1;
+
   --NSDDrawer-IconColor: rgba(237, 237, 237, 1);
-  --NSDsmartThemeHiglitesColor: rgba(77, 80, 91, 0.5);
+  --NSDThemeHiglitesColor: rgba(77, 80, 91, 0.5);
 
   --interactable-outline-color-faint: #303135;
   --box-shadow-color: #00000080;  
@@ -36,58 +63,600 @@ MIT License
 
   --topBarBlockSize: 0px;
 
-  --black50a: color-mix(in srgb, var(--NSDSmartThemeBGColor) 30%, transparent);
+  --black50a: color-mix(in srgb, var(--SmartThemeBlurTintColor) 30%, transparent);
   --white50a: color-mix(in srgb, var(--SmartThemeUnderlineColor) 60%, rgba(255, 255, 255, 0.5));
+
+  --avatar-height-factor: 1;
+  --avatar-width-factor: 1;
+
 }
 
 body:has(#bg1) {
   --lat--color-accent: var(--white50a) !important;
   --lat--color-bgSecondary: var(--SmartThemeBlurTintColor) !important;
   --stqrd--color-borderSecondary: var(--SmartThemeBorderColor) !important;
+  --stqrd--color-bgPrimary: var(--NSDThemeBG2Color) !important;
+
+  
 
   scrollbar-width: thin;
   scrollbar-color: #666771 var(--SmartThemeBlurTintColor) !important;
   scroll-behavior: smooth !important;
-  background-color: var(--NSDSmartThemeBGColor);
+  background-color: var(--SmartThemeBlurTintColor);
   display: flex;
 
+  
+   /* Core layout variables */
   --nav-bar-width: 48px;
+  --panel-base-width: 380px;
+  --char-panel-grid-width: 580px;
+  --char-panel-normal-width: 420px;
+  --expression-width: 512px;
   --avatar-base-width: 50px;
   --avatar-base-height: 50px;
+  --text-imput-height: 42px;
 
+  /* Panel visibility flags (0 = hidden, 1 = visible) */
+  --panel-char-visible: 0;
+  --panel-settings-visible: 0;
+  --panel-notes-visible: 0;
+  --panel-gallery-visible: 0;
+  --panel-summary-visible: 0;
+  --panel-members-visible: 0;
+  --panel-tracker-visible: 0;
+  --panel-cfg-visible: 0;
+  --panel-objective-visible: 0;
+  --panel-inject-visible: 0;
+  --panel-extension-visible: 0;
+  --panel-lvm-visible: 0;
+  --panel-ctsi-visible: 0;
+  --panel-vv-visible: 0;
+  --panel-notebook-visible: 0;
+  --panel-codex-visible: 0;
+  --panel-logprobs-visible: 0;
+  
+  /* Cumulative width calculations (no gaps) */
+  --panels-total-width: calc(
+    (var(--panel-settings-visible) + 
+     var(--panel-notes-visible) + 
+     var(--panel-gallery-visible) + 
+     var(--panel-summary-visible) + 
+     var(--panel-members-visible) + 
+     var(--panel-tracker-visible) + 
+     var(--panel-cfg-visible) + 
+     var(--panel-objective-visible) + 
+     var(--panel-inject-visible) + 
+     var(--panel-extension-visible) + 
+     var(--panel-lvm-visible) + 
+     var(--panel-ctsi-visible) + 
+     var(--panel-vv-visible) + 
+     var(--panel-notebook-visible) + 
+     var(--panel-codex-visible) + 
+     var(--panel-logprobs-visible)) * var(--panel-base-width)
+  );
+  
+  /* Individual panel positions (accumulated from right) */
+  --panel-settings-offset: 0px;
+  --panel-notes-offset: calc(var(--panel-settings-visible) * var(--panel-base-width));
+  --panel-gallery-offset: calc((var(--panel-settings-visible) + var(--panel-notes-visible)) * var(--panel-base-width));
+  --panel-summary-offset: calc((var(--panel-settings-visible) + var(--panel-notes-visible) + var(--panel-gallery-visible)) * var(--panel-base-width));
+  --panel-members-offset: calc((var(--panel-settings-visible) + var(--panel-notes-visible) + var(--panel-gallery-visible) + var(--panel-summary-visible)) * var(--panel-base-width));
+  --panel-tracker-offset: calc((var(--panel-settings-visible) + var(--panel-notes-visible) + var(--panel-gallery-visible) + var(--panel-summary-visible) + var(--panel-members-visible)) * var(--panel-base-width));
+  --panel-cfg-offset: calc((var(--panel-settings-visible) + var(--panel-notes-visible) + var(--panel-gallery-visible) + var(--panel-summary-visible) + var(--panel-members-visible) + var(--panel-tracker-visible)) * var(--panel-base-width));
+  --panel-objective-offset: calc((var(--panel-settings-visible) + var(--panel-notes-visible) + var(--panel-gallery-visible) + var(--panel-summary-visible) + var(--panel-members-visible) + var(--panel-tracker-visible) + var(--panel-cfg-visible)) * var(--panel-base-width));
+  --panel-inject-offset: calc((var(--panel-settings-visible) + var(--panel-notes-visible) + var(--panel-gallery-visible) + var(--panel-summary-visible) + var(--panel-members-visible) + var(--panel-tracker-visible) + var(--panel-cfg-visible) + var(--panel-objective-visible)) * var(--panel-base-width));
+  --panel-extension-offset: calc((var(--panel-settings-visible) + var(--panel-notes-visible) + var(--panel-gallery-visible) + var(--panel-summary-visible) + var(--panel-members-visible) + var(--panel-tracker-visible) + var(--panel-cfg-visible) + var(--panel-objective-visible) + var(--panel-inject-visible)) * var(--panel-base-width));
+  --panel-lvm-offset: calc((var(--panel-settings-visible) + var(--panel-notes-visible) + var(--panel-gallery-visible) + var(--panel-summary-visible) + var(--panel-members-visible) + var(--panel-tracker-visible) + var(--panel-cfg-visible) + var(--panel-objective-visible) + var(--panel-inject-visible) + var(--panel-extension-visible)) * var(--panel-base-width));
+  --panel-ctsi-offset: calc((var(--panel-settings-visible) + var(--panel-notes-visible) + var(--panel-gallery-visible) + var(--panel-summary-visible) + var(--panel-members-visible) + var(--panel-tracker-visible) + var(--panel-cfg-visible) + var(--panel-objective-visible) + var(--panel-inject-visible) + var(--panel-extension-visible) + var(--panel-lvm-visible)) * var(--panel-base-width));
+  --panel-vv-offset: calc((var(--panel-settings-visible) + var(--panel-notes-visible) + var(--panel-gallery-visible) + var(--panel-summary-visible) + var(--panel-members-visible) + var(--panel-tracker-visible) + var(--panel-cfg-visible) + var(--panel-objective-visible) + var(--panel-inject-visible) + var(--panel-extension-visible) + var(--panel-lvm-visible) + var(--panel-ctsi-visible)) * var(--panel-base-width));
+  --panel-notebook-offset: calc((var(--panel-settings-visible) + var(--panel-notes-visible) + var(--panel-gallery-visible) + var(--panel-summary-visible) + var(--panel-members-visible) + var(--panel-tracker-visible) + var(--panel-cfg-visible) + var(--panel-objective-visible) + var(--panel-inject-visible) + var(--panel-extension-visible) + var(--panel-lvm-visible) + var(--panel-ctsi-visible) + var(--panel-vv-visible)) * var(--panel-base-width));
+  --panel-codex-offset: calc((var(--panel-settings-visible) + var(--panel-notes-visible) + var(--panel-gallery-visible) + var(--panel-summary-visible) + var(--panel-members-visible) + var(--panel-tracker-visible) + var(--panel-cfg-visible) + var(--panel-objective-visible) + var(--panel-inject-visible) + var(--panel-extension-visible) + var(--panel-lvm-visible) + var(--panel-ctsi-visible) + var(--panel-vv-visible) + var(--panel-notebook-visible)) * var(--panel-base-width));
+  --panel-logprobs-offset: calc((var(--panel-settings-visible) + var(--panel-notes-visible) + var(--panel-gallery-visible) + var(--panel-summary-visible) + var(--panel-members-visible) + var(--panel-tracker-visible) + var(--panel-cfg-visible) + var(--panel-objective-visible) + var(--panel-inject-visible) + var(--panel-extension-visible) + var(--panel-lvm-visible) + var(--panel-ctsi-visible) + var(--panel-vv-visible) + var(--panel-notebook-visible) + var(--panel-codex-visible)) * var(--panel-base-width));
+  
+
+  --expression-image-lorebook-width: 0px;
 
   --char-panel-width: 0px;
-  --settings-panel-width: 0px;
-  --authors-note-panel-width: 0px;
-  --expression-image-lorebook-width: 0px;
-  --cfgConfig-panel-width: 0px;
-  --objectiveExtensionPopout-panel-width: 0px;
-  --groupMemberListPopout-panel-width: 0px;
-  --injectManagerSideBar-width: 0px;
-  --extensionSideBar-panel-width: 0px;
-  --stcdxcodex-width: 0px;
-  --ctsi-drawer-width: 0px;
-  --notebookPanel-width: 0px;
-  --gallery-panel-width: 0px;
-  --trackerUI-panel-width: 0px;
-  --summaryExtensionPopout-width: 0px;
-  --lvm--root-width: 0px;
-  --vv--root-width: 0px;
-  --logprobsViewer-width: 0px;
 
   --elements-height: 100vh;
-  --text-imput-height: 42px;
-  --all-panels-width: calc(100vw - var(--nav-bar-width));
 
-  --right-panels-width: calc(var(--settings-panel-width) + var(--authors-note-panel-width) + var(--cfgConfig-panel-width) + var(--stcdxcodex-width) + var(--injectManagerSideBar-width) + var(--objectiveExtensionPopout-panel-width) + var(--trackerUI-panel-width) + var(--summaryExtensionPopout-width) + var(--notebookPanel-width) + var(--ctsi-drawer-width) + var(--gallery-panel-width) + var(--groupMemberListPopout-panel-width) + var(--extensionSideBar-panel-width) + var(--vv--root-width) + var(--lvm--root-width) + var(--logprobsViewer-width));
-  --center-panels-width: calc(var(--all-panels-width) - var(--right-panels-width) - var(--char-panel-width));
-  --chat-panel-width: calc(var(--all-panels-width) - var(--right-panels-width) - var(--char-panel-width) - var(--expression-image-lorebook-width));
+  --center-panels-width: calc(100vw - var(--nav-bar-width) - var(--panels-total-width) - var(--char-panel-width));
+  --chat-panel-width: calc(var(--center-panels-width) - var(--expression-image-lorebook-width));
+  --chat-panel-left-offset: calc(var(--nav-bar-width) + var(--char-panel-width));
 
 }
-  
+
+body.charListGrid:has(#right-nav-panel.openDrawer):not(#rm_ch_create_block) {
+  --char-panel-width: calc(var(--NSDlistGrid-char-panel-width) * 1px);
+}
+
+body:has(#right-nav-panel.openDrawer) {
+  --char-panel-width: calc(var(--NSDnormal-char-panel-width) * 1px);
+}
+
+body:has(#rm_ch_create_block:is([style*="display: block; opacity: 1;"])) {
+  --char-panel-width: calc(var(--NSDnormal-char-panel-width) * 1px) !important;
+}
+
+body:has(#right-nav-panel.closedDrawer) {
+  --char-panel-width: 0px !important;
+}
+
+
+
+body:has(.stqrd--editorPanel:is(body > *)),
+body:has(#stqrd--drawer-v2[style*="display: block;"]),
+body:has(#WorldInfo[style*="display: block;"]) {
+  --expression-image-lorebook-width: calc(var(--center-panels-width)/2) !important;
+}
+
+body:has(#WorldInfo[style*="display: none;"]):has(#stqrd--drawer-v2[style*="display: none;"]) {
+  --expression-image-lorebook-width: 0px;
+}
+
+body:has(.zoomed_avatar.draggable):not(:has(#WorldInfo[style*="display: block;"])):not(:has(#stqrd--drawer-v2[style*="display: block;"])):not(:has(.stqrd--editorPanel:is(body > *))):not(.waifuMode),
+body:has(#expression-wrapper):has(#expression-image:not([src=""])):not(:has(#WorldInfo[style*="display: block;"])):not(:has(#stqrd--drawer-v2[style*="display: block;"])):not(:has(.stqrd--editorPanel:is(body > *))):not(.waifuMode){
+  --expression-image-lorebook-width: calc(var(--NSDexpressionWidth) * 1px) !important;
+}
+
+body:has(#expression-wrapper):has(#expression-image:not([src=""])).waifuMode {
+  --expression-image-lorebook-width: 0px;
+}
+
+
+
+
+
+body:has(#left-nav-panel.openDrawer) {
+  --panel-settings-visible: 1;
+}
+
+body:has(#injectManagerSideBar.visible) {
+  --panel-inject-visible: 1 !important; 
+}
+
+body:has(.stcdx--root.stcdx--codex.stcdx--active) {
+  --panel-codex-visible: 1 !important;
+}
+
+body:has(#groupMemberListPopout) {
+  --panel-members-visible: 1;
+}
+
+body:has(#trackerInterface),
+body:has(#trackerUI) {
+  --panel-tracker-visible: 1;
+}
+
+body:has(#notebookPanel.flex) {
+  --panel-notebook-visible: 1 !important;
+}
+
+body:has(#notebookPanel.maximized) {
+  --panel-notebook-visible: 0 !important;
+}
+
+body:has(#logprobsViewer[style*="display: flex; opacity: 1;"]) {
+  --panel-logprobs-visible: 1;
+}
+
+body:has(#logprobsViewer.maximized) {
+  --panel-logprobs-visible: 0 !important;
+}
+
+body:has(#summaryExtensionPopout) {
+  --panel-summary-visible: 1;
+}
+
+body:has(#ctsi-drawer.maximized) {
+  --panel-ctsi-visible: 1 !important;
+}
+
+body:has(#ctsi-drawer.flexFlowColumn) {
+  --panel-ctsi-visible: 0;
+}
+
+body:has(#floatingPrompt:is([style*="display: flex; opacity: 1;"])) {
+  --panel-notes-visible: 1;
+}
+
+body:has(#floatingPrompt.maximized) {
+  --panel-notes-visible: 0 !important;
+}
+
+body:has(#cfgConfig:is([style*="display: flex; opacity: 1;"])) {
+  --panel-cfg-visible: 1;
+}
+
+body:has(#cfgConfig.maximized) {
+   --panel-cfg-visible: 0 !important;
+}
+
+body:has(#objectiveExtensionPopout:is([style*="display: flex;"])) {
+  --panel-objective-visible: 1;
+}
+
+body:has(#groupMemberListPopout) {
+  --panel-members-visible: 1;
+}
+
+body:has(#extensionSideBar.visible) {
+  --panel-extension-visible: 1;
+}
+
+body:has(#lvm--root.pinnedOpen) {
+  --panel-lvm-visible: 1;
+}
+
+body:has(#vv--root.openDrawer){
+  --panel-vv-visible: 1;
+}
+
+body:has(#gallery.draggable) {
+  --panel-gallery-visible: 1;
+}
+
+
+#logprobsViewer:not(.maximized),
+.stcdx--root,
+#notebookPanel,
+#vv--root,
+#movingDivs > #ctsi-drawer,
+#lvm--root,
+#extensionSideBar,
+#injectManagerSideBar,
+#objectiveExtensionPopout,
+#cfgConfig,
+#trackerInterface,
+#trackerUI,
+#groupMemberListPopout,
+#summaryExtensionPopout,
+#gallery,
+#floatingPrompt:not(.maximized),
+#left-nav-panel.drawer-content {
+    width: var(--panel-base-width) !important;
+}
+
+/*1*/
+#left-nav-panel.drawer-content {
+  right: 0 !important;
+  background-color: var(--SmartThemeChatTintColor) !important;
+  padding: 0;
+}
+
+/*2*/
+#floatingPrompt:not(.maximized) {
+  right: var(--panel-notes-offset) !important;
+  background-color: var(--SmartThemeChatTintColor) !important;
+}
+
+/*3*/
+#gallery {
+  right: var(--panel-gallery-offset) !important;
+  display: flex;
+  position: fixed;
+  gap: 5px;
+}
+
+/*4*/
+#summaryExtensionPopout {
+  right: var(--panel-summary-offset) !important;
+
+}
+
+/*5*/
+#groupMemberListPopout {
+  right: var(--panel-members-offset) !important;
+  display: flex;
+  position: fixed;
+  gap: 5px;
+  width: var(--panel-base-width);
+}
+
+/*6*/
+#trackerInterface,
+#trackerUI {
+  right: var(--panel-tracker-offset) !important;
+  gap: unset !important;
+
+}
+/*7*/
+
+/*8*/
+#cfgConfig {
+  right: var(--panel-cfg-offset) !important;
+  background-color: var(--SmartThemeChatTintColor) !important;
+}
+
+/*9*/
+#objectiveExtensionPopout {
+  right: var(--panel-objective-offset) !important;
+}
+
+/*10*/
+#injectManagerSideBar {
+  right: var(--panel-inject-offset) !important;
+}
+
+/*11*/
+#extensionSideBar {
+  right: var(--panel-extension-offset) !important;
+  position: fixed;
+  gap: 5px;
+}
+
+/*12*/
+#lvm--root{
+  right: var(--panel-lvm-offset) !important;
+  position: fixed;
+  gap: 5px;
+  background-color: var(--SmartThemeChatTintColor) !important;
+}
+
+/*13*/
+#movingDivs > #ctsi-drawer {
+  right: var(--panel-ctsi-offset) !important;
+  background-color: var(--SmartThemeChatTintColor) !important;
+  filter: unset;
+  transition: none;
+}
+
+/*14*/
+#vv--root {
+  right: var(--panel-vv-offset) !important;
+  background-color: var(--SmartThemeChatTintColor) !important;
+  border: unset !important;
+}
+
+/*15*/
+#notebookPanel {
+  right: var(--panel-notebook-offset) !important;
+  background-color: var(--SmartThemeChatTintColor) !important;
+}
+
+/*16*/
+.stcdx--root {
+  right: var(--panel-codex-offset) !important;
+  background-color: var(--SmartThemeChatTintColor) !important;
+  border-top: 1px solid var(--SmartThemeBorderColor) !important;
+  border-left: 1px solid var(--SmartThemeBorderColor) !important;
+  border-bottom: unset !important;
+  border-right: unset !important;
+}
+/*17*/
+#logprobsViewer:not(.maximized) {
+  right: var(--panel-logprobs-offset) !important;
+  background-color: var(--SmartThemeChatTintColor) !important;
+}
+
+/*18*/
+.stqrd--editorPanel:is(body > *),
+#stqrd--drawer-v2,
+#WorldInfo,
+#expression-wrapper,
+.zoomed_avatar {
+  right: var(--panels-total-width) !important;
+}
+
+#expression-wrapper {
+  z-index: 20 !important;
+  width: var(--expression-image-lorebook-width) !important;
+  display: inline;
+  position: absolute;
+  justify-content: right;
+
+  bottom: 0 !important;
+  top: 4px !important;
+  margin: 0 !important;
+  border-radius: 0px !important;
+  filter: unset !important;
+  left: unset !important;
+  border: unset;
+  min-width: unset;
+  height: var(--elements-height) !important;
+  max-height: unset !important;
+
+}
+
+.zoomed_avatar {
+  width: var(--expression-image-lorebook-width) !important;
+  align-items: end !important;
+  background-color: transparent !important;
+  z-index: 20 !important;
+  bottom: 0 !important;
+  margin: 0 !important;
+  border-radius: 0px !important;
+  filter: unset !important;
+  left: unset !important;
+  border: unset;
+  min-width: unset;
+  max-height: unset !important;
+}
+
+.stqrd--editorPanel:is(body > *),
+#stqrd--drawer-v2,
+#WorldInfo {
+  width: calc(var(--expression-image-lorebook-width) - 8px) !important;
+  border-radius: 8px 0 0 8px !important;
+  border-top: 1px solid var(--SmartThemeBorderColor) !important;
+  border-right: unset !important;
+}
+
+/*19*/
+/*20*/
+
+
+.drawer-content {
+  background-color: var(--NSDThemeBG1Color) !important;
+  width: var(--chat-panel-width);
+  left: var(--chat-panel-left-offset);
+  border: unset;
+  margin: 0 !important;
+  border-radius: 0px;
+  border-top-right-radius: 8px !important;
+  border-bottom-right-radius: 8px !important;
+  z-index: 20 !important;
+  top: 4px;
+  bottom: 0;
+  padding: 12px;
+  max-height: var(--elements-height);
+}
+
+#visual-novel-wrapper{
+  width: var(--chat-panel-width) !important;
+  left: var(--chat-panel-left-offset) !important;
+  position: absolute;
+}
+
+body.waifuMode .zoomed_avatar,
+body.waifuMode #expression-wrapper{
+  left: calc(var(--nav-bar-width) + var(--char-panel-width) +  calc(var(--chat-panel-width) / 2) ) !important;
+  width: 20vw !important;
+  right: unset !important;
+}
+
+body.waifuMode #expression-wrapper{
+  border-left: unset !important;
+}
+
+body.waifuMode .zoomed_avatar {
+  max-width: var(--maxWidth) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0px !important;
+  background-color: transparent !important;
+  z-index: 10 !important;
+}
+
+#character_popup
+{
+  height: 100vh !important;
+  margin: 4px 0 0 0 !important;
+  border-radius: 8px!important;
+  left: var(--chat-panel-left-offset) !important;
+}
+
+#sheld {
+  height: 100vh !important;
+  margin: 4px 0 0 0px !important;
+  border-radius: 8px 0px 0 0 !important;
+  left: var(--chat-panel-left-offset) !important;
+  border-top: 1px solid var(--SmartThemeBorderColor) !important;
+  border-left: 1px solid var(--SmartThemeBorderColor) !important;
+  z-index: 25 !important;
+}
+
+#bg1 {
+  opacity: var(--NSDbgImageOpacity) !important;
+  overflow: hidden !important;
+  border: 0px !important;
+  background-position: center;
+  background-color: var(--SmartThemeBlurTintColor);
+  border-color: transparent !important;
+  border-style: solid !important;
+  margin: 0 0 0 0 !important;
+  left: var(--chat-panel-left-offset) !important;
+  right: var(--right-panels-width) !important;
+}
+
+#character_cross {
+  position: fixed !important;
+  left: var(--chat-panel-left-offset) !important;
+  z-index: 30002;
+  width: 36px;
+}
+
+#right-nav-panel {
+
+  background-color: var(--SmartThemeBlurTintColor) !important;
+  border-top-left-radius: 12px !important;
+  border-top-right-radius: 0px !important;
+  border-left: 1px solid var(--SmartThemeBorderColor) !important;
+  border-top: 1px solid var(--SmartThemeBorderColor) !important;
+  left: var(--nav-bar-width);
+  width: var(--char-panel-width);
+  height: calc(100svh);
+  z-index: 10 !important;
+  max-height: unset;
+  min-width: unset !important;
+  padding: 0px !important;
+  margin: 0px 0px 0px 0px !important;
+  border: 0;
+  top: 4px !important;
+  border-radius: 0;
+}
+
+#cfgConfig.maximized,
+#vv--root.vv--maximized,
+#logprobsViewer.maximized,
+#floatingPrompt.maximized,
+#notebookPanel.maximized {
+  margin: 0 !important;
+  right: 0;
+  border: 1px solid var(--SmartThemeBorderColor) !important;
+  z-index: 90 !important;
+  width: var(--chat-panel-width) !important;
+  left: var(--chat-panel-left-offset);
+  min-height: 100px !important;
+  max-height: 90dvh !important;
+  border-radius: 0px !important;
+  bottom: 0 !important;
+  height: 100svh !important;
+  bottom: unset;
+}
+
+#extensionTopBarSearchInput {
+  max-width: calc(var(--chat-panel-width) * 0.2) !important;
+}
+
+.resizeHandle {
+    position: fixed;
+    width: 8px;
+    cursor: ew-resize;
+    flex-shrink: 0;
+    height: 100%;
+    z-index: 500;
+    background: transparent;
+    transition: background-color 0.2s;
+    pointer-events: auto;
+    left: calc(var(--nav-bar-width) + var(--char-panel-width) + var(--chat-panel-width));
+    
+}
+.resizeHandle::after {
+    content: '';
+    position: absolute;
+    transform: translateY(-50%);
+    width: 8px;
+    background: var(--SmartThemeBorderColor);
+    left: calc(var(--nav-bar-width) + var(--char-panel-width) + var(--chat-panel-width));
+    opacity: 0.5;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 * {
+    box-shadow: unset !important;
+}
+
+#WI_panel_pin_div{
+	display: none;
+}
+/*
+* {
+
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  box-shadow: unset !important;
   --stcdx--zoomTime: unset !important;
   --stcdx--mapZoneZoomTime: unset !important;
   --stcdx--transitionTime: unset !important;
@@ -95,10 +664,10 @@ body:has(#bg1) {
   
 
   --animation-duration: calc(var(--NSDAnimation-duration) * 1s);
-  --animation-duration-slow: calc(var(--sheldtransition) * 1s);
+  --animation-duration-slow: calc(var(--animation-duration) * 1s);
   transition-duration: var(--animation-duration) !important;
 
-}
+}*/
 
 #nonQRFormItems{
   min-height: var(--text-imput-height) !important;
@@ -189,8 +758,61 @@ hr {
   padding: 8px !important;
 }
 
-#WorldInfo .menu_button{
+#WorldInfo .menu_button {
   margin: 0 !important;
+}
+
+.flex-container>.menu_button {
+  background-color: var(--button-filled-brand-background) !important;
+  text-shadow: unset !important;
+  padding: 6px 8px;
+  font-size: calc(var(--mainFontSize) * 0.9);
+  filter: unset !important;
+}
+
+.flex-container>.menu_button:hover{
+    background-color: var(--button-filled-brand-background-hover) !important;
+}
+
+.flex-container>.menu_button:active{
+  background-color: var(--button-filled-brand-background-active) !important;
+}
+
+#delete_button{
+  background-color: var(--crimson70a) !important;
+}
+
+select,
+span {
+  text-shadow: none !important;
+}
+
+input,
+select {
+  border: 1px solid color-mix(in srgb, var(--SmartThemeBorderColor) 50%, transparent) !important;
+  font-size: calc(var(--mainFontSize) * 0.9) !important;
+  padding: 6px 8px !important;
+}
+
+.menu_button>* {
+    text-shadow: none !important;
+    box-shadow: none !important;
+
+}
+
+.menu_button{
+    filter: unset !important; 
+    padding: 6px 8px;
+    text-shadow: unset !important;
+    font-size: calc(var(--mainFontSize) * 0.9);
+    background-color: var(--button-outline-danger-background) !important;
+}
+.menu_button:hover{
+    background-color: var(--button-outline-danger-background-hover) !important;
+}
+
+.menu_button:active{
+    background-color: var(--button-outline-danger-background-active) !important;
 }
 
 .toast-progress {
@@ -206,7 +828,7 @@ hr {
 input[type="radio"], 
 input[type="checkbox"] {
   appearance: none;
-  background-color: var(--NSDsmartThemeHiglitesColor) !important;
+  background-color: var(--NSDThemeHiglitesColor) !important;
   border-radius: 72px;
   border-style: none;
   flex-shrink: 0;
@@ -217,6 +839,7 @@ input[type="checkbox"] {
   filter:none;
   transform:none;
   border: inherit;
+  padding: unset !important;  
 }
 
 input[type="radio"]::before, 
@@ -275,7 +898,7 @@ input[type="checkbox"]:focus:not(.focus-visible) {
 
 input[type="radio"]:checked:hover, 
 input[type="checkbox"]:checked:hover {
-  background-color: var(--black50a) !important;
+  background-color: var(--NSDThemeBG4Color) !important;
 }
 
 .drawer-toggle:has(.openIcon),
@@ -355,133 +978,6 @@ input[type="checkbox"]:checked:hover {
   z-index: 400 !important;
 }
 
-
-body.charListGrid:has(#right-nav-panel.openDrawer):not(#rm_ch_create_block) {
-  --char-panel-width: calc(var(--NSDlistGrid-char-panel-width) * 1px);
-}
-
-body:has(#right-nav-panel.openDrawer) {
-  --char-panel-width: calc(var(--NSDnormal-char-panel-width) * 1px);
-}
-
-body:has(#rm_ch_create_block:is([style*="display: block; opacity: 1;"])) {
-  --char-panel-width: calc(var(--NSDnormal-char-panel-width) * 1px) !important;
-}
-
-body:has(#right-nav-panel.closedDrawer) {
-  --char-panel-width: 0px !important;
-}
-
-body:has(#injectManagerSideBar.visible) {
-  --injectManagerSideBar-width: 360px !important; 
-}
-
-body:has(.stcdx--root.stcdx--codex.stcdx--active) {
-  --stcdxcodex-width: 400px !important;
-}
-
-body:has(#trackerInterface) {
-  --trackerUI-panel-width: 360px !important;
-}
-
-body:has(#trackerUI) {
-  --trackerUI-panel-width: 360px !important;
-}
-
-body:has(#notebookPanel.flex) {
-  --notebookPanel-width: 360px !important;
-}
-
-body:has(#notebookPanel.maximized) {
-  --notebookPanel-width: 0px !important;
-}
-
-body:has(#left-nav-panel.openDrawer) {
-  --settings-panel-width: 360px !important;
-}
-
-body:has(.stqrd--editorPanel:is(body > *)),
-body:has(#stqrd--drawer-v2[style*="display: block;"]),
-body:has(#WorldInfo[style*="display: block;"]) {
-  --expression-image-lorebook-width: calc(var(--center-panels-width)/2) !important;
-}
-
-body:has(#WorldInfo[style*="display: none;"]):has(#stqrd--drawer-v2[style*="display: none;"]) {
-  --expression-image-lorebook-width: 0px;
-}
-
-body:has(.zoomed_avatar.draggable):not(:has(#WorldInfo[style*="display: block;"])):not(:has(#stqrd--drawer-v2[style*="display: block;"])):not(:has(.stqrd--editorPanel:is(body > *))):not(.waifuMode),
-body:has(#expression-wrapper):has(#expression-image:not([src=""])):not(:has(#WorldInfo[style*="display: block;"])):not(:has(#stqrd--drawer-v2[style*="display: block;"])):not(:has(.stqrd--editorPanel:is(body > *))):not(.waifuMode){
-  --expression-image-lorebook-width: calc(var(--NSDexpressionWidth) * 1px) !important;
-}
-
-body:has(#expression-wrapper):has(#expression-image:not([src=""])).waifuMode {
-  --expression-image-lorebook-width: 0px;
-}
-
-body:has(#logprobsViewer[style*="display: flex; opacity: 1;"]) {
-  --logprobsViewer-width: 360px;
-}
-body:has(#logprobsViewer.maximized) {
-  --logprobsViewer-width: 0px !important;
-}
-
-body:has(#summaryExtensionPopout) {
-  --summaryExtensionPopout-width: 360px;
-}
-
-body:has(#ctsi-drawer.maximized) {
-  --ctsi-drawer-width: 320px !important;
-}
-
-body:has(#ctsi-drawer.flexFlowColumn) {
-  --ctsi-drawer-width: 0px;
-}
-
-body:has(#floatingPrompt:is([style*="display: flex; opacity: 1;"])) {
-  --authors-note-panel-width: 360px;
-}
-
-body:has(#floatingPrompt.maximized) {
-  --authors-note-panel-width: 0px !important;
-}
-
-body:has(#cfgConfig:is([style*="display: flex; opacity: 1;"])) {
-  --cfgConfig-panel-width: 360px;
-}
-
-body:has(#objectiveExtensionPopout:is([style*="display: flex;"])) {
-  --objectiveExtensionPopout-panel-width: 360px;
-}
-
-body:has(#cfgConfig.maximized) {
-  --cfgConfig-panel-width: 0px !important;
-}
-
-body:has(#cfgConfig.maximized) {
-  --objectiveExtensionPopout-panel-width: 0px !important;
-}
-
-body:has(#groupMemberListPopout) {
-  --groupMemberListPopout-panel-width: 360px;
-}
-
-body:has(#extensionSideBar.visible) {
-  --extensionSideBar-panel-width: 360px;
-}
-
-body:has(#lvm--root.pinnedOpen) {
-  --lvm--root-width: 360px;
-}
-
-body:has(#vv--root.openDrawer){
-  --vv--root-width: 360px;
-}
-
-body:has(#gallery.draggable) {
-  --gallery-panel-width: 360px;
-}
-
 .drawer-content{
   border-left: 1px solid var(--SmartThemeBorderColor) !important;
   border-top: 1px solid var(--SmartThemeBorderColor) !important;
@@ -510,8 +1006,6 @@ body:has(#gallery.draggable) {
   border-top: 1px solid var(--SmartThemeBorderColor) !important;
   border-right: unset !important;
 }
-
-
 
 #trackerInterface,
 #trackerUI,
@@ -547,189 +1041,10 @@ body:has(#gallery.draggable) {
   max-height: unset !important;
 }
 
-/*1*/
-#left-nav-panel.drawer-content {
-  right: 0 !important;
-  background-color: var(--SmartThemeChatTintColor) !important;
-  padding: 0;
-  width: var(--settings-panel-width);
-}
-
-/*2*/
-#floatingPrompt:not(.maximized) {
-  right: calc(var(--settings-panel-width)) !important;
-  background-color: var(--SmartThemeChatTintColor) !important;
-  width: var(--authors-note-panel-width);
-}
-
-/*3*/
-#gallery {
-  right: calc(var(--settings-panel-width) + var(--authors-note-panel-width)) !important;
-  display: flex;
-  position: fixed;
-  gap: 5px;
-  width: var(--gallery-panel-width);
-}
-
-/*4*/
-#summaryExtensionPopout {
-  right: calc(var(--settings-panel-width) + var(--authors-note-panel-width) + var(--gallery-panel-width)) !important;
-  width: var(--summaryExtensionPopout-width);
-}
-
-/*5*/
-#groupMemberListPopout {
-  right: calc(var(--settings-panel-width) + var(--authors-note-panel-width) + var(--gallery-panel-width) + var(--summaryExtensionPopout-width)) !important;
-  display: flex;
-  position: fixed;
-  gap: 5px;
-  width: var(--groupMemberListPopout-panel-width);
-}
-
-/*6*/
-#trackerInterface,
-#trackerUI {
-  right: calc(var(--settings-panel-width) + var(--authors-note-panel-width) + var(--gallery-panel-width) + var(--summaryExtensionPopout-width) + var(--groupMemberListPopout-panel-width)) !important;
-  gap: unset !important;
-  width: var(--trackerUI-panel-width);
-}
-/*7*/
-
-/*8*/
-#cfgConfig {
-  right: calc(var(--settings-panel-width) + var(--authors-note-panel-width) + var(--gallery-panel-width) + var(--summaryExtensionPopout-width) + var(--groupMemberListPopout-panel-width) + var(--trackerUI-panel-width)) !important;
-  background-color: var(--SmartThemeChatTintColor) !important;
-  width: var(--cfgConfig-panel-width);
-}
-
-/*9*/
-#objectiveExtensionPopout {
-  right: calc(var(--settings-panel-width) + var(--authors-note-panel-width) + var(--gallery-panel-width) + var(--summaryExtensionPopout-width) + var(--groupMemberListPopout-panel-width) + var(--trackerUI-panel-width) + var(--cfgConfig-panel-width)) !important;
-  width: var(--objectiveExtensionPopout-panel-width);
-}
-
-/*10*/
-#injectManagerSideBar {
-  right: calc(var(--settings-panel-width) + var(--authors-note-panel-width) + var(--gallery-panel-width) + var(--summaryExtensionPopout-width) + var(--groupMemberListPopout-panel-width) + var(--trackerUI-panel-width) + var(--cfgConfig-panel-width) + var(--objectiveExtensionPopout-panel-width)) !important;
-  width: var(--injectManagerSideBar-width);
-}
-
-/*11*/
-#extensionSideBar {
-  right: calc(var(--settings-panel-width) + var(--authors-note-panel-width) + var(--gallery-panel-width) + var(--summaryExtensionPopout-width) + var(--groupMemberListPopout-panel-width) + var(--trackerUI-panel-width) + var(--cfgConfig-panel-width) + var(--objectiveExtensionPopout-panel-width) + var(--injectManagerSideBar-width)) !important;
-  position: fixed;
-  gap: 5px;
-  width: var(--extensionSideBar-panel-width);
-}
-
-/*12*/
-#lvm--root{
-  right: calc(var(--settings-panel-width) + var(--authors-note-panel-width) + var(--gallery-panel-width) + var(--summaryExtensionPopout-width) + var(--groupMemberListPopout-panel-width) + var(--trackerUI-panel-width) + var(--cfgConfig-panel-width) + var(--objectiveExtensionPopout-panel-width) + var(--injectManagerSideBar-width) + var(--extensionSideBar-panel-width)) !important;
-  position: fixed;
-  gap: 5px;
-  background-color: var(--SmartThemeChatTintColor) !important;
-  width: var(--lvm--root-width);
-}
-
-/*13*/
-#movingDivs > #ctsi-drawer {
-  right: calc(var(--settings-panel-width) + var(--authors-note-panel-width) + var(--gallery-panel-width) + var(--summaryExtensionPopout-width) + var(--groupMemberListPopout-panel-width) + var(--trackerUI-panel-width) + var(--cfgConfig-panel-width) + var(--objectiveExtensionPopout-panel-width) + var(--injectManagerSideBar-width) + var(--extensionSideBar-panel-width) + var(--lvm--root-width)) !important;
-  background-color: var(--SmartThemeChatTintColor) !important;
-  filter: unset;
-  transition: none;
-  width: var(--ctsi-drawer-width) !important;
-}
-
-/*14*/
-#vv--root {
-  right: calc(var(--settings-panel-width) + var(--authors-note-panel-width) + var(--gallery-panel-width) + var(--summaryExtensionPopout-width) + var(--groupMemberListPopout-panel-width) + var(--trackerUI-panel-width) + var(--cfgConfig-panel-width) + var(--objectiveExtensionPopout-panel-width) + var(--injectManagerSideBar-width) + var(--extensionSideBar-panel-width) + var(--lvm--root-width) + var(--ctsi-drawer-width)) !important;
-  background-color: var(--SmartThemeChatTintColor) !important;
-  border: unset !important;
-  width: var(--vv--root-width) !important;
-}
-
-/*15*/
-#notebookPanel {
-  right: calc(var(--settings-panel-width) + var(--authors-note-panel-width) + var(--gallery-panel-width) + var(--summaryExtensionPopout-width) + var(--groupMemberListPopout-panel-width) + var(--trackerUI-panel-width) + var(--cfgConfig-panel-width) + var(--objectiveExtensionPopout-panel-width) + var(--injectManagerSideBar-width) + var(--extensionSideBar-panel-width) + var(--lvm--root-width) + var(--ctsi-drawer-width) + var(--vv--root-width)) !important;
-  background-color: var(--SmartThemeChatTintColor) !important;
-  width: var(--notebookPanel-width) !important;
-}
-
-/*16*/
-.stcdx--root {
-  right: calc(var(--settings-panel-width) + var(--authors-note-panel-width) + var(--gallery-panel-width) + var(--summaryExtensionPopout-width) + var(--groupMemberListPopout-panel-width) + var(--trackerUI-panel-width) + var(--cfgConfig-panel-width) + var(--objectiveExtensionPopout-panel-width) + var(--injectManagerSideBar-width) + var(--extensionSideBar-panel-width) + var(--lvm--root-width) + var(--ctsi-drawer-width) + var(--vv--root-width) + var(--notebookPanel-width)) !important;
-  background-color: var(--SmartThemeChatTintColor) !important;;
-  width: var(--stcdxcodex-width);
-  border-top: 1px solid var(--SmartThemeBorderColor) !important;
-  border-left: 1px solid var(--SmartThemeBorderColor) !important;
-  border-bottom: unset !important;
-  border-right: unset !important;
-}
-/*17*/
-#logprobsViewer:not(.maximized) {
-  right: calc(var(--settings-panel-width) + var(--authors-note-panel-width) + var(--gallery-panel-width) + var(--summaryExtensionPopout-width) + var(--groupMemberListPopout-panel-width) + var(--trackerUI-panel-width) + var(--cfgConfig-panel-width) + var(--objectiveExtensionPopout-panel-width) + var(--injectManagerSideBar-width) + var(--extensionSideBar-panel-width) + var(--lvm--root-width) + var(--ctsi-drawer-width) + var(--vv--root-width) + var(--notebookPanel-width) + var(--stcdxcodex-width)) !important;
-  background-color: var(--SmartThemeChatTintColor) !important;
-  width: var(--logprobsViewer-width);
-}
-
-/*18*/
-.stqrd--editorPanel:is(body > *),
-#stqrd--drawer-v2,
-#WorldInfo,
-#expression-wrapper,
-.zoomed_avatar {
-  right: calc(var(--settings-panel-width) + var(--authors-note-panel-width) + var(--gallery-panel-width) + var(--summaryExtensionPopout-width) + var(--groupMemberListPopout-panel-width) + var(--trackerUI-panel-width) + var(--cfgConfig-panel-width) + var(--objectiveExtensionPopout-panel-width) + var(--injectManagerSideBar-width) + var(--extensionSideBar-panel-width) + var(--lvm--root-width) + var(--ctsi-drawer-width) + var(--vv--root-width) + var(--notebookPanel-width) + var(--stcdxcodex-width) + var(--logprobsViewer-width)) !important;
-}
-
-#expression-wrapper {
-  z-index: 20 !important;
-  width: var(--expression-image-lorebook-width) !important;
-  display: inline;
-  position: absolute;
-  justify-content: right;
-
-  bottom: 0 !important;
-  top: 4px !important;
-  margin: 0 !important;
-  border-radius: 0px !important;
-  filter: unset !important;
-  left: unset !important;
-  border: unset;
-  min-width: unset;
-  height: var(--elements-height) !important;
-  max-height: unset !important;
-
-}
-
-.zoomed_avatar {
-  width: var(--expression-image-lorebook-width) !important;
-  align-items: end !important;
-  background-color: transparent !important;
-  z-index: 20 !important;
-  bottom: 0 !important;
-  margin: 0 !important;
-  border-radius: 0px !important;
-  filter: unset !important;
-  left: unset !important;
-  border: unset;
-  min-width: unset;
-  max-height: unset !important;
-}
-
-.stqrd--editorPanel:is(body > *),
-#stqrd--drawer-v2,
-#WorldInfo {
-  width: calc(var(--expression-image-lorebook-width) - 8px) !important;
-  border-radius: 8px 0 0 8px !important;
-  border-top: 1px solid var(--SmartThemeBorderColor) !important;
-  border-right: unset !important;
-}
-
-/*19*/
-/*20*/
 
 #WorldInfo {
   padding: 0px !important;
+  background-color: var(--NSDThemeBG3Color) !important;
 }
 
 #stqrd--drawer-v2,
@@ -746,65 +1061,6 @@ body:has(#gallery.draggable) {
   background-color: var(--SmartThemeBlurTintColor) !important;
 }
 
-.drawer-content {
-  background-color: var(--SmartThemeBlurTintColor) !important;
-  width: var(--chat-panel-width);
-  left: calc(var(--nav-bar-width) + var(--char-panel-width));
-  border: unset;
-  margin: 0 !important;
-  border-radius: 0px;
-  border-top-right-radius: 8px !important;
-  border-bottom-right-radius: 8px !important;
-  z-index: 20 !important;
-  top: 4px;
-  bottom: 0;
-  padding: 12px;
-  max-height: var(--elements-height);
-}
-
-#visual-novel-wrapper{
-  width: var(--chat-panel-width) !important;
-  left: calc(var(--nav-bar-width) + var(--char-panel-width)) !important;
-  position: absolute;
-}
-
-body.waifuMode #expression-wrapper{
-  width: 20vw !important;
-  right: unset !important;
-  left: calc(var(--nav-bar-width) + var(--char-panel-width) +  calc(var(--chat-panel-width) / 2) ) !important;
-  border-left: unset !important;
-}
-
-body.waifuMode .zoomed_avatar {
-  min-width: 20vw !important;
-  max-width: var(--maxWidth) !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  border: 0 !important;
-  border-radius: 0px !important;
-  background-color: transparent !important;
-  right: unset !important;
-  left: calc(var(--nav-bar-width) + var(--char-panel-width) +  calc(var(--chat-panel-width) / 2) ) !important;
-  z-index: 10 !important;
-}
-
-#character_popup
-{
-  height: 100vh !important;
-  margin: 4px 0 0 0 !important;
-  border-radius: 8px!important;
-  left: calc(var(--nav-bar-width) + var(--char-panel-width) ) !important;
-}
-
-#sheld {
-  height: 100vh !important;
-  margin: 4px 0 0 0px !important;
-  border-radius: 8px 0px 0 0 !important;
-  left: calc(var(--nav-bar-width) + var(--char-panel-width) ) !important;
-  border-top: 1px solid var(--SmartThemeBorderColor) !important;
-  border-left: 1px solid var(--SmartThemeBorderColor) !important;
-  z-index: 25 !important;
-}
 
 body:has(#right-nav-panel.openDrawer){
   #sheld {
@@ -833,64 +1089,7 @@ body:has(#WorldInfo[style*="display: block;"]):has(#right-nav-panel.openDrawer){
   }
 }
 
-#bg1 {
-  opacity: var(--NSDbgImageOpacity) !important;
-  overflow: hidden !important;
-  border: 0px !important;
-  background-position: center;
-  background-color: var(--NSDSmartThemeBGColor);
-  border-color: transparent !important;
-  border-style: solid !important;
-  margin: 0 0 0 0 !important;
-  left: calc(var(--nav-bar-width) + var(--char-panel-width)) !important;
-  right: var(--right-panels-width) !important;
-  width: var(--center-panels-width) !important;
-}
 
-#character_cross {
-  position: fixed !important;
-  left: calc( var(--char-panel-width) + var(--chat-panel-width)) !important;
-  z-index: 30002;
-  width: 36px;
-}
-
-#right-nav-panel {
-  background-color: var(--NSDSmartThemeBGColor) !important;
-  border-top-left-radius: 12px !important;
-  border-top-right-radius: 0px !important;
-  border-left: 1px solid var(--SmartThemeBorderColor) !important;
-  border-top: 1px solid var(--SmartThemeBorderColor) !important;
-  left: var(--nav-bar-width);
-  width: var(--char-panel-width);
-  height: calc(100svh);
-  z-index: 10 !important;
-  max-height: unset;
-  min-width: unset !important;
-  padding: 0px !important;
-  margin: 0px 0px 0px 0px !important;
-  border: 0;
-  top: 4px !important;
-  border-radius: 0;
-}
-
-#cfgConfig.maximized,
-#vv--root.vv--maximized,
-#logprobsViewer.maximized,
-#floatingPrompt.maximized,
-#notebookPanel.maximized {
-  margin: 0 !important;
-  right: 0;
-  border: 1px solid var(--SmartThemeBorderColor) !important;
-  z-index: 90 !important;
-  width: var(--chat-panel-width) !important;
-  left: calc(var(--nav-bar-width) + var(--char-panel-width) );
-  min-height: 100px !important;
-  max-height: 90dvh !important;
-  border-radius: 0px !important;
-  bottom: 0 !important;
-  height: calc(100svh ) !important;
-  bottom: unset;
-}
 
 #movingDivs > #ctsi-drawer .ctsi-flex-container { 
   display: flex;
@@ -924,7 +1123,7 @@ body:has(#WorldInfo[style*="display: block;"]):has(#right-nav-panel.openDrawer){
 
 #extensionsMenu,
 #options {
-  background-color: var(--SmartThemeBlurTintColor) !important;
+  background-color: var(--NSDThemeBG2Color) !important;
   border-radius: 8px;
   border: 1px solid color-mix(in srgb, var(--SmartThemeBorderColor) 50%, transparent) !important;
 }
@@ -1032,7 +1231,7 @@ body.bubblechat .mes[is_user="false"] {
 }
 
 .inline-drawer-header {
-  background: var(--black50a);
+  background: var(--NSDThemeBG4Color);
   padding: 8px;
 }
 
@@ -1043,7 +1242,7 @@ body.bubblechat .mes[is_user="false"] {
 
 #CustomCSS-block,
 #UI-presets-block {
-  background: var(--black50a);
+  background: var(--NSDThemeBG4Color);
   display: flex;
   border-radius: 8px;
   margin: 4px 0px 12px 0px;
@@ -1064,7 +1263,7 @@ body.bubblechat .mes[is_user="false"] {
 
 .inline-drawer-content {
   padding: 8px;
-  background: var(--black50a);
+  background: var(--NSDThemeBG4Color);
   border-radius: 0px 0px 8px 8px;
 }
 
@@ -1077,7 +1276,7 @@ body.bubblechat .mes[is_user="false"] {
 #extensions_settings2 .inline-drawer-toggle.inline-drawer-header,
 .standoutHeader,
 .userSettingsInnerExpandable {
-  background: var(--black50a);
+  background: var(--NSDThemeBG4Color);
   margin: unset !important;
   padding: 4px 8px;
   margin-bottom: 0px;
@@ -1091,7 +1290,7 @@ body.bubblechat .mes[is_user="false"] {
 }
 
 select {
-  background-color: var(--NSDsmartThemeHiglitesColor) !important;
+  background-color: var(--NSDThemeHiglitesColor) !important;
   border: none;
   color: var(--SmartThemeBodyColor) !important;
 }
@@ -1116,7 +1315,7 @@ body.waifuMode #top-bar{
 
 #top-bar {
   border-bottom: unset;
-  background-color: var(--NSDSmartThemeBGColor);
+  background-color: var(--SmartThemeBlurTintColor1);
   margin: unset;
   width: unset;
   height: unset;
@@ -1132,7 +1331,7 @@ textarea,
 #extensionTopBarSearchInput,
 .drawer-content select,
 #top-settings-holder .text_pole {
-  background-color: var(--NSDsmartThemeHiglitesColor);
+  background-color: var(--NSDThemeHiglitesColor);
   border: 1px solid color-mix(in srgb, var(--SmartThemeBorderColor) 50%, transparent) !important;
   font-size: 14px;
   font-weight: 500;
@@ -1140,6 +1339,10 @@ textarea,
 
 .drawer-content select:has(#send_textarea:focus-visible){
   border: 1px solid var(--SmartThemeBorderColor) !important;
+}
+
+.drawer-content select {
+  margin: 2px;
 }
 
 #send_textarea {
@@ -1167,6 +1370,7 @@ select,
 .textarea_compact {
   border-radius: 8px !important;
 }
+
 .neo-range-input{
   border-radius: 0 0 8px 8px !important;
 }
@@ -1321,6 +1525,7 @@ select,
 #character_popup {
   padding: 0 8px 8px 8px !important;
   z-index: 30000;
+  background-color: var(--NSDThemeBG3Color) !important;
 }
 
 #character_cross{
@@ -1364,7 +1569,7 @@ select,
 }
 
 #top-settings-holder {
-  background-color: var(--NSDSmartThemeBGColor) !important;
+  background-color: var(--SmartThemeBlurTintColor1) !important;
   padding: 8px 0px 8px 0px;
   margin: 0px 0px 0px 0px;
   position: unset;
@@ -1376,9 +1581,7 @@ select,
   width: var(--nav-bar-width);
 }
 
-.drawer-content select {
-  margin: 2px;
-}
+
 
 #user-settings-block{
   padding: 0px !important;
@@ -1386,7 +1589,8 @@ select,
 
 #user-settings-block .flex-container.flexFlowRow.alignitemscenter.spaceBetween{
   border-bottom: 1px solid var(--SmartThemeBorderColor) !important;
-  padding: 8px 8px 8px 8px !important;
+  padding: 8px 8px 0px 8px !important;
+  min-height: 48px !important;
 }
 
 #user-settings-block .flex-container.flexFlowRow{
@@ -1413,7 +1617,7 @@ select,
 }
 
 #user-settings-block h4 {
-  background: var(--black50a);
+  background: var(--NSDThemeBG4Color);
   border: unset !important;
 }
 
@@ -1424,9 +1628,14 @@ select,
 #AdvancedFormatting,
 #rm_extensions_block,
 #user-settings-block{
-  background-color: var(--SmartThemeBlurTintColor) !important;
+  background-color: var(--NSDThemeBG1Color) !important;
   border-right: 1px solid var(--SmartThemeBorderColor) !important;
 }
+
+#rm_extensions_block .extensions_block{
+  padding: 0.5em 0.5em 0 0.5em;
+}
+
 
 body.waifuMode:has(#extensionTopBar) #chat {
   border-radius: 0px !important;
@@ -1450,9 +1659,10 @@ body.waifuMode:has(#extensionTopBar) #chat {
   left: unset;
 }
 
+body.no-blur #send_form,
 body #send_form,
 #send_form.compact {
-  background-color: #222327 !important;
+  background-color: var(--NSDThemeBG3Color) !important;
   border-radius: 8px !important;
   border: 1px solid color-mix(in srgb, var(--SmartThemeBorderColor) 50%, transparent) !important;
 }
@@ -1542,9 +1752,7 @@ body #send_form,
   padding-left: 8px !important;
 }
 
-#extensionTopBarSearchInput {
-  max-width: calc(var(--chat-panel-width) * 0.2) !important;
-}
+
 
 /*********
   stcdx  
@@ -1698,8 +1906,12 @@ body.charListGrid #rm_print_characters_block .bogus_folder_select,
   width: unset !important;
 }
 
-.avatar,
-.avatar img {
+body.charListGrid #rm_print_characters_block .avatar img,
+body.charListGrid #rm_print_characters_block .bogus_folder_select .avatar,
+body.charListGrid #rm_print_characters_block .character_select .avatar,
+body.charListGrid #rm_print_characters_block .group_member .avatar,
+body.big-avatars .avatar,
+body.big-avatars .avatar img {
   width: calc(var(--avatar-base-width) * var(--big-avatar-width-factor)) !important;
   height: calc(var(--avatar-base-height) * var(--big-avatar-height-factor)) !important;
   border-style: none !important;
@@ -1707,14 +1919,18 @@ body.charListGrid #rm_print_characters_block .bogus_folder_select,
   justify-content: center !important;
 }
 
-.avatar img {
+body.charListGrid #rm_print_characters_block .avatar img,
+body.big-avatars .avatar img {
   border-radius: 8px !important;
   border: unset !important;
   object-fit: cover !important;
   object-position: center !important;
 }
 
-.avatar {
+body.charListGrid #rm_print_characters_block .bogus_folder_select .avatar,
+body.charListGrid #rm_print_characters_block .character_select .avatar,
+body.charListGrid #rm_print_characters_block .group_member .avatar,
+body.big-avatars .avatar {
   flex-direction: column !important;
   align-items: center !important;
 }
@@ -1731,10 +1947,10 @@ body.square-avatars .avatar img {
   border: unset !important;
 }
 
-body.charListGrid .bogus_folder_select .avatar,
-body.charListGrid .character_select .avatar,
-body.charListGrid .group_member .avatar,
-body.charListGrid .group_select .avatar_collage {
+body.charListGrid #rm_print_characters_block .bogus_folder_select .avatar,
+body.charListGrid #rm_print_characters_block .character_select .avatar,
+body.charListGrid #rm_print_characters_block .group_member .avatar,
+body.charListGrid #rm_print_characters_block .group_select .avatar_collage {
   --big-avatar-height-factor: 2.4;
   --big-avatar-width-factor: 1.6;
   --big-avatar-border-factor: 5;
@@ -1744,7 +1960,21 @@ body.charListGrid .group_select .avatar_collage {
   gap:unset !important;
 }
 
+.avatar img {
+  width: calc(var(--avatar-base-width) * var(--avatar-width-factor)) !important;
+  height: calc(var(--avatar-base-height) * var(--avatar-height-factor)) !important;
+}
+
+.avatar
+{
+  width: calc(var(--avatar-base-width) * var(--avatar-width-factor)) !important;
+  height: calc(var(--avatar-base-height) * var(--avatar-height-factor)) !important;
+}
+
 .hotswap.avatars_inline .avatar {
+  --avatar-height-factor: 0.5 !important;
+  --avatar-width-factor: 0.5 !important;
+  --avatar-border-factor: 5 !important;
   --big-avatar-height-factor: 0.6 !important;
   --big-avatar-width-factor: 0.4 !important;
   --big-avatar-border-factor: 5 !important;
@@ -1765,7 +1995,7 @@ body.charListGrid .group_select .avatar_collage {
   overflow: hidden !important;
   background: linear-gradient(135deg, #2a2a2a 25%, #1e1e1e 75%);
   border-radius: 8px !important;
-  padding: 0px 0px 0px 6px !important;
+  padding: 0px 0px 0px 8px !important;
 }
 
 .character_select.is_fav .avatar,
@@ -1800,7 +2030,7 @@ body #rm_print_characters_block .group_select,
 .bogus_folder_select:hover,
 .character_select:hover,
 .group_select:hover {
-  background: linear-gradient(225deg, var(--SmartThemeBlurTintColor) 70%, var(--NSDSmartThemeBGColor) 98%) !important;
+  background: linear-gradient(225deg, var(--SmartThemeBlurTintColor) 70%, var(--SmartThemeBlurTintColor1) 98%) !important;
 }
 
 /* Only apply to browsers that don't support position-anchor */
@@ -1911,33 +2141,9 @@ body.bubblechat .welcomePanel{
 }
 
 
-.resizeHandle {
-    position: fixed;
-    width: 8px;
-    cursor: ew-resize;
-    flex-shrink: 0;
-    height: 100%;
-    z-index: 500;
-    background: transparent;
-    transition: background-color 0.2s;
-    pointer-events: auto;
-    left: calc(var(--nav-bar-width) + var(--char-panel-width) + var(--chat-panel-width));
-    
-}
-
 .resizeHandle:hover,
 .resizeHandle:active {
     background: var(--SmartThemeBorderColor);
-}
-
-.resizeHandle::after {
-    content: '';
-    position: absolute;
-    transform: translateY(-50%);
-    width: 8px;
-    background: var(--SmartThemeBorderColor);
-    left: calc(var(--nav-bar-width) + var(--char-panel-width) + var(--chat-panel-width));
-    opacity: 0.5;
 }
 
 .resizeHandle:hover::after {
