@@ -20,11 +20,11 @@ MIT License
   --NSDlistGrid-char-panel-width: 580;
   --NSDnormal-char-panel-width: 420;
 
-  --NSDAnimation-duration: 0.5;
+  --NSDAnimation-duration: 0;
 
   --NSDexpressionVisibility: collapse;
   --NSDexpressionWidth: 512;
-  --NSDbgImageOpacity: 0.25;
+  --NSDbgImageOpacity: 1;
 
   --NSDThemeBG1Color: rgb(26, 26, 30);
   --NSDThemeBG2Color: rgb(40, 40, 45);
@@ -494,6 +494,7 @@ body:has(#gallery.draggable) {
   margin: 0 !important;
   border-radius: 0px;
   border-top-right-radius: 8px !important;
+  border-top-left-radius: 8px !important;
   border-bottom-right-radius: 8px !important;
   z-index: 20 !important;
   top: 4px;
@@ -542,8 +543,6 @@ body.waifuMode .zoomed_avatar {
   margin: 4px 0 0 0px !important;
   border-radius: 8px 0px 0 0 !important;
   left: var(--chat-panel-left-offset) !important;
-  border-top: 1px solid var(--SmartThemeBorderColor) !important;
-  border-left: 1px solid var(--SmartThemeBorderColor) !important;
   z-index: 25 !important;
 }
 
@@ -556,8 +555,10 @@ body.waifuMode .zoomed_avatar {
   border-color: transparent !important;
   border-style: solid !important;
   margin: 0 0 0 0 !important;
+  /*
   left: var(--chat-panel-left-offset) !important;
   right: var(--right-panels-width) !important;
+  */
 }
 
 #character_cross {
@@ -693,6 +694,11 @@ textarea {
   padding: 0px !important;
   max-height: unset;
   width: var(--chat-panel-width);
+}
+
+#chat {
+  border-top: 1px solid var(--SmartThemeBorderColor) !important;
+  border-left: 1px solid var(--SmartThemeBorderColor) !important;
 }
 
 .popup-body,
@@ -1045,15 +1051,18 @@ input[type="checkbox"]:checked:hover {
 #WorldInfo {
   padding: 0px !important;
   background-color: var(--NSDThemeBG3Color) !important;
+  border-top-left-radius: 8px !important;
 }
 
 #stqrd--drawer-v2,
 .stqrd--editorPanel:is(body > *) {
   padding-bottom: 4px !important;
+  border-top-left-radius: 8px !important;
 }
 
 .prism-code-editor{
   --editor__bg: var(--SmartThemeChatTintColor) !important;
+  border-top-left-radius: 8px !important;
 }
 
 #stqrd--drawer-v2 .stqrd--body,
@@ -1064,6 +1073,10 @@ input[type="checkbox"]:checked:hover {
 
 body:has(#right-nav-panel.openDrawer){
   #sheld {
+    border-top-left-radius: 0px !important;
+  }
+
+  .drawer-content {
     border-top-left-radius: 0px !important;
   }
 }
@@ -1108,7 +1121,8 @@ body:has(#WorldInfo[style*="display: block;"]):has(#right-nav-panel.openDrawer){
 #extensionTopBar {
   border-radius: 0px !important;
   background-color: var(--SmartThemeChatTintColor) !important;
-  border-bottom: 1px solid var(--SmartThemeBorderColor) !important;
+  border-top: 1px solid var(--SmartThemeBorderColor) !important;
+  border-left: 1px solid var(--SmartThemeBorderColor) !important;
   border: unset;
   height: 48px !important;
 }
