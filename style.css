@@ -1079,6 +1079,11 @@ body:has(#right-nav-panel.openDrawer){
   .drawer-content {
     border-top-left-radius: 0px !important;
   }
+  
+  #right-nav-panel {
+    border-top-left-radius: 12px !important;
+  }
+
 }
 
 body:has(.stqrd--editorPanel),
@@ -1533,6 +1538,7 @@ select,
   margin: unset !important;
   padding:  0px 8px 16px 8px !important;
   background-color: var(--SmartThemeChatTintColor) !important;
+  border-left: 1px solid var(--SmartThemeBorderColor) !important;
 }
 
 
