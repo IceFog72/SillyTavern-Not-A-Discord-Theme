@@ -634,19 +634,6 @@ body.waifuMode .zoomed_avatar {
     opacity: 0.5;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 * {
     box-shadow: unset !important;
 }
@@ -1079,10 +1066,17 @@ body:has(#right-nav-panel.openDrawer){
   .drawer-content {
     border-top-left-radius: 0px !important;
   }
-  
+
   #right-nav-panel {
     border-top-left-radius: 12px !important;
   }
+
+  #stqrd--drawer-v2,
+  .stqrd--editorPanel:is(body > *),
+  #WorldInfo {
+    border-top-left-radius: 8px !important;
+  }
+
 
 }
 
