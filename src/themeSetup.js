@@ -11,6 +11,7 @@ export class ThemeSetup {
 
     async initialize() {
         eventSource.on(event_types.APP_READY, () => {
+            jQuery.fx.off = true;
             this.isAppReady = true;
             createHiddenWidthDiv();
             watchForExpressionChangesAndResize();
