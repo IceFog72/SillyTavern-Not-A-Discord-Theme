@@ -40,51 +40,79 @@ export function watchForExpressionChangesAndResize() {
         e.preventDefault();
     }
 
+    let pendingResizeWrites = [];
+    let resizeScheduled = false;
+    let frameCounter = 0;
+
+    function scheduleResizeWrites() {
+        if (!resizeScheduled) {
+            resizeScheduled = true;
+            requestAnimationFrame(() => {
+                frameCounter++;
+                // Only run writes every 2nd frame (i.e., skip every other frame)
+                //if (frameCounter % 2 === 0) {
+                    while (pendingResizeWrites.length) {
+                        const write = pendingResizeWrites.shift();
+                        write();
+                    }
+                //}
+                resizeScheduled = false;
+            });
+        }
+    }
+
     function resize(e) {
         isResizing = true;
+        // Read values
         const diff = startX - e.clientX;
+        pendingResizeWrites.push(() => {
 
-        let maxWidth = getComputedStyle(body).getPropertyValue('--expression-image-lorebook-width').trim();
+            let maxWidth = getComputedStyle(body).getPropertyValue('--expression-image-lorebook-width').trim();
+            if (isNaN(maxWidth)) {
+                maxWidth = hiddenRef2?.clientWidth || 0;
+            } else {
+                maxWidth = parseInt(maxWidth, 10);
+                if (isNaN(maxWidth)) return;
+            }
+            
 
-        if (isNaN(maxWidth)) {
-            maxWidth = hiddenRef2?.clientWidth || 0;
-        } else {
-            maxWidth = parseInt(maxWidth, 10);
-            if (isNaN(maxWidth)) return;
-        }
+            const hasZoomedAvatar = !!body.querySelector('.zoomed_avatar.draggable:not([style*="display: none"])');
+            const hasValidExpression = wrapper && 
+                image && 
+                image.src && 
+                image.src !== 'undefined' &&
+                image.src !== window.location.href &&
+                !wrapper.matches('[style*="display: none"]') &&
+                !image.matches('[style*="display: none"]');
+            const hasNoVisiblePanels = 
+                (worldInfo?.style.display !== 'block' || worldInfo?.style.display !== '') &&
+                (drawer?.style.display !== 'block' || drawer?.style.display !== '');
 
-        const hasZoomedAvatar = !!body.querySelector('.zoomed_avatar.draggable:not([style*="display: none"])');
-        const hasValidExpression = wrapper && 
-            image && 
-            image.src && 
-            image.src !== 'undefined' &&
-            image.src !== window.location.href &&
-            !wrapper.matches('[style*="display: none"]') &&
-            !image.matches('[style*="display: none"]');
-        const hasNoVisiblePanels = 
-            (worldInfo?.style.display !== 'block' || worldInfo?.style.display !== '') &&
-            (drawer?.style.display !== 'block' || drawer?.style.display !== '');
+            const newWidth = Math.max(8, Math.min(startWidth + diff, maxWidth, window.innerWidth * 0.8));
 
-        const newWidth = Math.max(8, Math.min(startWidth + diff, maxWidth, window.innerWidth * 0.8));
+            const worldInfoHidden = worldInfo?.style.display === 'none' || worldInfo?.style.display === '';
+            const drawerHidden = drawer === null || drawer?.style.display === 'none' || drawer?.style.display === '';
+            const shouldHideContent = !(hasZoomedAvatar || hasValidExpression) || body.classList.contains('waifuMode');
+            const shouldRemoveWidth = newWidth < 128 || 
+                (worldInfoHidden && (drawer === null ? true : drawerHidden) && shouldHideContent && hasNoVisiblePanels);
 
-        const worldInfoHidden = worldInfo?.style.display === 'none' || worldInfo?.style.display === '';
-        const drawerHidden = drawer === null || drawer?.style.display === 'none' || drawer?.style.display === '';
-        const shouldHideContent = !(hasZoomedAvatar || hasValidExpression) || body.classList.contains('waifuMode');
+            // Batch the write
         
-        const shouldRemoveWidth = newWidth < 128 || 
-            (worldInfoHidden && (drawer === null ? true : drawerHidden) && shouldHideContent && hasNoVisiblePanels);
+            if (shouldRemoveWidth) {
+                body.style.removeProperty('--expression-image-lorebook-width');
+            } else {
+                body.style.setProperty('--expression-image-lorebook-width', `${newWidth}px`, 'important');
+            }
+        });
 
-        if (shouldRemoveWidth) {
-            body.style.removeProperty('--expression-image-lorebook-width');
-        } else {
-            body.style.setProperty('--expression-image-lorebook-width', `${newWidth}px`, 'important');
-        }
+        scheduleResizeWrites();
     }
 
     function stopResize() {
         document.removeEventListener('mousemove', resize);
         document.removeEventListener('mouseup', stopResize);
         isResizing = false;
+        frameCounter = 0;
     }
 
     // Expression changes check function
