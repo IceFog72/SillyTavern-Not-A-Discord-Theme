@@ -1,32 +1,38 @@
-# SillyTavern-Not-A-Discord-Theme 
+# README.md
 
-Simple extension without anything, only adds css to ST page, to simplify updates (I'm thinking/working on theme manager extension)
+# Not A Discord Theme
 
-You will need:
-1. https://github.com/IceFog72/SillyTavern-CustomThemeStyleInputs
-2. https://github.com/LenAnderson/SillyTavern-CssSnippets
-3. Turn off other themes
-4. Install theme extension https://github.com/IceFog72/SillyTavern-Not-A-Discord-Theme
-5. Get files as: 
-  - Not a Discord Theme v1.json ST color theme
-  - Big-Avatars-SillyTavern-CSS-Snippets-2025-04-16.json CssSnippet file if you want big avatars
+## Overview
 
-from Resources folder in Extension or https://github.com/IceFog72/SillyTavern-Not-A-Discord-Theme/tree/main/Resources and apply them
+Not A Discord Theme is a customizable theme extension designed to enhance the user interface of the application. This project allows users to modify various aspects of the theme through a settings interface.
 
-What I recommended to have too:
+## Features
 
-- https://github.com/LenAnderson/SillyTavern-WorldInfoDrawer
-- https://github.com/SillyTavern/Extension-TopInfoBar
+- Customizable theme settings
+- Responsive design with adjustable elements
+- Mutation observers for dynamic updates
+- Easy integration with existing applications
 
-if you are using QuickReplies:
+## Installation
 
-- https://github.com/IceFog72/SillyTavern-SimpleQRBarToggle
-- https://github.com/LenAnderson/SillyTavern-QuickRepliesDrawer
+To install the project, clone the repository and run the following command:
 
-## Feedback
+```bash
+npm install
+```
 
-My discord [https://discord.gg/2tJcWeMjFQ](https://discord.gg/2tJcWeMjFQ)
+## Usage
 
+To start the application, use the following command:
 
+```bash
+npm start
+```
 
-[ko-fi](https://ko-fi.com/icefog72)
+## Contributing
+
+Contributions are welcome! Please submit a pull request or open an issue for any suggestions or improvements.
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for details.
