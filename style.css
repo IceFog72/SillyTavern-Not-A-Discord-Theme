@@ -76,7 +76,7 @@ body:has(#bg1) {
   --lat--color-bgSecondary: var(--SmartThemeBlurTintColor) !important;
   --stqrd--color-borderSecondary: var(--SmartThemeBorderColor) !important;
   --stqrd--color-bgPrimary: var(--NSDThemeBG2Color) !important;
-
+  --secondaryBg : var(--NSDThemeBG2Color) !important;
   
 
   scrollbar-width: thin;
@@ -110,6 +110,7 @@ body:has(#bg1) {
   --panel-extension-visible: 0;
   --panel-lvm-visible: 0;
   --panel-ctsi-visible: 0;
+  --panel-ts-visible: 0;
   --panel-vv-visible: 0;
   --panel-notebook-visible: 0;
   --panel-codex-visible: 0;
@@ -129,6 +130,7 @@ body:has(#bg1) {
      var(--panel-extension-visible) + 
      var(--panel-lvm-visible) + 
      var(--panel-ctsi-visible) + 
+     var(--panel-ts-visible) + 
      var(--panel-vv-visible) + 
      var(--panel-notebook-visible) + 
      var(--panel-codex-visible) + 
@@ -148,10 +150,11 @@ body:has(#bg1) {
   --panel-extension-offset: calc((var(--panel-settings-visible) + var(--panel-notes-visible) + var(--panel-gallery-visible) + var(--panel-summary-visible) + var(--panel-members-visible) + var(--panel-tracker-visible) + var(--panel-cfg-visible) + var(--panel-objective-visible) + var(--panel-inject-visible)) * var(--panel-base-width));
   --panel-lvm-offset: calc((var(--panel-settings-visible) + var(--panel-notes-visible) + var(--panel-gallery-visible) + var(--panel-summary-visible) + var(--panel-members-visible) + var(--panel-tracker-visible) + var(--panel-cfg-visible) + var(--panel-objective-visible) + var(--panel-inject-visible) + var(--panel-extension-visible)) * var(--panel-base-width));
   --panel-ctsi-offset: calc((var(--panel-settings-visible) + var(--panel-notes-visible) + var(--panel-gallery-visible) + var(--panel-summary-visible) + var(--panel-members-visible) + var(--panel-tracker-visible) + var(--panel-cfg-visible) + var(--panel-objective-visible) + var(--panel-inject-visible) + var(--panel-extension-visible) + var(--panel-lvm-visible)) * var(--panel-base-width));
-  --panel-vv-offset: calc((var(--panel-settings-visible) + var(--panel-notes-visible) + var(--panel-gallery-visible) + var(--panel-summary-visible) + var(--panel-members-visible) + var(--panel-tracker-visible) + var(--panel-cfg-visible) + var(--panel-objective-visible) + var(--panel-inject-visible) + var(--panel-extension-visible) + var(--panel-lvm-visible) + var(--panel-ctsi-visible)) * var(--panel-base-width));
-  --panel-notebook-offset: calc((var(--panel-settings-visible) + var(--panel-notes-visible) + var(--panel-gallery-visible) + var(--panel-summary-visible) + var(--panel-members-visible) + var(--panel-tracker-visible) + var(--panel-cfg-visible) + var(--panel-objective-visible) + var(--panel-inject-visible) + var(--panel-extension-visible) + var(--panel-lvm-visible) + var(--panel-ctsi-visible) + var(--panel-vv-visible)) * var(--panel-base-width));
-  --panel-codex-offset: calc((var(--panel-settings-visible) + var(--panel-notes-visible) + var(--panel-gallery-visible) + var(--panel-summary-visible) + var(--panel-members-visible) + var(--panel-tracker-visible) + var(--panel-cfg-visible) + var(--panel-objective-visible) + var(--panel-inject-visible) + var(--panel-extension-visible) + var(--panel-lvm-visible) + var(--panel-ctsi-visible) + var(--panel-vv-visible) + var(--panel-notebook-visible)) * var(--panel-base-width));
-  --panel-logprobs-offset: calc((var(--panel-settings-visible) + var(--panel-notes-visible) + var(--panel-gallery-visible) + var(--panel-summary-visible) + var(--panel-members-visible) + var(--panel-tracker-visible) + var(--panel-cfg-visible) + var(--panel-objective-visible) + var(--panel-inject-visible) + var(--panel-extension-visible) + var(--panel-lvm-visible) + var(--panel-ctsi-visible) + var(--panel-vv-visible) + var(--panel-notebook-visible) + var(--panel-codex-visible)) * var(--panel-base-width));
+  --panel-ts-offset: calc((var(--panel-settings-visible) + var(--panel-notes-visible) + var(--panel-gallery-visible) + var(--panel-summary-visible) + var(--panel-members-visible) + var(--panel-tracker-visible) + var(--panel-cfg-visible) + var(--panel-objective-visible) + var(--panel-inject-visible) + var(--panel-extension-visible) + var(--panel-lvm-visible) + var(--panel-ctsi-visible)) * var(--panel-base-width));
+  --panel-vv-offset: calc((var(--panel-settings-visible) + var(--panel-notes-visible) + var(--panel-gallery-visible) + var(--panel-summary-visible) + var(--panel-members-visible) + var(--panel-tracker-visible) + var(--panel-cfg-visible) + var(--panel-objective-visible) + var(--panel-inject-visible) + var(--panel-extension-visible) + var(--panel-lvm-visible) + var(--panel-ctsi-visible) + var(--panel-ts-visible)) * var(--panel-base-width));
+  --panel-notebook-offset: calc((var(--panel-settings-visible) + var(--panel-notes-visible) + var(--panel-gallery-visible) + var(--panel-summary-visible) + var(--panel-members-visible) + var(--panel-tracker-visible) + var(--panel-cfg-visible) + var(--panel-objective-visible) + var(--panel-inject-visible) + var(--panel-extension-visible) + var(--panel-lvm-visible) + var(--panel-ctsi-visible) + var(--panel-ts-visible) + var(--panel-vv-visible)) * var(--panel-base-width));
+  --panel-codex-offset: calc((var(--panel-settings-visible) + var(--panel-notes-visible) + var(--panel-gallery-visible) + var(--panel-summary-visible) + var(--panel-members-visible) + var(--panel-tracker-visible) + var(--panel-cfg-visible) + var(--panel-objective-visible) + var(--panel-inject-visible) + var(--panel-extension-visible) + var(--panel-lvm-visible) + var(--panel-ctsi-visible) + var(--panel-ts-visible) + var(--panel-vv-visible) + var(--panel-notebook-visible)) * var(--panel-base-width));
+  --panel-logprobs-offset: calc((var(--panel-settings-visible) + var(--panel-notes-visible) + var(--panel-gallery-visible) + var(--panel-summary-visible) + var(--panel-members-visible) + var(--panel-tracker-visible) + var(--panel-cfg-visible) + var(--panel-objective-visible) + var(--panel-inject-visible) + var(--panel-extension-visible) + var(--panel-lvm-visible) + var(--panel-ctsi-visible) + var(--panel-ts-visible) + var(--panel-vv-visible) + var(--panel-notebook-visible) + var(--panel-codex-visible)) * var(--panel-base-width));
   
 
   --expression-image-lorebook-width: 0px;
@@ -252,8 +255,16 @@ body:has(#ctsi-drawer.maximized) {
   --panel-ctsi-visible: 1 !important;
 }
 
+body:has(#ts-drawer.maximized) {
+  --panel-ts-visible: 1 !important;
+}
+
 body:has(#ctsi-drawer.flexFlowColumn) {
   --panel-ctsi-visible: 0;
+}
+
+body:has(#ts-drawer.flexFlowColumn) {
+  --panel-ts-visible: 0;
 }
 
 body:has(#floatingPrompt:is([style*="display: flex; opacity: 1;"])) {
@@ -302,6 +313,7 @@ body:has(#gallery.draggable) {
 #notebookPanel,
 #vv--root,
 #movingDivs > #ctsi-drawer,
+#movingDivs > #ts-drawer,
 #lvm--root,
 #extensionSideBar,
 #injectManagerSideBar,
@@ -402,19 +414,26 @@ body:has(#gallery.draggable) {
 }
 
 /*14*/
+#movingDivs > #ts-drawer {
+  right: var(--panel-ts-offset) !important;
+  background-color: var(--SmartThemeChatTintColor) !important;
+  filter: unset;
+  transition: none;
+}
+/*15*/
 #vv--root {
   right: var(--panel-vv-offset) !important;
   background-color: var(--SmartThemeChatTintColor) !important;
   border: unset !important;
 }
 
-/*15*/
+/*16*/
 #notebookPanel {
   right: var(--panel-notebook-offset) !important;
   background-color: var(--SmartThemeChatTintColor) !important;
 }
 
-/*16*/
+/*17*/
 .stcdx--root {
   right: var(--panel-codex-offset) !important;
   background-color: var(--SmartThemeChatTintColor) !important;
@@ -423,13 +442,13 @@ body:has(#gallery.draggable) {
   border-bottom: unset !important;
   border-right: unset !important;
 }
-/*17*/
+/*18*/
 #logprobsViewer:not(.maximized) {
   right: var(--panel-logprobs-offset) !important;
   background-color: var(--SmartThemeChatTintColor) !important;
 }
 
-/*18*/
+/*19*/
 .stqrd--editorPanel:is(body > *),
 #stqrd--drawer-v2,
 #WorldInfo,
@@ -751,6 +770,11 @@ hr {
   padding: 8px !important;
 }
 
+#form_character_search_form .menu_button, #GroupFavDelOkBack .menu_button{
+
+  height: unset !important;
+}
+
 #WorldInfo .menu_button {
   margin: 0 !important;
 }
@@ -994,7 +1018,9 @@ input[type="checkbox"]:checked:hover {
 .stqrd--editorPanel:is(body > *),
 #stqrd--drawer-v2,
 #left-nav-panel,
-#ctsi-drawer{
+#ctsi-drawer,
+#ts-drawer
+{
   border-left: 1px solid var(--SmartThemeBorderColor) !important;
   border-top: 1px solid var(--SmartThemeBorderColor) !important;
   border-right: unset !important;
@@ -1020,7 +1046,8 @@ input[type="checkbox"]:checked:hover {
 .stqrd--editorPanel:is(body > *),
 #stqrd--drawer-v2,
 #WorldInfo,
-#movingDivs > #ctsi-drawer{
+#movingDivs > #ctsi-drawer,
+#movingDivs > #ts-drawer{
   z-index: 40 !important;
   bottom: 0 !important;
   top: 4px !important;
@@ -1102,7 +1129,7 @@ body:has(#WorldInfo[style*="display: block;"]):has(#right-nav-panel.openDrawer){
 }
 
 
-
+#movingDivs > #ts-drawer .ts-flex-container,
 #movingDivs > #ctsi-drawer .ctsi-flex-container { 
   display: flex;
   flex-direction: column;
@@ -1444,12 +1471,16 @@ select,
 }
 
 /*********
-  Edited Wolfsblvt hide topListAvatButtons
+  Adapted Wolfsblvt hide topListAvatButtons
 *********/
 @media screen and (min-width: 1000px) {
-  #charListFixedTop {
+
+
+  #charListFixedTop.popout {
     display: none;
+    transition: all var(--animation-duration-slow) ease-in-out;
     transform-origin: left top;
+    animation: pop-out var(--animation-duration-slow) ease-in-out;
   }
 
   #rm_ch_create_block
@@ -1464,13 +1495,14 @@ select,
     margin: 0px !important;
   }
 
-  #right-nav-panel:has(#rm_PinAndTabs:hover, #rm_PinAndTabs:focus-within) #charListFixedTop,
-  #charListFixedTop:hover,
-  #charListFixedTop:focus-within {
+  #right-nav-panel:has(#rm_PinAndTabs:hover, #rm_PinAndTabs:focus-within) #charListFixedTop.popout,
+  #charListFixedTop.popout:hover,
+  #charListFixedTop.popout:focus-within {
     display: block;
+    animation: pop-in var(--animation-duration-slow) ease-in-out;
   }
 
-  #right-nav-panel:has(#charListFixedTop:hover, #charListFixedTop:focus-within) #rm_PinAndTabs {
+  #right-nav-panel:has(#charListFixedTop.popout:hover, #charListFixedTop.popout:focus-within) #rm_PinAndTabs {
     display: block;
   }
 
@@ -1493,7 +1525,40 @@ select,
   #right-nav-panel:has(#rm_PinAndTabs:hover, #rm_PinAndTabs:focus-within, #charListFixedTop:hover, #charListFixedTop:focus-within) #rm_button_selected_ch h2::before {
     content: "\f139";
   }
+
+  @keyframes pop-in {
+    0% {
+        opacity: 0;
+        transform: scaleY(0);
+    }
+
+    /* Make the scaling faster on pop-in, otherwise it looks a bit weird */
+    33% {
+        transform: scaleY(1);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scaleY(1);
+    }
 }
+
+@keyframes pop-out {
+    0% {
+        opacity: 1;
+        transform: scaleY(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scaleY(0);
+    }
+}
+
+}
+
+
+
 /*********/
 
 .hotswap {
@@ -2162,4 +2227,35 @@ body.bubblechat .welcomePanel{
 
 .resizeHandle:hover::after {
     opacity: 1;
+}
+
+
+.ts-container {
+    gap: 1rem;
+    padding: 0px !important;
+}
+.ts-button-container {   
+    display: flex;
+    justify-content: flex-end;
+}
+.ts-flex-container {
+    gap: 1rem;
+    padding: 6px;
+}
+
+.ts-drawer-content {
+    position: fixed;
+    padding: 10px;
+    padding-top: 25px;
+    background-color: var(--SmartThemeBlurTintColor) !important;
+    min-width: 100px !important;
+    max-width: 90dvw;
+    right: unset;
+    overflow-y: auto;
+    flex-direction: column;
+    padding: 1rem;
+    z-index: 4000 !important;
+    border-radius: 6px;
+    padding: 12px;
+    max-height: calc(100dvh - calc(var(--topBarBlockSize) + var(--bottomFormBlockSize)) + var(--theme-margin));
 }

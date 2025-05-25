@@ -1,7 +1,7 @@
 import { throttle } from './domUtils.js';
 
 
-export function watchForExpressionChangesAndResize() {
+export function watchForChangesAndResize() {
     const body = document.body;
     let worldInfo = document.getElementById('WorldInfo');
     let drawer = document.getElementById('stqrd--drawer-v2');
