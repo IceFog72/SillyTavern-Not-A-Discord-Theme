@@ -1,38 +1,31 @@
-# README.md
+# SillyTavern-Not-A-Discord-Theme 
 
-# Not A Discord Theme
+Simple extension without anything, only adds css to ST page, to simplify updates (I'm thinking/working on theme manager extension)
 
-## Overview
+You will need:
 
-Not A Discord Theme is a customizable theme extension designed to enhance the user interface of the application. This project allows users to modify various aspects of the theme through a settings interface.
+1. https://github.com/LenAnderson/SillyTavern-CssSnippets if 
+2. Turn off other themes
+3. Install theme extension https://github.com/IceFog72/SillyTavern-Not-A-Discord-Theme
+4. Get theme file from Resources: 
+  - Not a Discord Theme.json
+from Resources folder in Extension or https://github.com/IceFog72/SillyTavern-Not-A-Discord-Theme/tree/main/Resources and apply it
 
-## Features
+What I recommended to have too:
 
-- Customizable theme settings
-- Responsive design with adjustable elements
-- Mutation observers for dynamic updates
-- Easy integration with existing applications
+- https://github.com/LenAnderson/SillyTavern-WorldInfoDrawer
+- https://github.com/SillyTavern/Extension-TopInfoBar
+- https://github.com/LenAnderson/SillyTavern-CssSnippets
 
-## Installation
+if you are using QuickReplies:
 
-To install the project, clone the repository and run the following command:
+- https://github.com/IceFog72/SillyTavern-SimpleQRBarToggle
+- https://github.com/LenAnderson/SillyTavern-QuickRepliesDrawer
 
-```bash
-npm install
-```
+## Feedback
 
-## Usage
+My discord [https://discord.gg/2tJcWeMjFQ](https://discord.gg/2tJcWeMjFQ)
 
-To start the application, use the following command:
 
-```bash
-npm start
-```
 
-## Contributing
-
-Contributions are welcome! Please submit a pull request or open an issue for any suggestions or improvements.
-
-## License
-
-This project is licensed under the MIT License. See the LICENSE file for details.
+[ko-fi](https://ko-fi.com/icefog72)
