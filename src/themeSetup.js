@@ -1,9 +1,11 @@
-import { eventSource, event_types } from '../../../../../script.js';
+import { eventSource, event_types, getSlideToggleOptions} from '../../../../../script.js';
 import { createHiddenWidthDiv } from './domUtils.js';
 import { watchForChangesAndResize } from './expressionResize.js';
 import { setDrawerClasses } from './drawer.js';
 import { positionAnchor } from './positionAnchor.js';
 import { addStyle } from './chatStyle.js';
+import { drawerClickOverride } from './drawerClickOverride.js';
+
 
 import ThemeSettingsManager from './themeSettingsManager.js';
 
@@ -167,8 +169,6 @@ export class ThemeSetup {
             fixedTop.className='';
         }
     }
-    
-    
 
     async initialize() {
         eventSource.on(event_types.APP_READY, () => {
@@ -180,12 +180,13 @@ export class ThemeSetup {
             setDrawerClasses();
             positionAnchor();
             addStyle();
+            drawerClickOverride();
            
             // Add theme settings UI
             this.addThemeSettings();
         });
     }
-    
+
     addThemeSettings() {
         // Add settings to a specific location - adjust selector as needed
         this.themeManager.addSettings(
@@ -215,3 +216,4 @@ export class ThemeSetup {
         this.themeManager.registerCallback(varId, callback);
     }
 }
+

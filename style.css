@@ -999,6 +999,7 @@ input[type="checkbox"]:checked:hover {
   border-left: 1px solid var(--SmartThemeBorderColor) !important;
   border-top: 1px solid var(--SmartThemeBorderColor) !important;
   border-right: 1px solid var(--SmartThemeBorderColor);
+  content-visibility: auto !important;
 }
 
 #gallery,
@@ -1024,11 +1025,11 @@ input[type="checkbox"]:checked:hover {
   border-left: 1px solid var(--SmartThemeBorderColor) !important;
   border-top: 1px solid var(--SmartThemeBorderColor) !important;
   border-right: unset !important;
+
 }
 
 #trackerInterface,
 #trackerUI,
-.drawer-conten,
 .stcdx--root,
 #left-nav-panel.drawer-content,
 #gallery,
@@ -2258,4 +2259,10 @@ body.bubblechat .welcomePanel{
     border-radius: 6px;
     padding: 12px;
     max-height: calc(100dvh - calc(var(--topBarBlockSize) + var(--bottomFormBlockSize)) + var(--theme-margin));
+}
+
+#sysprompt_content,
+#context_story_string{
+
+  min-height: 240px;
 }
