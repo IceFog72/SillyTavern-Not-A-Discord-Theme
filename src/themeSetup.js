@@ -37,6 +37,16 @@ export class ThemeSetup {
             },
             {
                 "type": "slider",
+                "varId": "NSDMesFontSize",
+                "displayText": "Message Font Size",
+                "default": "15",
+                "min": 8,
+                "max": 36,
+                "step": 1,
+                "controlType": "css"
+            },
+            {
+                "type": "slider",
                 "varId": "NSDbgImageOpacity",
                 "displayText": "Bg Image Opacity",
                 "default": "1",
@@ -142,7 +152,7 @@ export class ThemeSetup {
     
     // JavaScript functions that will be called by the controls
     toggleAnimations(enabled) {
-        console.log(`[ThemeSetup] Animations ${enabled ? 'enabled' : 'disabled'}`);
+        console.log(`[NADTheme] jQuery.fx.off Animations ${enabled ? 'enabled' : 'disabled'}`);
         
         if (enabled){
             jQuery.fx.off = false;

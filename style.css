@@ -26,10 +26,15 @@ MIT License
   --NSDexpressionWidth: 512;
   --NSDbgImageOpacity: 1;
 
-  --NSDThemeBG1Color: rgb(26, 26, 30);
-  --NSDThemeBG2Color: rgb(40, 40, 45);
-  --NSDThemeBG3Color: rgb(34, 35, 39);
+  --NSDThemeBG1Color: rgb(26, 26, 30, 1);
+  --NSDThemeBG2Color: rgb(40, 40, 45, 1);
+  --NSDThemeBG3Color: rgb(34, 35, 39, 1);
   --NSDThemeBG4Color: color-mix(in oklab,var(--neutral-79) 100%,var(--theme-base-color,#000) var(--theme-base-color-amount,0%));
+
+  --NSDTheme1Color: rgb(102, 103, 113, 1);
+
+  --NSDMesFontScale: 1;
+  --NSDMesFontSize: calc(var(--fontScale) * 15px);
 
 
   --button-filled-brand-background: var(--SmartThemeUnderlineColor);
@@ -69,7 +74,13 @@ MIT License
   --avatar-height-factor: 1;
   --avatar-width-factor: 1;
 
+
+  scrollbar-color: var(--NSDTheme1Color) transparent;
+  scroll-behavior: smooth !important;
 }
+
+
+
 
 body:has(#bg1) {
   --lat--color-accent: var(--white50a) !important;
@@ -78,10 +89,10 @@ body:has(#bg1) {
   --stqrd--color-bgPrimary: var(--NSDThemeBG2Color) !important;
   --secondaryBg : var(--NSDThemeBG2Color) !important;
   
-
+/*
   scrollbar-width: thin;
-  scrollbar-color: #666771 var(--SmartThemeBlurTintColor) !important;
-  scroll-behavior: smooth !important;
+  scrollbar-color: #666771 var(--SmartThemeBlurTintColor) !important;*/
+
   background-color: var(--SmartThemeBlurTintColor);
   display: flex;
 
@@ -655,6 +666,7 @@ body.waifuMode .zoomed_avatar {
 
 * {
     box-shadow: unset !important;
+    
 }
 
 #WI_panel_pin_div{
@@ -1246,6 +1258,8 @@ body.bubblechat .mes[is_user="false"] {
 
 .mes_text {
   padding: 5px!important;
+  font-size: calc(var(--NSDMesFontSize) * 1px);
+  line-height: calc(var(--NSDMesFontSize) + .5rem);
 }
 
 .mes_reasoning_header{
@@ -1256,9 +1270,11 @@ body.bubblechat .mes[is_user="false"] {
   border-radius: 8px 0px 0px 0px !important;
   font-size: calc(var(--mainFontSize) * 0.7);
 }
+
 .mes_reasoning_header:has(.up) {
   border-radius: 8px 0px 0px 0px !important;
 }
+
 .mes_reasoning{
   color: var(--SmartThemeEmColor) !important;
   border-radius: 0px 8px 0px 0px !important;
@@ -2240,7 +2256,6 @@ body.bubblechat .welcomePanel{
     justify-content: flex-end;
 }
 .ts-flex-container {
-    gap: 1rem;
     padding: 6px;
 }
 

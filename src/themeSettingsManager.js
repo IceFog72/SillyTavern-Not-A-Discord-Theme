@@ -21,9 +21,9 @@ class ThemeSettingsManager {
     registerCallback(varId, callback) {
         if (typeof callback === 'function') {
             this.jsCallbacks[varId] = callback;
-            console.log(`[TSM] Registered JS callback for: ${varId}`);
+            console.log(`[NADTheme] Registered JS callback for: ${varId}`);
         } else {
-            console.warn(`[TSM] Invalid callback for ${varId}. Must be a function.`);
+            console.warn(`[NADTheme] Invalid callback for ${varId}. Must be a function.`);
         }
     }
 
@@ -31,9 +31,9 @@ class ThemeSettingsManager {
         if (this.jsCallbacks[varId]) {
             try {
                 this.jsCallbacks[varId](value, oldValue, varId);
-                console.log(`[TSM] Executed JS callback for: ${varId}`);
+                console.log(`[NADTheme] Executed JS callback for: ${varId}`);
             } catch (error) {
-                console.error(`[TSM] Error executing callback for ${varId}:`, error);
+                console.error(`[NADTheme] Error executing callback for ${varId}:`, error);
             }
         }
     }
@@ -85,14 +85,14 @@ class ThemeSettingsManager {
 
         // Save settings
         saveSettingsDebounced();
-        console.log(`[TSM] ${varId} changed: ${oldValue} → ${newValue}`);
+        console.log(`[NADTheme] ${varId} changed: ${oldValue} → ${newValue}`);
     }
 
     saveSettings(entries) {
         this.settings.entries = entries;
         this.updateCSSVariables(entries);
         saveSettingsDebounced();
-        console.log('[TSM] Settings saved:', this.settings);
+        console.log('[NADTheme] Settings saved:', this.settings);
     }
 
     initializeSettingsEntries() {
@@ -101,7 +101,7 @@ class ThemeSettingsManager {
         // Remove invalid or obsolete entries
         Object.keys(this.settings.entries || {}).forEach(key => {
             if (!currentVarIds.includes(key) || !key || key === 'undefined') {
-                console.log(`[TSM] Removing invalid/obsolete entry: ${key}`);
+                console.log(`[NADTheme] Removing invalid/obsolete entry: ${key}`);
                 delete this.settings.entries[key];
                 
                 // Only remove CSS property for CSS-type controls
@@ -159,15 +159,15 @@ class ThemeSettingsManager {
             case 'select':
                 return this.generateSelectEntry(entry, value);
             default:
-                console.warn(`[TSM] Unknown entry type: ${entry.type}`);
+                console.warn(`[NADTheme] Unknown entry type: ${entry.type}`);
                 return '';
         }
     }
 
     generateSliderEntry(entry, value) {
         return `
-            <div class="flex-container alignitemscenter">      
-                <span data-i18n="${entry.displayText}">${entry.displayText}</span><br>
+            <div class="flex-container alignitemscenter">  
+                <span data-i18n="${entry.displayText}">${entry.displayText}</span><br>    
                 <div class="alignitemscenter flex-container flexFlowColumn flexBasis48p flexGrow flexShrink gap0">
                     <input 
                         class="neo-range-slider" 
@@ -177,8 +177,7 @@ class ThemeSettingsManager {
                         min="${entry.min}" 
                         max="${entry.max}" 
                         value="${value}" 
-                        step="${entry.step || 1}"
-                        >
+                        step="${entry.step || 1}" />
                     <input 
                         class="neo-range-input" 
                         type="number" 
@@ -187,33 +186,33 @@ class ThemeSettingsManager {
                         min="${entry.min}" 
                         max="${entry.max}" 
                         value="${value}" 
-                        step="${entry.step || 1}"
-                        >
+                        step="${entry.step || 1}" />
                 </div>
+                
             </div>`;
     }
 
     generateColorEntry(entry, value) {
         return `
             <div class="flex-container alignItemsBaseline">
-                <span>${entry.displayText}</span>
                 <toolcool-color-picker id="ts-${entry.varId}" color="${value}" ></toolcool-color-picker>
+                <span>${entry.displayText}</span>
             </div>`;
     }
 
     generateTextEntry(entry, value) {
         return `
             <label class="flex-container alignItemsBaseline">
+                <input type="text" class="text_pole wide100p widthNatural flex1 margin0" id="ts-${entry.varId}" value="${value}" />
                 <span>${entry.displayText}</span><br>
-                <input type="text" class="text_pole wide100p widthNatural flex1 margin0" id="ts-${entry.varId}" value="${value}"  />
             </label>`;
     }
 
     generateCheckboxEntry(entry, value) {
         return `
             <label class="checkbox_label alignItemsBaseline">
+                <input id="ts-${entry.varId}" type="checkbox" ${value ? 'checked' : ''} />
                 <span>${entry.displayText}</span>
-                <input id="ts-${entry.varId}" type="checkbox" ${value ? 'checked' : ''} >
             </label>`;
     }
 
@@ -225,10 +224,10 @@ class ThemeSettingsManager {
 
         return `
             <div class="flex-container alignItemsBaseline">
-                <span>${entry.displayText}</span>
                 <select class="widthNatural flex1 margin0" id="ts-${entry.varId}" >
                     ${options}
                 </select>
+                <span>${entry.displayText}</span>
             </div>`;
     }
 
@@ -342,11 +341,11 @@ class ThemeSettingsManager {
         });
         
         this.regenerateUI();
-        console.log('[TSM] Settings reset to default values');
+        console.log('[NADTheme] Settings reset to default values');
     }
 
     regenerateUI() {
-        console.log('[TSM] Regenerating UI.');
+        console.log('[NADTheme] Regenerating UI.');
         this.removeEventListeners();
         this.populateSettingsUI();
         // Don't call saveSettings here as handleValueChange already handles saving
@@ -368,14 +367,14 @@ class ThemeSettingsManager {
                 drawer.data('original-parent', drawer.parent());
                 drawer.appendTo(movingDivs)
                       .removeClass('inline-drawer')
-                      .addClass('ts-drawer-content flexGap5 maximized')
+                      .addClass('ts-drawer-content maximized')
                       .css({
                           'display': 'flex',
                           'opacity': '1'
                       });
             } else {
                 drawer.appendTo(drawer.data('original-parent'))
-                      .removeClass('ts-drawer-content flexGap5 maximized')
+                      .removeClass('ts-drawer-content maximized')
                       .addClass('inline-drawer')
                       .css({
                           'display': '',
@@ -395,14 +394,14 @@ class ThemeSettingsManager {
         const row2 = document.querySelector('#ts-row-2');
 
         if (!row1 || !row2) {
-            console.error('[TSM] Row containers not found!');
+            console.error('[NADTheme] Row containers not found!');
             return;
         }
 
         if (!this.entries || this.entries.length === 0) {
             this.settings.entries = {};
             this.updateCSSVariables({});
-            console.warn('[TSM] No entries provided');
+            console.warn('[NADTheme] No entries provided');
 
             row1.innerHTML = '<div class="flex-container flexFlowColumn"><p class="alert-message">No theme settings available.</p></div>';
             row2.innerHTML = '';
@@ -465,7 +464,7 @@ class ThemeSettingsManager {
             // Initialize CSS variables with current settings
             this.updateCSSVariables(this.settings.entries || {});
         } else {
-            console.error(`[TSM] Target element not found: ${targetSelector}`);
+            console.error(`[NADTheme] Target element not found: ${targetSelector}`);
         }
     }
 
