@@ -2421,3 +2421,7 @@ body.big_side-avatars .mesAvatarWrapper .avatar img {
   height: calc(var(--avatar-base-height) * var(--big-avatar-height-factor) * 4) !important;
 
 }
+
+.recentChat {
+  background-color: var(--SmartThemeUserMesBlurTintColor);
+}
