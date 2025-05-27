@@ -7,7 +7,7 @@ export async function checkTheme() {
 
 
     const hasDiscordTheme = $('#themes option').filter(function() {
-        return $(this).val().includes('Not a Discord Theme');
+        return $(this).val() === 'Not a Discord Theme';
     }).length > 0;
     
     if (!hasDiscordTheme) {
