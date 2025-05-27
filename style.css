@@ -466,6 +466,11 @@ body:has(#gallery.draggable) {
 #expression-wrapper,
 .zoomed_avatar {
   right: var(--panels-total-width) !important;
+  text-shadow: unset !important;
+}
+
+.stqrd--layout.stqrd--showBrowser{
+  --shadowWidth: 3 !important;
 }
 
 #expression-wrapper {
