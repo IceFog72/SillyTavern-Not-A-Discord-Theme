@@ -1,7 +1,5 @@
 # SillyTavern-Not-A-Discord-Theme
 
-Simple extension without anything, only adds css to ST page, to simplify updates (I'm thinking/working on theme manager extension)
-
 You will need:
 
 1. Turn off other themes
