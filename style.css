@@ -2006,6 +2006,8 @@ body.charListGrid #rm_print_characters_block .avatar img,
 body.charListGrid #rm_print_characters_block .bogus_folder_select .avatar,
 body.charListGrid #rm_print_characters_block .character_select .avatar,
 body.charListGrid #rm_print_characters_block .group_member .avatar,
+body.big_side-avatars .avatar,
+body.big_side-avatars .avatar img,
 body.big-avatars .avatar,
 body.big-avatars .avatar img {
   width: calc(var(--avatar-base-width) * var(--big-avatar-width-factor)) !important;
@@ -2015,8 +2017,15 @@ body.big-avatars .avatar img {
   justify-content: center !important;
 }
 
+body.big_side-avatars .avatar img{
+  border-radius: 0px !important;
+  border: unset !important;
+  object-fit: cover !important;
+  object-position: center !important;
+}
+
 body.charListGrid #rm_print_characters_block .avatar img,
-body.big-avatars .avatar img {
+body.big-avatars .avatar img{
   border-radius: 8px !important;
   border: unset !important;
   object-fit: cover !important;
@@ -2280,4 +2289,105 @@ body.bubblechat .welcomePanel{
 #context_story_string{
 
   min-height: 240px;
+
+}
+
+
+
+body.big_side-avatars .mesIDDisplay,
+body.big_side-avatars .mes_timer,
+body.big_side-avatars .tokenCounterDisplay {
+  opacity: 0.3 !important;
+  text-align: end !important;
+  margin-right: 6px !important;
+}
+
+body.big_side-avatars .mes {
+  padding: 0 !important;
+  overflow-y: clip !important;
+}
+
+body.big_side-avatars body.bubblechat .mes[is_user="false"] {
+  margin-left: 12px !important;
+}
+
+body.big_side-avatars .mes_block {
+  z-index: 1 !important;
+  margin-top:  12px !important;
+  margin-bottom:  calc(var(--swipeCounterHeight) + var(--swipeCounterMargin) + 6px) !important;
+  
+}
+
+body.big_side-avatars .mes .mesAvatarWrapper{
+  width: 100% !important;
+  height: 100% !important;
+  position: absolute !important;
+}
+
+body.big_side-avatars .mes[is_user="false"] .mesAvatarWrapper {
+  z-index: 0 !important;
+
+}
+
+body.big_side-avatars .mes[is_user="false"] .mes_block {
+  margin-right: calc(var(--avatar-base-width) * var(--big-avatar-width-factor) * 4) !important;
+  margin-left: 12px !important;
+}
+
+body.big_side-avatars .mes[is_user="false"] .mesAvatarWrapper .avatar {
+  position: absolute !important;
+  top: 0 !important;
+  right: 0 !important;
+  width: calc(var(--avatar-base-width) * var(--big-avatar-width-factor) * 4) !important;
+  height: calc(var(--avatar-base-height) * var(--big-avatar-height-factor) * 3.4) !important;
+  -webkit-mask-image:
+    linear-gradient(to right, rgba(0, 0, 0, 0) 0%, black 40%),
+    linear-gradient(to top, rgba(0, 0, 0, 0) 0%, black 40%) !important;
+  mask-image:
+    linear-gradient(to right, rgba(0, 0, 0, 0) 0%, black 40%),
+    linear-gradient(to top, rgba(0, 0, 0, 0) 0%, black 40%) !important;
+
+  -webkit-mask-composite: destination-in !important;
+  mask-composite: intersect !important;
+  mask-size: 100% 100% !important;
+  mask-repeat: no-repeat !important;
+  border-radius: unset !important;
+}
+
+body.big_side-avatars .mes[is_user="true"] .mesAvatarWrapper {
+  z-index: 0 !important;
+  
+}
+
+body.big_side-avatars .mes[is_user="true"] .mes_block {
+  margin-left: calc(var(--avatar-base-width) * var(--big-avatar-width-factor) * 3) !important;
+  margin-right: 12px !important;
+}
+
+body.big_side-avatars .mes[is_user="true"] .mesAvatarWrapper .avatar {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: calc(var(--avatar-base-width) * var(--big-avatar-width-factor) * 4) !important;
+  height: calc(var(--avatar-base-height) * var(--big-avatar-height-factor) * 3.4) !important;
+  -webkit-mask-image:
+    linear-gradient(to left, rgba(0, 0, 0, 0) 0%, black 40%),
+    linear-gradient(to top, rgba(0, 0, 0, 0) 0%, black 40%);
+  mask-image:
+    linear-gradient(to left, rgba(0, 0, 0, 0) 0%, black 40%),
+    linear-gradient(to top, rgba(0, 0, 0, 0) 0%, black 40%);
+
+  /* Ensure proper masking behavior */
+  -webkit-mask-composite: destination-in !important;
+  mask-composite: intersect !important;
+  mask-size: 100% 100%;
+  mask-repeat: no-repeat;
+  border-radius: unset !important;
+}
+
+body.big_side-avatars .mesAvatarWrapper .avatar img {
+  position: absolute !important;
+  width: calc(var(--avatar-base-width) * var(--big-avatar-width-factor) * 4) !important;
+  height: calc(var(--avatar-base-height) * var(--big-avatar-height-factor) * 4) !important;
+
 }

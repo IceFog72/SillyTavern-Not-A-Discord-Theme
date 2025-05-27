@@ -3,10 +3,9 @@ import { createHiddenWidthDiv } from './domUtils.js';
 import { watchForChangesAndResize } from './expressionResize.js';
 import { setDrawerClasses } from './drawer.js';
 import { positionAnchor } from './positionAnchor.js';
-import { addStyle } from './chatStyle.js';
 import { drawerClickOverride } from './drawerClickOverride.js';
-
-
+import { checkTheme } from './checkTheme.js';
+import { drawerStyleChangeOverride} from './chatStyle.js';
 import ThemeSettingsManager from './themeSettingsManager.js';
 
 export class ThemeSetup {
@@ -189,10 +188,12 @@ export class ThemeSetup {
             watchForChangesAndResize();
             setDrawerClasses();
             positionAnchor();
-            addStyle();
+            drawerStyleChangeOverride();
             drawerClickOverride();
+
+            checkTheme();
            
-            // Add theme settings UI
+
             this.addThemeSettings();
         });
     }

@@ -1,11 +1,10 @@
-
 import { eventSource, event_types, saveSettingsDebounced } from '../../../../../script.js';
 import { extension_settings } from '../../../../extensions.js';
 
 class ThemeSettingsManager {
     constructor(entries = [], jsCallbacks = {}) {
         this.entries = entries;
-        this.jsCallbacks = jsCallbacks; // Object to store JS function callbacks
+        this.jsCallbacks = jsCallbacks;
         this.settings = this.initializeSettings();
         this.eventHandlers = {};
     }
@@ -42,10 +41,8 @@ class ThemeSettingsManager {
         Object.entries(savedValues).forEach(([varId, value]) => {
             if (!varId || varId === 'undefined') return;
 
-            // Find the entry to check its controlType
             const entry = this.entries.find(e => e.varId === varId);
             
-            // Only update CSS variables for CSS-type controls
             if (!entry || entry.controlType === 'js') return;
 
             const unitKey = `${varId}-unit`;
@@ -64,12 +61,11 @@ class ThemeSettingsManager {
 
         const oldValue = this.settings.entries[varId];
         
-        // Update the stored value
         this.settings.entries[varId] = newValue;
 
-        // Handle CSS controls
+
         if (!entry.controlType || entry.controlType === 'css') {
-            // Update CSS variable
+
             const unitKey = `${varId}-unit`;
             const unit = this.settings.entries[unitKey] || '';
             const valueWithUnit = unit ? `${newValue}${unit}` : newValue;
@@ -83,7 +79,6 @@ class ThemeSettingsManager {
             this.executeCallback(varId, newValue, oldValue);
         }
 
-        // Save settings
         saveSettingsDebounced();
         console.log(`[NADTheme] ${varId} changed: ${oldValue} → ${newValue}`);
     }
@@ -98,13 +93,11 @@ class ThemeSettingsManager {
     initializeSettingsEntries() {
         const currentVarIds = this.entries.map(entry => entry.varId);
 
-        // Remove invalid or obsolete entries
         Object.keys(this.settings.entries || {}).forEach(key => {
             if (!currentVarIds.includes(key) || !key || key === 'undefined') {
                 console.log(`[NADTheme] Removing invalid/obsolete entry: ${key}`);
                 delete this.settings.entries[key];
                 
-                // Only remove CSS property for CSS-type controls
                 const entry = this.entries.find(e => e.varId === key);
                 if (!entry || entry.controlType !== 'js') {
                     document.documentElement.style.removeProperty(`--${key}`);
@@ -129,12 +122,12 @@ class ThemeSettingsManager {
                 
                 this.settings.entries[entry.varId] = defaultValue;
                 
-                // Execute initial callback for JS-type controls or controls with callbacks
+
                 if (entry.controlType === 'js' || this.jsCallbacks[entry.varId]) {
                     this.executeCallback(entry.varId, defaultValue, undefined);
                 }
             } else {
-                // Execute callback for existing JS-type controls to ensure they're in sync
+
                 if (entry.controlType === 'js' || this.jsCallbacks[entry.varId]) {
                     this.executeCallback(entry.varId, this.settings.entries[entry.varId], undefined);
                 }
@@ -145,7 +138,6 @@ class ThemeSettingsManager {
     generateHTMLForEntry(entry, savedValue) {
         const value = savedValue !== undefined ? savedValue : entry.default;
         
-
 
         switch (entry.type) {
             case 'slider':
@@ -232,7 +224,7 @@ class ThemeSettingsManager {
     }
 
     setupEventListeners() {
-        // Enhanced input change handler that uses the new handleValueChange method
+
         const handleInputChange = (event) => {
             const $input = $(event.target);
             const value = $input.val();
@@ -244,11 +236,10 @@ class ThemeSettingsManager {
             const $slider = isSlider ? $input : $(`#ts-slider-${varId}`);
             const $numberInput = isSlider ? $(`#ts-number-${varId}`) : $input;
 
-            // Sync slider and number input
             $slider.val(value);
             $numberInput.val(value);
 
-            // Handle the value change (both CSS and JS)
+
             this.handleValueChange(varId, value, $input[0]);
         };
 
@@ -259,10 +250,9 @@ class ThemeSettingsManager {
             const unit = $select.val();
             const valueWithUnit = `${value}${unit}`;
 
-            // Update unit in settings
             this.settings.entries[`${varId}-unit`] = unit;
             
-            // Handle the value change
+        
             this.handleValueChange(varId, valueWithUnit, $select[0]);
         };
 
@@ -290,7 +280,7 @@ class ThemeSettingsManager {
             if (entry.type === 'color') {
                 inputElement.addEventListener('change', handleColorChange);
                 this.eventHandlers[`handleColorChange_${entry.varId}`] = handleColorChange;
-            } else if (entry.type !== 'slider') { // Sliders are handled by the global handlers above
+            } else if (entry.type !== 'slider') {
                 const eventType = entry.type === 'checkbox' || entry.type === 'select' ? 'change' : 'input';
                 inputElement.addEventListener(eventType, handleInput);
                 this.eventHandlers[`handleInput_${entry.varId}`] = handleInput;
@@ -348,7 +338,6 @@ class ThemeSettingsManager {
         console.log('[NADTheme] Regenerating UI.');
         this.removeEventListeners();
         this.populateSettingsUI();
-        // Don't call saveSettings here as handleValueChange already handles saving
     }
 
     setupButtons() {
