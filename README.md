@@ -4,11 +4,10 @@ Simple extension without anything, only adds css to ST page, to simplify updates
 
 You will need:
 
-1. https://github.com/LenAnderson/SillyTavern-CssSnippets if
-2. Turn off other themes
-3. Install theme extension https://github.com/IceFog72/SillyTavern-Not-A-Discord-Theme
-4. Reload page
-5. Select Not a Discord Theme as UI Theme for colors
+1. Turn off other themes
+2. Install theme extension https://github.com/IceFog72/SillyTavern-Not-A-Discord-Theme
+3. Reload page
+4. Select Not a Discord Theme as UI Theme for colors
 
 What I recommended to have too:
 
