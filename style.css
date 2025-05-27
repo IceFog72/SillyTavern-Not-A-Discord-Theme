@@ -794,8 +794,8 @@ hr {
 .flex-container>.menu_button {
   background-color: var(--button-filled-brand-background) !important;
   text-shadow: unset !important;
-  padding: 6px 8px;
-  font-size: calc(var(--mainFontSize) * 0.9);
+  padding: 4px 6px;
+  font-size: calc(var(--mainFontSize) * 0.8);
   filter: unset !important;
 }
 
@@ -1287,6 +1287,10 @@ body.bubblechat .mes[is_user="false"] {
   padding: 1px;
 }
 
+.world_entry_form .inline-drawer-header {
+  background: var(--NSDThemeBG2Color);
+}
+
 .inline-drawer-header {
   background: var(--NSDThemeBG4Color);
   padding: 8px;
@@ -1703,17 +1707,34 @@ select,
 
 #user-settings-block h4,
 .inline-drawer {
-  margin: 2px 0px!important;
+  margin: 2px 0px !important;
   border-radius: 8px;
   border: 1px solid color-mix(in srgb, var(--SmartThemeBorderColor) 50%, transparent) !important;
 }
+
+.sd_settings .inline-drawer {
+    margin: 4px 0px!important;
+}
+
+.sd_settings {
+  margin: -2px 0 -2px 0;
+}
+
 
 .inline-drawer:hover {
   border: 1px solid var(--SmartThemeBorderColor) !important;
 }
 
-#user-settings-block h4 {
+#extensions_settings .inline-drawer-toggle.inline-drawer-header,
+#extensions_settings2 .inline-drawer-toggle.inline-drawer-header,
+.standoutHeader, .userSettingsInnerExpandable{
+    padding: 6px 6px !important;
+}
+
+#user-settings-block h4,
+.userSettingsInnerExpandable {
   background: var(--NSDThemeBG4Color);
+  padding: 6px 6px !important;
   border: unset !important;
 }
 
@@ -1805,6 +1826,10 @@ body #send_form,
 .stwid--list {
   flex: 0 0 auto !important;
   order: 1;
+}
+
+.stwid--title{
+  font-size: calc(var(--mainFontSize) * 0.8) !important;
 }
 
 .stwid--editor{
@@ -2017,6 +2042,7 @@ body.big-avatars .avatar img {
   justify-content: center !important;
 }
 
+body.big_side-avatars .avatar,
 body.big_side-avatars .avatar img{
   border-radius: 0px !important;
   border: unset !important;
