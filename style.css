@@ -1328,6 +1328,10 @@ body.bubblechat .mes[is_user="false"] {
   border-radius: 0px 0px 8px 8px;
 }
 
+#qr--settings .inline-drawer-content {
+  border-radius: 0px !important;
+}
+
 .standoutHeader {
   border-top-left-radius: 8px !important;
   border-bottom-right-radius: 8px !important;
