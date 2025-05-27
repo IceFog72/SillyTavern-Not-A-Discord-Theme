@@ -1,9 +1,6 @@
-import { power_user} from '../../../../power-user.js';
-import {
-    saveSettingsDebounced,
-    getRequestHeaders,
- 
-} from '../../../../../script.js';
+import { power_user } from '../../../../power-user.js';
+import { saveSettingsDebounced, getRequestHeaders, eventSource, event_types} from '../../../../../script.js';
+import { delay, onlyUnique } from '../../../../utils.js';
 
 
 export async function checkTheme() {
@@ -202,3 +199,79 @@ function getThemeObject(name) {
         click_to_edit: power_user.click_to_edit,
     };
 }
+
+
+
+export async function resetMovablePanels(type) {
+    const panelIds = [
+        'sheld',
+        'left-nav-panel',
+        'right-nav-panel',
+        'WorldInfo',
+        'floatingPrompt',
+        'expression-holder',
+        'groupMemberListPopout',
+        'summaryExtensionPopout',
+        'gallery',
+        'logprobsViewer',
+        'cfgConfig',
+    ];
+
+    /**
+     * @type {HTMLElement[]} Generic panels that don't have a known ID
+     */
+    const draggedElements = Array.from(document.querySelectorAll('[data-dragged]'));
+    const allDraggable = panelIds.map(id => document.getElementById(id)).concat(draggedElements).filter(onlyUnique);
+
+    const panelStyles = ['top', 'left', 'right', 'bottom', 'height', 'width', 'margin'];
+    allDraggable.forEach((panel) => {
+        if (panel) {
+            $(panel).addClass('resizing');
+            panelStyles.forEach((style) => {
+                panel.style[style] = '';
+            });
+        }
+    });
+
+    /**
+     * @type {HTMLElement[]} Zoomed avatars that are currently being resized
+     */
+    const zoomedAvatars = Array.from(document.querySelectorAll('.zoomed_avatar'));
+    if (zoomedAvatars.length > 0) {
+        zoomedAvatars.forEach((avatar) => {
+            avatar.classList.add('resizing');
+            panelStyles.forEach((style) => {
+                avatar.style[style] = '';
+            });
+        });
+    }
+
+    $('[data-dragged="true"]').removeAttr('data-dragged');
+    await delay(50);
+
+    power_user.movingUIState = {};
+
+    //if user manually resets panels, deselect the current preset
+    if (type !== 'quiet' && type !== 'resize') {
+        power_user.movingUIPreset = 'Default';
+        $('#movingUIPresets option[value="Default"]').prop('selected', true);
+    }
+
+    saveSettingsDebounced();
+    await eventSource.emit(event_types.MOVABLE_PANELS_RESET);
+
+    eventSource.once(event_types.SETTINGS_UPDATED, () => {
+        $('.resizing').removeClass('resizing');
+        //if happening as part of preset application, do it quietly.
+        if (type === 'quiet') {
+            return;
+            //if happening due to resize, tell user.
+        } else if (type === 'resize') {
+            toastr.warning('Panel positions reset due to zoom/resize');
+            //if happening due to manual button press
+        } else {
+            toastr.success('Panel positions reset');
+        }
+    });
+}
+

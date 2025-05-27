@@ -1364,9 +1364,9 @@ select option {
 
 input,
 select,
-.interactable {
+.interactable { 
   border: unset !important;
-  border-radius: 8px;
+  border-radius: 6px;
 }
 
 body.waifuMode #top-bar{

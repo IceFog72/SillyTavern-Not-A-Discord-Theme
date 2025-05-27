@@ -1,4 +1,4 @@
-import {  power_user } from '../../../../power-user.js';
+import { power_user } from '../../../../power-user.js';
 import { saveSettingsDebounced } from '../../../../../script.js';
 
 const avatar_styles = {

@@ -4,7 +4,7 @@ import { watchForChangesAndResize } from './expressionResize.js';
 import { setDrawerClasses } from './drawer.js';
 import { positionAnchor } from './positionAnchor.js';
 import { drawerClickOverride } from './drawerClickOverride.js';
-import { checkTheme } from './checkTheme.js';
+import { checkTheme, resetMovablePanels } from './checkTheme.js';
 import { drawerStyleChangeOverride} from './chatStyle.js';
 import ThemeSettingsManager from './themeSettingsManager.js';
 
@@ -54,15 +54,29 @@ export class ThemeSetup {
                 "controlType": "css"
             },
             {
+                "type": "checkbox",
+                "varId": "enable-animations",
+                "displayText": "Enable Some Animations",
+                "default": false,
+                "controlType": "js" 
+            },
+            {
+                "type": "checkbox",
+                "varId": "enable-autoHideCharFilter",
+                "displayText": "Auto Hide Filter/Search Block",
+                "default": false,
+                "controlType": "js" 
+            },
+            {
                 "type": "color",
-                "varId": "NSDThemeBG1Color",
+                "varId": "Drawer BG Color",
                 "displayText": "Color 1",
                 "default": "rgba(26, 26, 30, 1)",
                 "controlType": "css"
             },
             {
                 "type": "color",
-                "varId": "NSDThemeBG2Color",
+                "varId": "Option Popup BG Color",
                 "displayText": "Color 2",
                 "default": "rgba(40, 40, 45, 1)",
                 "controlType": "css"
@@ -70,7 +84,7 @@ export class ThemeSetup {
             {
                 "type": "color",
                 "varId": "NSDThemeBG3Color",
-                "displayText": "Color 3",
+                "displayText": "Send Form BG Color",
                 "default": "rgba(34, 35, 39, 1)",
                 "controlType": "css"
             },
@@ -80,20 +94,6 @@ export class ThemeSetup {
                 "displayText": "Drawer Icon Color",
                 "default": "rgba(237, 237, 237, 1)",
                 "controlType": "css"
-            },
-            {
-                "type": "checkbox",
-                "varId": "enable-animations",
-                "displayText": "Enable some animations",
-                "default": false,
-                "controlType": "js" 
-            },
-            {
-                "type": "checkbox",
-                "varId": "enable-autoHideCharFilter",
-                "displayText": "Auto hide filter/search block",
-                "default": false,
-                "controlType": "js" 
             },
             /*{
                 "type": "select",
@@ -189,9 +189,10 @@ export class ThemeSetup {
             drawerClickOverride();
 
             checkTheme();
-           
 
             this.addThemeSettings();
+
+            resetMovablePanels();
         });
     }
 
