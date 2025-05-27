@@ -21,13 +21,14 @@ if you are using QuickReplies:
 - https://github.com/IceFog72/SillyTavern-SimpleQRBarToggle
 - https://github.com/LenAnderson/SillyTavern-QuickRepliesDrawer
 
+
 Additional Info:
+  For better quality of char img in chat, you need to edit config.yaml -> thumbnails:
 
-For better quality of char img in chat, you need to edit config.yaml -> thumbnails:
+  enabled: false
 
-enabled: false
+  Caution for people with thousands of chars! It will make all their image load in full size in Character List Panel!
 
-Caution for people with thousands of chars! It will make all their image load in full size in Character List Panel!
 
 ## Feedback
 
