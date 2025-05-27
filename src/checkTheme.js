@@ -123,7 +123,6 @@ async function saveTheme(name = undefined, theme = undefined) {
         throw new Error('Theme could not be saved');
     }
 
-    // Replace themes.findIndex with jQuery approach
     const existingOption = $('#themes option').filter(function() {
         return $(this).val() === name;
     });
@@ -138,7 +137,7 @@ async function saveTheme(name = undefined, theme = undefined) {
         $('#themes').append(option);
     }
     else {
-        // Find the index in the themes array using the existing option's position
+
         const optionIndex = $('#themes option').index(existingOption[0]);
         themes[optionIndex] = theme;
         existingOption.attr('selected', true);

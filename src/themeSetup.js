@@ -12,7 +12,6 @@ export class ThemeSetup {
     constructor() {
         this.isAppReady = false;
        
-        // Define your theme entries with controlType property
         this.themeEntries = [
             {
                 "type": "slider",
@@ -143,13 +142,11 @@ export class ThemeSetup {
             this.setExpressionVisibility(value);
         });
         
-        // Callback for animation-speed
         this.themeManager.registerCallback('animation-speed', (value, oldValue, varId) => {
             this.setAnimationSpeed(value);
         });
     }
     
-    // JavaScript functions that will be called by the controls
     toggleAnimations(enabled) {
         console.log(`[NADTheme] jQuery.fx.off Animations ${enabled ? 'enabled' : 'disabled'}`);
         
@@ -199,30 +196,26 @@ export class ThemeSetup {
     }
 
     addThemeSettings() {
-        // Add settings to a specific location - adjust selector as needed
+
         this.themeManager.addSettings(
-            '[name="FontBlurChatWidthBlock"]', // Target selector
-            'Theme Customization'              // Title
+            '[name="FontBlurChatWidthBlock"]',
+            'Theme Customization'
         );
     }
 
-    // Method to update theme entries dynamically if needed
     updateThemeEntries(newEntries) {
         this.themeEntries = newEntries;
         this.themeManager.updateEntries(newEntries);
     }
    
-    // Method to get current theme settings
     getCurrentSettings() {
         return this.themeManager.settings.entries;
     }
    
-    // Method to reset theme to defaults
     resetTheme() {
         this.themeManager.resetToDefaults();
     }
     
-    // Method to register additional callbacks after initialization
     registerAdditionalCallback(varId, callback) {
         this.themeManager.registerCallback(varId, callback);
     }
