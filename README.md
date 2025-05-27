@@ -22,7 +22,9 @@ if you are using QuickReplies:
 - https://github.com/LenAnderson/SillyTavern-QuickRepliesDrawer
 
 
+
 Additional Info:
+
   For better quality of char img in chat, you need to edit config.yaml -> thumbnails:
 
   enabled: false
