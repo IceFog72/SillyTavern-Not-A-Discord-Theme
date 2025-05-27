@@ -7,7 +7,8 @@ You will need:
 1. https://github.com/LenAnderson/SillyTavern-CssSnippets if
 2. Turn off other themes
 3. Install theme extension https://github.com/IceFog72/SillyTavern-Not-A-Discord-Theme
-4. Select Not a Discord Theme as UI Theme for colors
+4. Reload page
+5. Select Not a Discord Theme as UI Theme for colors
 
 What I recommended to have too:
 
@@ -19,8 +20,6 @@ if you are using QuickReplies:
 
 - https://github.com/IceFog72/SillyTavern-SimpleQRBarToggle
 - https://github.com/LenAnderson/SillyTavern-QuickRepliesDrawer
-
-
 
 Additional Info:
 
