@@ -29,6 +29,8 @@ Additional Info:
   Caution for people with thousands of chars! It will make all their image load in full size in Character List Panel!
 
 
+Mobile? : it's works but not optimized and will not be (only major problem fixes)
+
 ## Feedback
 
 My discord [https://discord.gg/2tJcWeMjFQ](https://discord.gg/2tJcWeMjFQ)
