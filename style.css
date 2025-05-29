@@ -2426,3 +2426,7 @@ body.big_side-avatars .mesAvatarWrapper .avatar img {
 .recentChat {
   background-color: var(--SmartThemeUserMesBlurTintColor);
 }
+
+.scrollableInner {
+  height: calc(100% - 50px) !important;
+}
