@@ -1,7 +1,10 @@
 # SillyTavern-Not-A-Discord-Theme
-![alt text](res/image-2.png)
+![image-2](https://github.com/user-attachments/assets/e52f80be-949c-41d9-9ffe-025820995604)
 
-![alt text](res/image-3.png)
+![image-3](https://github.com/user-attachments/assets/5933596a-c334-47b3-8d96-d92b26954c1c)
+
+![image](https://github.com/user-attachments/assets/ea7bbd71-42ca-451d-8e4a-fed8035d9c43)
+
 You will need:
 
 1. Turn off other themes
@@ -41,9 +44,10 @@ thumbnails:
 ```
 > Caution for people with thousands of cards! It will make all image load in full size in Character List Panel!
 2. Don't forget to try 
-![alt text](res/image.png)
+![image](https://github.com/user-attachments/assets/7c560faa-b03b-473c-b720-625cede9eb11)
+
 3. Size of main Split panels(Chat/WI/Quick Replies) can be resized. Pull all the way to right to reset to auto.
-![alt text](res/image-1.png)
+![image-1](https://github.com/user-attachments/assets/1f2e412b-b9d4-4327-92e3-45ee08124ee6)
 4. Mobile? : it's works but not optimized for touch and will not be (only major problem fixes)
 
 
