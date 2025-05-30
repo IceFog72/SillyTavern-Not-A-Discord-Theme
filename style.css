@@ -1888,6 +1888,12 @@ body #send_form,
   stcdx  
 *********/
 
+body:has(.stcdx--root.stcdx--codex.stcdx--active) {
+  .stcdx--tooltip {
+    display: none !important;
+  }
+}
+
 .stcdx--tooltip {
   z-index: 60;
 }
