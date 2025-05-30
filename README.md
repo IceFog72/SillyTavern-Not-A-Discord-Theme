@@ -24,7 +24,7 @@ If you are using QuickReplies:
 - [SimpleQRBarToggle](https://github.com/IceFog72/SillyTavern-SimpleQRBarToggle)
 - [SillyTavern-QuickRepliesDrawer](https://github.com/LenAnderson/SillyTavern-QuickRepliesDrawer)
 
-List of adapted to UI Extensions:
+List of Extensions adapted to theme UI:
 
 - [Chat Top Bar](https://github.com/SillyTavern/Extension-TopInfoBar)
 - [Codex](https://github.com/LenAnderson/SillyTavern-Codex)
