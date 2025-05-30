@@ -34,7 +34,8 @@ List of Extensions adapted to theme UI:
 - [Quick Replies Drawer](https://github.com/LenAnderson/SillyTavern-QuickRepliesDrawer)
 - [WorldInfoDrawer](https://github.com/LenAnderson/SillyTavern-WorldInfoDrawer)
 - [SillyTavern-Tracker](https://github.com/kaldigo/SillyTavern-Tracker)
-
+- And maybe others I forget
+  
 Additional Info:
 
 1. For better quality of card img in chat, you need to edit config.yaml -> 
