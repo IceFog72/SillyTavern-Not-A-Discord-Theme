@@ -10,7 +10,7 @@ You will need:
 1. Turn off other themes
 2. Install theme extension https://github.com/IceFog72/SillyTavern-Not-A-Discord-Theme
 3. Reload page
-4. Select Not a Discord Theme as UI Theme for colors
+4. Select 'Not a Discord Theme' as UI Theme for colors
 
 What I recommended to have too:
 
