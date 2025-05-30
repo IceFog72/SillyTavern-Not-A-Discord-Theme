@@ -69,15 +69,15 @@ export class ThemeSetup {
             },
             {
                 "type": "color",
-                "varId": "Drawer BG Color",
-                "displayText": "Color 1",
+                "varId": "NSDThemeBG1Color",
+                "displayText": "Drawer BG Color",
                 "default": "rgba(26, 26, 30, 1)",
                 "controlType": "css"
             },
             {
                 "type": "color",
-                "varId": "Option Popup BG Color",
-                "displayText": "Color 2",
+                "varId": "NSDThemeBG2Color",
+                "displayText": "Option Popup BG Color",
                 "default": "rgba(40, 40, 45, 1)",
                 "controlType": "css"
             },
