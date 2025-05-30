@@ -1,7 +1,7 @@
 # SillyTavern-Not-A-Discord-Theme
 ![image-2](https://github.com/user-attachments/assets/e52f80be-949c-41d9-9ffe-025820995604)
 
-![image](https://github.com/user-attachments/assets/108c31b4-c4de-4bcf-ba29-795dc56feb3d)
+![image](https://github.com/user-attachments/assets/980c12bf-1dba-415d-9f17-6efc06b8028e)
 
 ![image](https://github.com/user-attachments/assets/d1a42247-ddbc-498a-9a04-bb0760895aca)
 
