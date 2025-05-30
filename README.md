@@ -44,9 +44,11 @@ thumbnails:
 ```
 > Caution for people with thousands of cards! It will make all image load in full size in Character List Panel!
 2. Don't forget to try 
+
 ![image](https://github.com/user-attachments/assets/7c560faa-b03b-473c-b720-625cede9eb11)
 
 3. Size of main Split panels(Chat/WI/Quick Replies) can be resized. Pull all the way to right to reset to auto.
+
 ![image-1](https://github.com/user-attachments/assets/1f2e412b-b9d4-4327-92e3-45ee08124ee6)
 
 4. Mobile? : it's works but not optimized for touch and will not be (only major problem fixes)
