@@ -1,9 +1,9 @@
 # SillyTavern-Not-A-Discord-Theme
 ![image-2](https://github.com/user-attachments/assets/e52f80be-949c-41d9-9ffe-025820995604)
 
-![image-3](https://github.com/user-attachments/assets/5933596a-c334-47b3-8d96-d92b26954c1c)
+![image](https://github.com/user-attachments/assets/108c31b4-c4de-4bcf-ba29-795dc56feb3d)
 
-![image](https://github.com/user-attachments/assets/ea7bbd71-42ca-451d-8e4a-fed8035d9c43)
+![image](https://github.com/user-attachments/assets/d1a42247-ddbc-498a-9a04-bb0760895aca)
 
 You will need:
 
