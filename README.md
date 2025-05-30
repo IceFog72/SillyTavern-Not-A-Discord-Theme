@@ -37,14 +37,15 @@ List of Extensions adapted to theme UI:
 
 Additional Info:
 
-1. For better quality of char img in chat, you need to edit config.yaml -> 
+1. For better quality of card img in chat, you need to edit config.yaml -> 
 ```
 thumbnails:
   enabled: false 
 ```
->
+
 > **Caution for people with thousands of cards! It will make all image load in full size in Character List Panel!**
->
+
+
 2. Don't forget to try 
 
 ![image](https://github.com/user-attachments/assets/7c560faa-b03b-473c-b720-625cede9eb11)
