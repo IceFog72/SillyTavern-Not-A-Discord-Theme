@@ -2419,7 +2419,7 @@ body.big_side-avatars .mes[is_user="true"] .mesAvatarWrapper .avatar {
 body.big_side-avatars .mesAvatarWrapper .avatar img {
   position: absolute !important;
   width: calc(var(--avatar-base-width) * var(--big-avatar-width-factor) * 4) !important;
-  height: calc(var(--avatar-base-height) * var(--big-avatar-height-factor) * 4) !important;
+  height: calc(var(--avatar-base-height) * var(--big-avatar-height-factor) * 3.4) !important;
 
 }
 
