@@ -55,7 +55,7 @@ thumbnails:
 ![image-1](https://github.com/user-attachments/assets/1f2e412b-b9d4-4327-92e3-45ee08124ee6)
 
 4. Mobile? : it's works but not optimized for touch and will not be (only major problem fixes)
-
+5. I'm using PWAsForFirefox, any other PWA solution is ok too
 
 ## Feedback
 
