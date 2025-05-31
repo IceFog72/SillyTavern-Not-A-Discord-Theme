@@ -54,6 +54,25 @@ export class ThemeSetup {
                 "controlType": "css"
             },
             {
+                "type": "select",
+                "varId": "bigChatAvatarFactor",
+                "displayText": "Big chat avatar factor",
+                "default": "4x3.4",
+                "options": [
+                    { "label": "4x4", "value": "4x4" },
+                    { "label": "4x3.4", "value": "4x3.4" },
+                    { "label": "4x3", "value": "4x3" }
+                ],
+                "controlType": "js" 
+            },
+            {
+                "type": "checkbox",
+                "varId": "chatBubbleBigAvatarHeight",
+                "displayText": "Chat Bubble as Big Avatar Height",
+                "default": false,
+                "controlType": "js" 
+            },
+            {
                 "type": "checkbox",
                 "varId": "enable-animations",
                 "displayText": "Enable Some Animations",
@@ -133,6 +152,14 @@ export class ThemeSetup {
             this.toggleAnimations(value);
         });
 
+        this.themeManager.registerCallback('chatBubbleBigAvatarHeight', (value, oldValue, varId) => {
+            this.toggleChatBubbleBigAvatarHeight(value);
+        });
+
+        this.themeManager.registerCallback('bigChatAvatarFactor', (value, oldValue, varId) => {
+            this.setBigChatAvatarFactor(value);
+        });
+
         this.themeManager.registerCallback('enable-autoHideCharFilter', (value, oldValue, varId) => {
             this.setAutoHideCharFilter(value);
         });
@@ -163,6 +190,41 @@ export class ThemeSetup {
     
     setAnimationSpeed(speed) {
       
+    }
+
+    toggleChatBubbleBigAvatarHeight(enabled){
+
+        const mesElements = document.querySelectorAll('.mes');
+        const styleValue = 'calc(var(--avatar-base-height) * var(--big-avatar-height-factor) * var(--big-avatar-char-height-factor))';
+
+        mesElements.forEach(el => {
+            if (enabled) {
+                el.style.setProperty('min-height', styleValue, 'important');
+            } else {
+                el.style.removeProperty('min-height');
+            }
+        });
+
+    }
+
+
+    setBigChatAvatarFactor(factor){
+
+        if (factor === '4x3') {
+
+            document.body.style.setProperty('--big-avatar-char-width-factor', `4`, 'important');
+            document.body.style.setProperty('--big-avatar-char-height-factor', `3`, 'important');
+
+        } else if (factor === '4x4') {
+
+            document.body.style.setProperty('--big-avatar-char-width-factor', `4`, 'important');
+            document.body.style.setProperty('--big-avatar-char-height-factor', `4`, 'important');
+
+        } else {
+
+            document.body.style.setProperty('--big-avatar-char-width-factor', `4`, 'important');
+            document.body.style.setProperty('--big-avatar-char-height-factor', `3.4`, 'important');
+        }
     }
 
     setAutoHideCharFilter(enabled) {

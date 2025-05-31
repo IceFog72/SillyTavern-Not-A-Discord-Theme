@@ -20,6 +20,9 @@ MIT License
   --NSDlistGrid-char-panel-width: 580;
   --NSDnormal-char-panel-width: 420;
 
+  --big-avatar-char-width-factor: 4;
+  --big-avatar-char-height-factor: 3.4;
+
   --NSDAnimation-duration: 0;
 
   --NSDexpressionVisibility: collapse;
@@ -1851,7 +1854,6 @@ body #send_form,
   trackerUI  
 *********/
 
-
 #trackerInterfaceContents .tracker-array-container {
   gap: 0 !important;
 }
@@ -1881,7 +1883,6 @@ body #send_form,
 .tracker-view-object-container {
   padding-left: 8px !important;
 }
-
 
 
 /*********
@@ -2342,6 +2343,7 @@ body.big_side-avatars .tokenCounterDisplay {
 body.big_side-avatars .mes {
   padding: 0 !important;
   overflow-y: clip !important;
+
 }
 
 body.big_side-avatars body.bubblechat .mes[is_user="false"] {
@@ -2367,7 +2369,7 @@ body.big_side-avatars .mes[is_user="false"] .mesAvatarWrapper {
 }
 
 body.big_side-avatars .mes[is_user="false"] .mes_block {
-  margin-right: calc(var(--avatar-base-width) * var(--big-avatar-width-factor) * 4) !important;
+  margin-right: calc(var(--avatar-base-width) * var(--big-avatar-width-factor) * var(--big-avatar-char-height-factor)) !important;
   margin-left: 12px !important;
 }
 
@@ -2375,8 +2377,8 @@ body.big_side-avatars .mes[is_user="false"] .mesAvatarWrapper .avatar {
   position: absolute !important;
   top: 0 !important;
   right: 0 !important;
-  width: calc(var(--avatar-base-width) * var(--big-avatar-width-factor) * 4) !important;
-  height: calc(var(--avatar-base-height) * var(--big-avatar-height-factor) * 3.4) !important;
+  width: calc(var(--avatar-base-width) * var(--big-avatar-width-factor) * var(--big-avatar-char-width-factor)) !important;
+  height: calc(var(--avatar-base-height) * var(--big-avatar-height-factor) * var(--big-avatar-char-height-factor)) !important;
   -webkit-mask-image:
     linear-gradient(to right, rgba(0, 0, 0, 0) 0%, black 40%),
     linear-gradient(to top, rgba(0, 0, 0, 0) 0%, black 40%) !important;
@@ -2405,8 +2407,8 @@ body.big_side-avatars .mes[is_user="true"] .mesAvatarWrapper .avatar {
   position: absolute !important;
   top: 0 !important;
   left: 0 !important;
-  width: calc(var(--avatar-base-width) * var(--big-avatar-width-factor) * 4) !important;
-  height: calc(var(--avatar-base-height) * var(--big-avatar-height-factor) * 3.4) !important;
+  width: calc(var(--avatar-base-width) * var(--big-avatar-width-factor) * var(--big-avatar-char-width-factor)) !important;
+  height: calc(var(--avatar-base-height) * var(--big-avatar-height-factor) * var(--big-avatar-char-height-factor)) !important;
   -webkit-mask-image:
     linear-gradient(to left, rgba(0, 0, 0, 0) 0%, black 40%),
     linear-gradient(to top, rgba(0, 0, 0, 0) 0%, black 40%);
@@ -2424,8 +2426,8 @@ body.big_side-avatars .mes[is_user="true"] .mesAvatarWrapper .avatar {
 
 body.big_side-avatars .mesAvatarWrapper .avatar img {
   position: absolute !important;
-  width: calc(var(--avatar-base-width) * var(--big-avatar-width-factor) * 4) !important;
-  height: calc(var(--avatar-base-height) * var(--big-avatar-height-factor) * 3.4) !important;
+  width: calc(var(--avatar-base-width) * var(--big-avatar-width-factor) * var(--big-avatar-char-width-factor)) !important;
+  height: calc(var(--avatar-base-height) * var(--big-avatar-height-factor) * var(--big-avatar-char-height-factor)) !important;
 
 }
 

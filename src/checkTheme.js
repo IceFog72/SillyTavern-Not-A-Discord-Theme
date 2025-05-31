@@ -82,7 +82,6 @@ async function importTheme(fileText) {
         }
     }
 
-    //power_user.themes.push(parsed);
     await saveTheme(parsed.name, getNewTheme(parsed));
     const option = document.createElement('option');
     option.selected = false;
@@ -217,9 +216,7 @@ export async function resetMovablePanels(type) {
         'cfgConfig',
     ];
 
-    /**
-     * @type {HTMLElement[]} Generic panels that don't have a known ID
-     */
+
     const draggedElements = Array.from(document.querySelectorAll('[data-dragged]'));
     const allDraggable = panelIds.map(id => document.getElementById(id)).concat(draggedElements).filter(onlyUnique);
 
@@ -233,9 +230,6 @@ export async function resetMovablePanels(type) {
         }
     });
 
-    /**
-     * @type {HTMLElement[]} Zoomed avatars that are currently being resized
-     */
     const zoomedAvatars = Array.from(document.querySelectorAll('.zoomed_avatar'));
     if (zoomedAvatars.length > 0) {
         zoomedAvatars.forEach((avatar) => {
@@ -251,7 +245,7 @@ export async function resetMovablePanels(type) {
 
     power_user.movingUIState = {};
 
-    //if user manually resets panels, deselect the current preset
+
     if (type !== 'quiet' && type !== 'resize') {
         power_user.movingUIPreset = 'Default';
         $('#movingUIPresets option[value="Default"]').prop('selected', true);
@@ -262,13 +256,13 @@ export async function resetMovablePanels(type) {
 
     eventSource.once(event_types.SETTINGS_UPDATED, () => {
         $('.resizing').removeClass('resizing');
-        //if happening as part of preset application, do it quietly.
+
         if (type === 'quiet') {
             return;
-            //if happening due to resize, tell user.
+
         } else if (type === 'resize') {
             toastr.warning('Panel positions reset due to zoom/resize');
-            //if happening due to manual button press
+
         } else {
             toastr.success('Panel positions reset');
         }
