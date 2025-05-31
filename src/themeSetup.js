@@ -56,7 +56,7 @@ export class ThemeSetup {
             {
                 "type": "select",
                 "varId": "bigChatAvatarFactor",
-                "displayText": "Big chat avatar factor",
+                "displayText": "Big avatar chat factor",
                 "default": "4x3.4",
                 "options": [
                     { "label": "4x4", "value": "4x4" },
@@ -192,19 +192,24 @@ export class ThemeSetup {
       
     }
 
-    toggleChatBubbleBigAvatarHeight(enabled){
+    toggleChatBubbleBigAvatarHeight(enabled) {
+        const styleId = 'nadtheme-mes-minheight-style';
+        const css = `body.big_side-avatars .mes { min-height: calc(var(--avatar-base-height) * var(--big-avatar-height-factor) * var(--big-avatar-char-height-factor)) !important; }`;
 
-        const mesElements = document.querySelectorAll('.mes');
-        const styleValue = 'calc(var(--avatar-base-height) * var(--big-avatar-height-factor) * var(--big-avatar-char-height-factor))';
+        let styleTag = document.getElementById(styleId);
 
-        mesElements.forEach(el => {
-            if (enabled) {
-                el.style.setProperty('min-height', styleValue, 'important');
-            } else {
-                el.style.removeProperty('min-height');
+        if (enabled) {
+            if (!styleTag) {
+                styleTag = document.createElement('style');
+                styleTag.id = styleId;
+                styleTag.textContent = css;
+                document.head.appendChild(styleTag);
             }
-        });
-
+        } else {
+            if (styleTag) {
+                styleTag.remove();
+            }
+        }
     }
 
 
