@@ -56,7 +56,7 @@ export class ThemeSetup {
             {
                 "type": "select",
                 "varId": "bigChatAvatarFactor",
-                "displayText": "Big avatar chat factor",
+                "displayText": "Big Chat Avatar Size Factor",
                 "default": "4x3.4",
                 "options": [
                     { "label": "4x4", "value": "4x4" },
@@ -68,7 +68,7 @@ export class ThemeSetup {
             {
                 "type": "checkbox",
                 "varId": "chatBubbleBigAvatarHeight",
-                "displayText": "Chat Bubble as Big Avatar Height",
+                "displayText": "Chat Bubble as Big Chat Avatar Height",
                 "default": false,
                 "controlType": "js" 
             },
