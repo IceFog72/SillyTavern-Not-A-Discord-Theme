@@ -194,7 +194,7 @@ export class ThemeSetup {
 
     toggleChatBubbleBigAvatarHeight(enabled) {
         const styleId = 'nadtheme-mes-minheight-style';
-        const css = `body.big_side-avatars .mes { min-height: calc(var(--avatar-base-height) * var(--big-avatar-height-factor) * var(--big-avatar-char-height-factor)) !important; }`;
+        const css = `body.big_side-avatars .mes_block { min-height: calc(var(--avatar-base-height) * var(--big-avatar-height-factor) * var(--big-avatar-char-height-factor)) !important; }`;
 
         let styleTag = document.getElementById(styleId);
 
