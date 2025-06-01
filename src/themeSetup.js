@@ -97,7 +97,7 @@ export class ThemeSetup {
                 "type": "color",
                 "varId": "NSDThemeBG4Color",
                 "displayText": "Secondary Theme Color",
-                "default": "rgba(37, 38, 41, 1)",
+                "default": "rgba(32, 32, 36, 1)",
                 "controlType": "css"
             },
             {

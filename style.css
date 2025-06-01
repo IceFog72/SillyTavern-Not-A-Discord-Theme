@@ -29,12 +29,12 @@ MIT License
   --NSDexpressionWidth: 512;
   --NSDbgImageOpacity: 1;
 
-  --NSDThemeBG1Color: rgb(26, 26, 30, 1);
-  --NSDThemeBG2Color: rgb(40, 40, 45, 1);
-  --NSDThemeBG3Color: rgb(34, 35, 39, 1);
-  --NSDThemeBG4Color: rgb(37, 38, 41, 1);
+  --NSDThemeBG1Color: rgba(26, 26, 30, 1);
+  --NSDThemeBG2Color: rgba(40, 40, 45, 1);
+  --NSDThemeBG3Color: rgba(34, 35, 39, 1);
+  --NSDThemeBG4Color: rgba(32, 32, 36, 1);
 
-  --NSDTheme1Color: rgb(102, 103, 113, 1);
+  --NSDTheme1Color: rgba(102, 103, 113, 1);
 
   --NSDMesFontScale: 1;
   --NSDMesFontSize: calc(var(--fontScale) * 15px);
