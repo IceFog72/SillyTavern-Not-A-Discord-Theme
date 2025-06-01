@@ -1120,6 +1120,10 @@ body:has(#right-nav-panel.openDrawer){
     border-top-left-radius: 0px !important;
   }
 
+  #extensionTopBar{
+    border-top-left-radius: 0px !important;
+  }
+
   .drawer-content {
     border-top-left-radius: 0px !important;
   }
@@ -1176,6 +1180,7 @@ body:has(#WorldInfo[style*="display: block;"]):has(#right-nav-panel.openDrawer){
 
 #extensionTopBar {
   border-radius: 0px !important;
+  border-top-left-radius: 8px !important;
   background-color: var(--SmartThemeChatTintColor) !important;
   border-top: 1px solid var(--SmartThemeBorderColor) !important;
   border-left: 1px solid var(--SmartThemeBorderColor) !important;
