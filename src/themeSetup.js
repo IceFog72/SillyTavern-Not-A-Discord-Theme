@@ -16,7 +16,7 @@ export class ThemeSetup {
             {
                 "type": "slider",
                 "varId": "NSDlistGrid-char-panel-width",
-                "displayText": "Grid char panel width",
+                "displayText": "Grid Char Panel Width",
                 "default": "482",
                 "min": 240,
                 "max": 740,
@@ -26,7 +26,7 @@ export class ThemeSetup {
             {
                 "type": "slider",
                 "varId": "NSDnormal-char-panel-width",
-                "displayText": "Normal panel width",
+                "displayText": "Normal Panel Width",
                 "default": "346",
                 "min": 240,
                 "max": 740,
@@ -68,7 +68,7 @@ export class ThemeSetup {
             {
                 "type": "checkbox",
                 "varId": "chatBubbleBigAvatarHeight",
-                "displayText": "Chat Bubble as Big Chat Avatar Height",
+                "displayText": "Chat Bubble as Big Avatar Height",
                 "default": false,
                 "controlType": "js" 
             },
@@ -91,6 +91,13 @@ export class ThemeSetup {
                 "varId": "NSDThemeBG1Color",
                 "displayText": "Drawer BG Color",
                 "default": "rgba(26, 26, 30, 1)",
+                "controlType": "css"
+            },
+            {
+                "type": "color",
+                "varId": "NSDThemeBG4Color",
+                "displayText": "Secondary Theme Color",
+                "default": "rgba(37, 38, 41, 1)",
                 "controlType": "css"
             },
             {
