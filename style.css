@@ -74,6 +74,9 @@ MIT License
   --black50a: color-mix(in srgb, var(--SmartThemeBlurTintColor) 30%, transparent);
   --white50a: color-mix(in srgb, var(--SmartThemeUnderlineColor) 60%, rgba(255, 255, 255, 0.5));
 
+  --white30a:rgba(51, 51, 56, 1);
+
+
   --avatar-height-factor: 1;
   --avatar-width-factor: 1;
 
