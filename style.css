@@ -598,7 +598,7 @@ body.waifuMode .zoomed_avatar {
 
 #character_cross {
   position: fixed !important;
-  left: calc(var(--chat-panel-left-offset) + var(--chat-panel-width) - 32px) !important;
+  left: calc(var(--chat-panel-left-offset) + var(--chat-panel-width) - 36px) !important;
   z-index: 30002;
   width: 24px;
 }
