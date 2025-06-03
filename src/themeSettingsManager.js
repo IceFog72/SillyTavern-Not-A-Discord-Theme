@@ -159,7 +159,7 @@ class ThemeSettingsManager {
     generateSliderEntry(entry, value) {
         return `
             <div class="flex-container alignitemscenter">  
-                <span data-i18n="${entry.displayText}">${entry.displayText}</span><br>    
+                <small data-i18n="${entry.displayText}">${entry.displayText}</small><br>    
                 <div class="alignitemscenter flex-container flexFlowColumn flexBasis48p flexGrow flexShrink gap0">
                     <input 
                         class="neo-range-slider" 
@@ -186,26 +186,29 @@ class ThemeSettingsManager {
 
     generateColorEntry(entry, value) {
         return `
-            <div class="flex-container alignItemsBaseline">
+            <div class="flex-container alignitemscenter">
                 <toolcool-color-picker id="ts-${entry.varId}" color="${value}" ></toolcool-color-picker>
-                <span>${entry.displayText}</span>
+                <small>${entry.displayText}</small>
+                <div id="ts-reset-${entry.varId}" title="Reset to Default Color" class="menu_button margin0 interactable ts-color-reset" tabindex="0" style="margin-left: 8px;">
+                    <i class="fa-solid fa-undo"></i>
+                </div>
             </div>`;
     }
 
     generateTextEntry(entry, value) {
         return `
-            <label class="flex-container alignItemsBaseline">
+            <div class="flex-container alignitemscenter">
                 <input type="text" class="text_pole wide100p widthNatural flex1 margin0" id="ts-${entry.varId}" value="${value}" />
-                <span>${entry.displayText}</span><br>
-            </label>`;
+                <small>${entry.displayText}</small><br>
+            </div>`;
     }
 
     generateCheckboxEntry(entry, value) {
         return `
-            <label class="checkbox_label alignItemsBaseline">
+            <div class="flex-container alignitemscenter checkbox_label">
                 <input id="ts-${entry.varId}" type="checkbox" ${value ? 'checked' : ''} />
-                <span>${entry.displayText}</span>
-            </label>`;
+                <small>${entry.displayText}</small>
+            </div>`;
     }
 
     generateSelectEntry(entry, value) {
@@ -215,11 +218,11 @@ class ThemeSettingsManager {
             </option>`).join('');
 
         return `
-            <div class="flex-container alignItemsBaseline">
+            <div class="flex-container alignitemscenter">
+                <small>${entry.displayText}</small>
                 <select class="widthNatural flex1 margin0" id="ts-${entry.varId}" >
                     ${options}
                 </select>
-                <span>${entry.displayText}</span>
             </div>`;
     }
 
@@ -243,6 +246,26 @@ class ThemeSettingsManager {
             this.handleValueChange(varId, value, $input[0]);
         };
 
+        const handleColorReset = (event) => {
+            const resetButton = event.target.closest('.ts-color-reset');
+            if (!resetButton) return;
+            
+            const varId = resetButton.id.replace('ts-reset-', '');
+            const entry = this.entries.find(e => e.varId === varId);
+            
+            if (entry && entry.type === 'color') {
+                const defaultValue = entry.default || '#000000';
+                const colorPicker = document.querySelector(`#ts-${varId}`);
+                
+                if (colorPicker) {
+
+                    colorPicker.color = defaultValue;
+                    
+                    this.handleValueChange(varId, defaultValue, colorPicker);
+                }
+            }
+        };
+
         const handleUnitChange = (event) => {
             const $select = $(event.target);
             const varId = $select.attr('id').replace('ts-unit-', '');
@@ -258,9 +281,12 @@ class ThemeSettingsManager {
 
         $(document).on('input', '.neo-range-slider, .neo-range-input', handleInputChange);
         $(document).on('change', '.unit-selector', handleUnitChange);
+        $(document).on('click', '.ts-color-reset', handleColorReset);
+
 
         this.eventHandlers.handleInputChange = handleInputChange;
         this.eventHandlers.handleUnitChange = handleUnitChange;
+        this.eventHandlers.handleColorReset = handleColorReset;
 
         // Setup individual control event listeners
         this.entries.forEach(entry => {
@@ -292,6 +318,7 @@ class ThemeSettingsManager {
         if (this.eventHandlers) {
             $(document).off('input', '.neo-range-slider, .neo-range-input', this.eventHandlers.handleInputChange);
             $(document).off('change', '.unit-selector', this.eventHandlers.handleUnitChange);
+            $(document).off('click', '.ts-color-reset', this.eventHandlers.handleColorReset);
 
             Object.keys(this.eventHandlers).forEach(key => {
                 if (key.startsWith('handleColorChange_') || key.startsWith('handleInput_')) {
@@ -345,36 +372,52 @@ class ThemeSettingsManager {
             this.resetToDefaults();
         });
 
-        $(document).on('click', '.ts-inline-drawer-maximize', function () {
-            const icon = $(this).find('.inline-drawer-icon, .floating_panel_maximize');
+        $(document).on('click', '.ts-inline-drawer-maximize', () => {
+            const icon = $('.ts-inline-drawer-maximize').find('.inline-drawer-icon, .floating_panel_maximize');
             icon.toggleClass('fa-window-maximize fa-window-restore');
             
             const drawer = $('#ts-drawer');
             const movingDivs = $('#movingDivs');
 
+            const colorValues = {};
+            this.entries.forEach(entry => {
+                if (entry.type === 'color') {
+                    const colorPicker = document.querySelector(`#ts-${entry.varId}`);
+                    if (colorPicker) {
+                        colorValues[entry.varId] = colorPicker.color;
+                    }
+                }
+            });
+
             if (drawer.hasClass('inline-drawer')) {
                 drawer.data('original-parent', drawer.parent());
                 drawer.appendTo(movingDivs)
-                      .removeClass('inline-drawer')
-                      .addClass('ts-drawer-content maximized')
-                      .css({
-                          'display': 'flex',
-                          'opacity': '1'
-                      });
+                    .removeClass('inline-drawer')
+                    .addClass('ts-drawer-content maximized')
+                    .css({
+                        'display': 'flex',
+                        'opacity': '1'
+                    });
             } else {
                 drawer.appendTo(drawer.data('original-parent'))
-                      .removeClass('ts-drawer-content maximized')
-                      .addClass('inline-drawer')
-                      .css({
-                          'display': '',
-                          'opacity': ''
-                      });
+                    .removeClass('ts-drawer-content maximized')
+                    .addClass('inline-drawer')
+                    .css({
+                        'display': '',
+                        'opacity': ''
+                    });
             }
 
-            const drawerId = drawer.attr('id');
-            if (typeof resetMovableStyles === 'function') {
-                resetMovableStyles(drawerId);
-            }
+            setTimeout(() => {
+                this.entries.forEach(entry => {
+                    if (entry.type === 'color' && colorValues[entry.varId]) {
+                        const colorPicker = document.querySelector(`#ts-${entry.varId}`);
+                        if (colorPicker) {
+                            colorPicker.color = colorValues[entry.varId];
+                        }
+                    }
+                });
+            }, 100); 
         });
     }
 
@@ -423,7 +466,7 @@ class ThemeSettingsManager {
                     <b>${title}</b>
                     <div class="inline-drawer-icon fa-solid fa-circle-chevron-down down"></div>
                 </div>
-                <div id="ts-drawer-content" class="inline-drawer-content" style="font-size:small;">
+                <div id="ts-drawer-content" class="inline-drawer-content">
                     <div class="flex-container ts-container flexFlowColumn">
                         <div class="flex-container ts-flex-container" >
                             <div id="ts-row-1" class="flex-container flexFlowColumn" style="flex: 1; flex-direction: column;">

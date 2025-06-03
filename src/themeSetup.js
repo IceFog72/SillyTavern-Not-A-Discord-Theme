@@ -16,7 +16,7 @@ export class ThemeSetup {
             {
                 "type": "slider",
                 "varId": "NSDlistGrid-char-panel-width",
-                "displayText": "Grid char panel width",
+                "displayText": "Grid Char Panel Width",
                 "default": "482",
                 "min": 240,
                 "max": 740,
@@ -26,7 +26,7 @@ export class ThemeSetup {
             {
                 "type": "slider",
                 "varId": "NSDnormal-char-panel-width",
-                "displayText": "Normal panel width",
+                "displayText": "Normal Panel Width",
                 "default": "346",
                 "min": 240,
                 "max": 740,
@@ -54,6 +54,25 @@ export class ThemeSetup {
                 "controlType": "css"
             },
             {
+                "type": "select",
+                "varId": "bigChatAvatarFactor",
+                "displayText": "Big Chat Avatar Size Factor",
+                "default": "4x3.4",
+                "options": [
+                    { "label": "4x4", "value": "4x4" },
+                    { "label": "4x3.4", "value": "4x3.4" },
+                    { "label": "4x3", "value": "4x3" }
+                ],
+                "controlType": "js" 
+            },
+            {
+                "type": "checkbox",
+                "varId": "chatBubbleBigAvatarHeight",
+                "displayText": "Chat Bubble as Big Avatar Height",
+                "default": false,
+                "controlType": "js" 
+            },
+            {
                 "type": "checkbox",
                 "varId": "enable-animations",
                 "displayText": "Enable Some Animations",
@@ -69,15 +88,22 @@ export class ThemeSetup {
             },
             {
                 "type": "color",
-                "varId": "Drawer BG Color",
-                "displayText": "Color 1",
+                "varId": "NSDThemeBG1Color",
+                "displayText": "Drawer BG Color",
                 "default": "rgba(26, 26, 30, 1)",
                 "controlType": "css"
             },
             {
                 "type": "color",
-                "varId": "Option Popup BG Color",
-                "displayText": "Color 2",
+                "varId": "NSDThemeBG4Color",
+                "displayText": "Secondary Theme Color",
+                "default": "rgba(32, 32, 36, 1)",
+                "controlType": "css"
+            },
+            {
+                "type": "color",
+                "varId": "NSDThemeBG2Color",
+                "displayText": "Option Popup BG Color",
                 "default": "rgba(40, 40, 45, 1)",
                 "controlType": "css"
             },
@@ -133,6 +159,14 @@ export class ThemeSetup {
             this.toggleAnimations(value);
         });
 
+        this.themeManager.registerCallback('chatBubbleBigAvatarHeight', (value, oldValue, varId) => {
+            this.toggleChatBubbleBigAvatarHeight(value);
+        });
+
+        this.themeManager.registerCallback('bigChatAvatarFactor', (value, oldValue, varId) => {
+            this.setBigChatAvatarFactor(value);
+        });
+
         this.themeManager.registerCallback('enable-autoHideCharFilter', (value, oldValue, varId) => {
             this.setAutoHideCharFilter(value);
         });
@@ -163,6 +197,46 @@ export class ThemeSetup {
     
     setAnimationSpeed(speed) {
       
+    }
+
+    toggleChatBubbleBigAvatarHeight(enabled) {
+        const styleId = 'nadtheme-mes-minheight-style';
+        const css = `body.big_side-avatars .mes_block { min-height: calc(var(--avatar-base-height) * var(--big-avatar-height-factor) * var(--big-avatar-char-height-factor)) !important; }`;
+
+        let styleTag = document.getElementById(styleId);
+
+        if (enabled) {
+            if (!styleTag) {
+                styleTag = document.createElement('style');
+                styleTag.id = styleId;
+                styleTag.textContent = css;
+                document.head.appendChild(styleTag);
+            }
+        } else {
+            if (styleTag) {
+                styleTag.remove();
+            }
+        }
+    }
+
+
+    setBigChatAvatarFactor(factor){
+
+        if (factor === '4x3') {
+
+            document.body.style.setProperty('--big-avatar-char-width-factor', `4`, 'important');
+            document.body.style.setProperty('--big-avatar-char-height-factor', `3`, 'important');
+
+        } else if (factor === '4x4') {
+
+            document.body.style.setProperty('--big-avatar-char-width-factor', `4`, 'important');
+            document.body.style.setProperty('--big-avatar-char-height-factor', `4`, 'important');
+
+        } else {
+
+            document.body.style.setProperty('--big-avatar-char-width-factor', `4`, 'important');
+            document.body.style.setProperty('--big-avatar-char-height-factor', `3.4`, 'important');
+        }
     }
 
     setAutoHideCharFilter(enabled) {

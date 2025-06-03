@@ -15,8 +15,10 @@ export function setDrawerClasses() {
         slideToggle(WorldInfo, getSlideToggleOptions());
     }
 
+
     $(WorldInfo).addClass('pinnedOpen');
-    $(WIDrawerIcon).addClass('drawerPinnedOpen');
+    WIDrawerIcon.className='drawer-icon fa-solid fa-book-atlas fa-fw interactable drawerPinnedOpen closedIcon';
+    //$(WIDrawerIcon).addClass('drawerPinnedOpen');
     WorldInfo.style='display: none;';
     WorldInfo.className = 'drawer-content pinnedOpen closedDrawer';
 
