@@ -20,18 +20,21 @@ MIT License
   --NSDlistGrid-char-panel-width: 580;
   --NSDnormal-char-panel-width: 420;
 
+  --big-avatar-char-width-factor: 4;
+  --big-avatar-char-height-factor: 3.4;
+
   --NSDAnimation-duration: 0;
 
   --NSDexpressionVisibility: collapse;
   --NSDexpressionWidth: 512;
   --NSDbgImageOpacity: 1;
 
-  --NSDThemeBG1Color: rgb(26, 26, 30, 1);
-  --NSDThemeBG2Color: rgb(40, 40, 45, 1);
-  --NSDThemeBG3Color: rgb(34, 35, 39, 1);
-  --NSDThemeBG4Color: color-mix(in oklab,var(--neutral-79) 100%,var(--theme-base-color,#000) var(--theme-base-color-amount,0%));
+  --NSDThemeBG1Color: rgba(26, 26, 30, 1);
+  --NSDThemeBG2Color: rgba(40, 40, 45, 1);
+  --NSDThemeBG3Color: rgba(34, 35, 39, 1);
+  --NSDThemeBG4Color: rgba(32, 32, 36, 1);
 
-  --NSDTheme1Color: rgb(102, 103, 113, 1);
+  --NSDTheme1Color: rgba(102, 103, 113, 1);
 
   --NSDMesFontScale: 1;
   --NSDMesFontSize: calc(var(--fontScale) * 15px);
@@ -71,6 +74,9 @@ MIT License
   --black50a: color-mix(in srgb, var(--SmartThemeBlurTintColor) 30%, transparent);
   --white50a: color-mix(in srgb, var(--SmartThemeUnderlineColor) 60%, rgba(255, 255, 255, 0.5));
 
+  --white30a:rgba(51, 51, 56, 1);
+
+
   --avatar-height-factor: 1;
   --avatar-width-factor: 1;
 
@@ -86,7 +92,7 @@ body:has(#bg1) {
   --lat--color-accent: var(--white50a) !important;
   --lat--color-bgSecondary: var(--SmartThemeBlurTintColor) !important;
   --stqrd--color-borderSecondary: var(--SmartThemeBorderColor) !important;
-  --stqrd--color-bgPrimary: var(--NSDThemeBG2Color) !important;
+  --stqrd--color-bgPrimary: var(--NSDThemeBG4Color) !important;
   --secondaryBg : var(--NSDThemeBG2Color) !important;
   
 /*
@@ -596,6 +602,7 @@ body.waifuMode .zoomed_avatar {
   */
 }
 
+
 #character_cross {
   position: fixed !important;
   left: calc(var(--chat-panel-left-offset) + var(--chat-panel-width) - 36px) !important;
@@ -840,6 +847,7 @@ select {
     text-shadow: unset !important;
     font-size: calc(var(--mainFontSize) * 0.9);
     background-color: var(--button-outline-danger-background) !important;
+    color: color-mix(in srgb, var(--SmartThemeBodyColor) 50%, white 60%);
 }
 .menu_button:hover{
     background-color: var(--button-outline-danger-background-hover) !important;
@@ -847,6 +855,14 @@ select {
 
 .menu_button:active{
     background-color: var(--button-outline-danger-background-active) !important;
+}
+
+.menu_button > small {
+  color: color-mix(in srgb, var(--SmartThemeBodyColor) 50%, white 60%);
+}
+
+small:hover {
+  opacity: 1;
 }
 
 .toast-progress {
@@ -1082,7 +1098,7 @@ input[type="checkbox"]:checked:hover {
 
 #WorldInfo {
   padding: 0px !important;
-  background-color: var(--NSDThemeBG3Color) !important;
+  background-color: var(--NSDThemeBG4Color) !important;
   border-top-left-radius: 8px !important;
 }
 
@@ -1105,6 +1121,10 @@ input[type="checkbox"]:checked:hover {
 
 body:has(#right-nav-panel.openDrawer){
   #sheld {
+    border-top-left-radius: 0px !important;
+  }
+
+  #extensionTopBar{
     border-top-left-radius: 0px !important;
   }
 
@@ -1164,6 +1184,7 @@ body:has(#WorldInfo[style*="display: block;"]):has(#right-nav-panel.openDrawer){
 
 #extensionTopBar {
   border-radius: 0px !important;
+  border-top-left-radius: 8px !important;
   background-color: var(--SmartThemeChatTintColor) !important;
   border-top: 1px solid var(--SmartThemeBorderColor) !important;
   border-left: 1px solid var(--SmartThemeBorderColor) !important;
@@ -1443,6 +1464,7 @@ select,
 
 .neo-range-input{
   border-radius: 0 0 8px 8px !important;
+  padding: 4px 2px !important;
 }
 
 #CharListButtonAndHotSwaps .flexFlowColumn.flex-container{
@@ -1851,7 +1873,6 @@ body #send_form,
   trackerUI  
 *********/
 
-
 #trackerInterfaceContents .tracker-array-container {
   gap: 0 !important;
 }
@@ -1883,10 +1904,15 @@ body #send_form,
 }
 
 
-
 /*********
   stcdx  
 *********/
+
+body:has(.stcdx--root.stcdx--codex.stcdx--active) {
+  .stcdx--tooltip {
+    display: none !important;
+  }
+}
 
 .stcdx--tooltip {
   z-index: 60;
@@ -2131,7 +2157,6 @@ body.charListGrid #rm_print_characters_block .group_select .avatar_collage {
 .character_select .avatar:not(.add_avatar),
 .avatar_collage {
   align-items: unset !important;
-  margin: 0px !important;
   overflow: hidden !important;
   background: linear-gradient(135deg, #2a2a2a 25%, #1e1e1e 75%);
   border-radius: 8px !important;
@@ -2336,6 +2361,7 @@ body.big_side-avatars .tokenCounterDisplay {
 body.big_side-avatars .mes {
   padding: 0 !important;
   overflow-y: clip !important;
+
 }
 
 body.big_side-avatars body.bubblechat .mes[is_user="false"] {
@@ -2361,7 +2387,7 @@ body.big_side-avatars .mes[is_user="false"] .mesAvatarWrapper {
 }
 
 body.big_side-avatars .mes[is_user="false"] .mes_block {
-  margin-right: calc(var(--avatar-base-width) * var(--big-avatar-width-factor) * 4) !important;
+  margin-right: calc(var(--avatar-base-width) * var(--big-avatar-width-factor) * var(--big-avatar-char-height-factor)) !important;
   margin-left: 12px !important;
 }
 
@@ -2369,8 +2395,8 @@ body.big_side-avatars .mes[is_user="false"] .mesAvatarWrapper .avatar {
   position: absolute !important;
   top: 0 !important;
   right: 0 !important;
-  width: calc(var(--avatar-base-width) * var(--big-avatar-width-factor) * 4) !important;
-  height: calc(var(--avatar-base-height) * var(--big-avatar-height-factor) * 3.4) !important;
+  width: calc(var(--avatar-base-width) * var(--big-avatar-width-factor) * var(--big-avatar-char-width-factor)) !important;
+  height: calc(var(--avatar-base-height) * var(--big-avatar-height-factor) * var(--big-avatar-char-height-factor)) !important;
   -webkit-mask-image:
     linear-gradient(to right, rgba(0, 0, 0, 0) 0%, black 40%),
     linear-gradient(to top, rgba(0, 0, 0, 0) 0%, black 40%) !important;
@@ -2399,8 +2425,8 @@ body.big_side-avatars .mes[is_user="true"] .mesAvatarWrapper .avatar {
   position: absolute !important;
   top: 0 !important;
   left: 0 !important;
-  width: calc(var(--avatar-base-width) * var(--big-avatar-width-factor) * 4) !important;
-  height: calc(var(--avatar-base-height) * var(--big-avatar-height-factor) * 3.4) !important;
+  width: calc(var(--avatar-base-width) * var(--big-avatar-width-factor) * var(--big-avatar-char-width-factor)) !important;
+  height: calc(var(--avatar-base-height) * var(--big-avatar-height-factor) * var(--big-avatar-char-height-factor)) !important;
   -webkit-mask-image:
     linear-gradient(to left, rgba(0, 0, 0, 0) 0%, black 40%),
     linear-gradient(to top, rgba(0, 0, 0, 0) 0%, black 40%);
@@ -2418,8 +2444,8 @@ body.big_side-avatars .mes[is_user="true"] .mesAvatarWrapper .avatar {
 
 body.big_side-avatars .mesAvatarWrapper .avatar img {
   position: absolute !important;
-  width: calc(var(--avatar-base-width) * var(--big-avatar-width-factor) * 4) !important;
-  height: calc(var(--avatar-base-height) * var(--big-avatar-height-factor) * 4) !important;
+  width: calc(var(--avatar-base-width) * var(--big-avatar-width-factor) * var(--big-avatar-char-width-factor)) !important;
+  height: calc(var(--avatar-base-height) * var(--big-avatar-height-factor) * var(--big-avatar-char-height-factor)) !important;
 
 }
 
@@ -2430,3 +2456,4 @@ body.big_side-avatars .mesAvatarWrapper .avatar img {
 .scrollableInner {
   height: calc(100% - 50px) !important;
 }
+
