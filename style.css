@@ -203,27 +203,24 @@ body:has(#right-nav-panel.closedDrawer) {
 }
 
 
-
 body:has(.stqrd--editorPanel:is(body > *)),
-body:has(#stqrd--drawer-v2[style*="display: block;"]),
-body:has(#WorldInfo[style*="display: block;"]) {
+body:has(#stqrd--drawer-v2.openDrawer),
+body:has(#WorldInfo.openDrawer) {
   --expression-image-lorebook-width: calc(var(--center-panels-width)/2) !important;
 }
 
-body:has(#WorldInfo[style*="display: none;"]):has(#stqrd--drawer-v2[style*="display: none;"]) {
+body:has(#WorldInfo.closedDrawer):has(#stqrd--drawer-v2.closedDrawer) {
   --expression-image-lorebook-width: 0px;
 }
 
-body:has(.zoomed_avatar.draggable):not(:has(#WorldInfo[style*="display: block;"])):not(:has(#stqrd--drawer-v2[style*="display: block;"])):not(:has(.stqrd--editorPanel:is(body > *))):not(.waifuMode),
-body:has(#expression-wrapper):has(#expression-image:not([src=""])):not(:has(#WorldInfo[style*="display: block;"])):not(:has(#stqrd--drawer-v2[style*="display: block;"])):not(:has(.stqrd--editorPanel:is(body > *))):not(.waifuMode){
+body:has(.zoomed_avatar.draggable):not(:has(#WorldInfo.openDrawer)):not(:has(#stqrd--drawer-v2.openDrawer)):not(:has(.stqrd--editorPanel:is(body > *))):not(.waifuMode),
+body:has(#expression-wrapper):has(#expression-image:not([src=""])):not(:has(#WorldInfo.openDrawer)):not(:has(#stqrd--drawer-v2.openDrawer)):not(:has(.stqrd--editorPanel:is(body > *))):not(.waifuMode){
   --expression-image-lorebook-width: calc(var(--NSDexpressionWidth) * 1px) !important;
 }
 
 body:has(#expression-wrapper):has(#expression-image:not([src=""])).waifuMode {
   --expression-image-lorebook-width: 0px;
 }
-
-
 
 
 
@@ -477,6 +474,14 @@ body:has(#gallery.draggable) {
 
 .stqrd--layout.stqrd--showBrowser{
   --shadowWidth: 3 !important;
+}
+
+.stqrd--blockWrap {
+  max-width: 240px;
+}
+
+.stqrd--runResult {
+  min-height: 6vh;
 }
 
 #expression-wrapper {
