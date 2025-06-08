@@ -1151,8 +1151,8 @@ body:has(#right-nav-panel.openDrawer){
 }
 
 body:has(.stqrd--editorPanel),
-body:has(#stqrd--drawer-v2[style*="display: block;"]),
-body:has(#WorldInfo[style*="display: block;"]),
+body:has(#stqrd--drawer-v2.openDrawer),
+body:has(#WorldInfo.openDrawer),
 body:has(#expression-image:not([src=""])),
 body:has(.zoomed_avatar.draggable)
 {
@@ -1163,7 +1163,7 @@ body:has(.zoomed_avatar.draggable)
   }
 }
 
-body:has(#WorldInfo[style*="display: block;"]):has(#right-nav-panel.openDrawer){
+body:has(#WorldInfo.openDrawer):has(#right-nav-panel.openDrawer){
   #sheld {
     border-top-right-radius: 8px !important;
     border-top-left-radius: 0px !important;
