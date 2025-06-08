@@ -90,8 +90,8 @@ export function watchForChangesAndResize() {
 
             const newWidth = Math.max(8, Math.min(startWidth + diff, maxWidth, window.innerWidth * 0.8));
 
-            const worldInfoHidden = worldInfo?.style.display === 'none' || worldInfo?.style.display === '';
-            const drawerHidden = drawer === null || drawer?.style.display === 'none' || drawer?.style.display === '';
+            const worldInfoHidden = worldInfo?.classList.contains('closedDrawer');
+            const drawerHidden = drawer === null || drawer?.classList.contains('closedDrawer');
             const shouldHideContent = !(hasZoomedAvatar || hasValidExpression) || body.classList.contains('waifuMode');
             const shouldRemoveWidth = newWidth < 128 || 
                 (worldInfoHidden && (drawer === null ? true : drawerHidden) && shouldHideContent && hasNoVisiblePanels);
@@ -128,8 +128,8 @@ export function watchForChangesAndResize() {
         const validWrapper = wrapper && !wrapper.matches('[style*="display: none"]');
         const validExpression = validImage && validWrapper && !image.matches('[style*="display: none"]');
 
-        const worldInfoHidden = !worldInfo || worldInfo.style.display === 'none' || worldInfo.style.display === '';
-        const drawerHidden = !drawer || drawer.style.display === 'none' || drawer.style.display === '';
+        const worldInfoHidden = worldInfo?.classList.contains('closedDrawer');
+        const drawerHidden = drawer === null || drawer?.classList.contains('closedDrawer');
         const shouldHide = !(hasZoomed || validExpression) || body.classList.contains('waifuMode');
         const noVisiblePanels = worldInfoHidden && drawerHidden;
 
