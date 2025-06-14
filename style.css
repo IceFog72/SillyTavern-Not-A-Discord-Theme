@@ -480,7 +480,8 @@ body:has(#gallery.draggable) {
   max-width: 240px;
 }
 
-.stqrd--runResult {
+.stqrd--runResult,
+.stqrd--runError {
   min-height: 6vh;
 }
 
