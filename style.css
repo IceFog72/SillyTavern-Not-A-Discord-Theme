@@ -2045,7 +2045,7 @@ body.charListGrid #rm_print_characters_block {
 }
 
 .character_name_block {
-  display: grid;
+  display: flex;
 }
 
 #rm_print_characters_block .ch_name,
@@ -2066,6 +2066,11 @@ body.charListGrid #rm_print_characters_block .bogus_folder_select,
 .character_select,
 .group_select.wide100p {
   width: unset !important;
+}
+
+body.charListGrid #rm_print_characters_block .character_select .character_name_block
+{
+  flex-direction: row !important;
 }
 
 body.charListGrid #rm_print_characters_block .avatar img,
