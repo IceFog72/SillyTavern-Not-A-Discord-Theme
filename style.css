@@ -1134,6 +1134,7 @@ body:has(#right-nav-panel.openDrawer){
     border-top-left-radius: 0px !important;
   }
 
+
   .drawer-content {
     border-top-left-radius: 0px !important;
   }
@@ -1200,6 +1201,15 @@ body:has(#WorldInfo.openDrawer):has(#right-nav-panel.openDrawer){
 
 #extensionTopBarSearchInput:placeholder-shown {
   border-color: var(--SmartThemeBlurTintColor);
+}
+
+#extensionConnectionProfiles{
+    background-color: var(--SmartThemeChatTintColor) !important;
+    border-radius: 0px !important;
+    border-top: 1px solid var(--SmartThemeBorderColor) !important;
+    border-left: 1px solid var(--SmartThemeBorderColor) !important;
+    border-right: 1px solid var(--SmartThemeBorderColor) !important;
+    border-bottom: unset !important;
 }
 
 .options-content {
