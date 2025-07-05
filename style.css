@@ -476,13 +476,10 @@ body:has(#gallery.draggable) {
   --shadowWidth: 3 !important;
 }
 
-.stqrd--blockWrap {
-  max-width: 240px;
-}
 
 .stqrd--runResult,
 .stqrd--runError {
-  min-height: 6vh;
+  min-height: 15vh;
 }
 
 #expression-wrapper {
@@ -1124,6 +1121,15 @@ input[type="checkbox"]:checked:hover {
   background-color: var(--SmartThemeBlurTintColor) !important;
 }
 
+.stqrd--editorPanel .stqrd--footer{
+  height: 1.8rem !important;
+}
+
+.stqrd--editorPanel.stqrd--isDebugging .stqrd--debuggerWrap{
+
+  --width: 20vw !important;
+}
+
 
 body:has(#right-nav-panel.openDrawer){
   #sheld {
@@ -1148,8 +1154,6 @@ body:has(#right-nav-panel.openDrawer){
   #WorldInfo {
     border-top-left-radius: 8px !important;
   }
-
-
 }
 
 body:has(.stqrd--editorPanel),
