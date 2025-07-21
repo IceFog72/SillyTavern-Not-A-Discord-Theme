@@ -35,6 +35,16 @@ export class ThemeSetup {
             },
             {
                 "type": "slider",
+                "varId": "NSDpanel-base-width",
+                "displayText": "Right Panels Width",
+                "default": "380",
+                "min": 200,
+                "max": 600,
+                "step": 1,
+                "controlType": "css"
+            },
+            {
+                "type": "slider",
                 "varId": "NSDMesFontSize",
                 "displayText": "Message Font Size",
                 "default": "15",

@@ -19,6 +19,7 @@ MIT License
 
   --NSDlistGrid-char-panel-width: 580;
   --NSDnormal-char-panel-width: 420;
+  --NSDpanel-base-width: 380;
 
   --big-avatar-char-width-factor: 4;
   --big-avatar-char-height-factor: 3.4;
@@ -74,7 +75,7 @@ MIT License
   --black50a: color-mix(in srgb, var(--SmartThemeBlurTintColor) 30%, transparent);
   --white50a: color-mix(in srgb, var(--SmartThemeUnderlineColor) 60%, rgba(255, 255, 255, 0.5));
 
-  --white30a:rgba(51, 51, 56, 1);
+  --white30a: var(--NSDDrawer-IconColor);
 
 
   --avatar-height-factor: 1;
@@ -84,7 +85,6 @@ MIT License
   scrollbar-color: var(--NSDTheme1Color) transparent;
   scroll-behavior: smooth !important;
 }
-
 
 
 
@@ -105,7 +105,7 @@ body:has(#bg1) {
   
    /* Core layout variables */
   --nav-bar-width: 48px;
-  --panel-base-width: 380px;
+  --panel-base-width: calc(var(--NSDpanel-base-width) *1px) !important;
   --char-panel-grid-width: 580px;
   --char-panel-normal-width: 420px;
   --expression-width: 512px;
