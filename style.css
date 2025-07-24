@@ -213,6 +213,7 @@ body:has(#WorldInfo.closedDrawer):has(#stqrd--drawer-v2.closedDrawer) {
   --expression-image-lorebook-width: 0px;
 }
 
+body:has(#movingDivs):has(.draggable):has([style="display: block; padding: 0px;"]):has(img):not(.waifuMode),
 body:has(.zoomed_avatar.draggable):not(:has(#WorldInfo.openDrawer)):not(:has(#stqrd--drawer-v2.openDrawer)):not(:has(.stqrd--editorPanel:is(body > *))):not(.waifuMode),
 body:has(#expression-wrapper):has(#expression-image:not([src=""])):not(:has(#WorldInfo.openDrawer)):not(:has(#stqrd--drawer-v2.openDrawer)):not(:has(.stqrd--editorPanel:is(body > *))):not(.waifuMode){
   --expression-image-lorebook-width: calc(var(--NSDexpressionWidth) * 1px) !important;
@@ -508,6 +509,7 @@ body:has(#gallery.draggable) {
   background-color: transparent !important;
   z-index: 20 !important;
   bottom: 0 !important;
+  top: 4px !important;
   margin: 0 !important;
   border-radius: 0px !important;
   filter: unset !important;
@@ -2037,12 +2039,15 @@ body.waifuMode img.expression  {
   margin: unset !important;
   width: 100% !important;
   height: 100% !important;
+  max-height: 100vh !important;
+  max-width: 100dvh !important;
 }
 
 .zoomed_avatar img {
   border-radius: 0px !important;
   width: 100% !important;
   object-fit: unset !important;
+  max-height: 100% !important;
 }
 
 .avatar-container.default_persona .avatar {
@@ -2482,3 +2487,39 @@ body.big_side-avatars .mesAvatarWrapper .avatar img {
   height: calc(100% - 50px) !important;
 }
 
+
+
+#movingDivs .draggable:has(> img) {
+  z-index: 40 !important;
+	display: flex !important;
+	right: var(--panels-total-width) !important;
+	align-items: end !important;
+  align-items: end !important;
+  background-color: transparent !important;
+  bottom: 0 !important;
+  border-radius: 0px !important;
+  filter: unset !important;
+  left: unset !important;
+  border: unset;
+  top: 4px !important;
+  padding: 0 !important;
+  background-color: var(--SmartThemeChatTintColor) !important;
+  width: unset !important;
+  max-height: 100vh !important;
+  max-width: unset !important;
+  resize: none !important;
+  min-width: 100px;
+  min-height: 100px;
+}
+
+#movingDivs .draggable img{
+max-height: 100% !important;
+  max-width: unset !important;
+  object-fit: contain;
+  padding: 0;
+  height: unset !important;
+  min-width: 100px;
+  min-height: 100px;
+  width: var(--expression-image-lorebook-width) !important;
+  box-sizing: border-box;
+}
