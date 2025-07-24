@@ -2488,7 +2488,6 @@ body.big_side-avatars .mesAvatarWrapper .avatar img {
 }
 
 
-
 #movingDivs .draggable:has(> img) {
   z-index: 40 !important;
 	display: flex !important;
