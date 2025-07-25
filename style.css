@@ -213,7 +213,7 @@ body:has(#WorldInfo.closedDrawer):has(#stqrd--drawer-v2.closedDrawer) {
   --expression-image-lorebook-width: 0px;
 }
 
-body:has(#movingDivs):has(.draggable):has([style="display: block; padding: 0px;"]):has(img):not(.waifuMode),
+body:has(#movingDivs):has(.galleryImageDraggable):not(.waifuMode),
 body:has(.zoomed_avatar.draggable):not(:has(#WorldInfo.openDrawer)):not(:has(#stqrd--drawer-v2.openDrawer)):not(:has(.stqrd--editorPanel:is(body > *))):not(.waifuMode),
 body:has(#expression-wrapper):has(#expression-image:not([src=""])):not(:has(#WorldInfo.openDrawer)):not(:has(#stqrd--drawer-v2.openDrawer)):not(:has(.stqrd--editorPanel:is(body > *))):not(.waifuMode){
   --expression-image-lorebook-width: calc(var(--NSDexpressionWidth) * 1px) !important;
@@ -2488,7 +2488,7 @@ body.big_side-avatars .mesAvatarWrapper .avatar img {
 }
 
 
-#movingDivs .draggable:has(> img) {
+#movingDivs .galleryImageDraggable {
   z-index: 40 !important;
 	display: flex !important;
 	right: var(--panels-total-width) !important;
@@ -2511,7 +2511,7 @@ body.big_side-avatars .mesAvatarWrapper .avatar img {
   min-height: 100px;
 }
 
-#movingDivs .draggable img{
+#movingDivs .galleryImageDraggable img{
 max-height: 100% !important;
   max-width: unset !important;
   object-fit: contain;

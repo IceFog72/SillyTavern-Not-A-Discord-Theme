@@ -84,6 +84,7 @@ export function watchForChangesAndResize() {
                 image.src !== window.location.href &&
                 !wrapper.matches('[style*="display: none"]') &&
                 !image.matches('[style*="display: none"]');
+            const hasGalleryImageDraggable = body.querySelector('.galleryImageDraggable') !== null;
             const hasNoVisiblePanels = 
                 (worldInfo?.style.display !== 'block' || worldInfo?.style.display !== '') &&
                 (drawer?.style.display !== 'block' || drawer?.style.display !== '');
@@ -92,7 +93,7 @@ export function watchForChangesAndResize() {
 
             const worldInfoHidden = worldInfo?.classList.contains('closedDrawer');
             const drawerHidden = drawer === null || drawer?.classList.contains('closedDrawer');
-            const shouldHideContent = !(hasZoomedAvatar || hasValidExpression) || body.classList.contains('waifuMode');
+            const shouldHideContent = !(hasZoomedAvatar || hasValidExpression || hasGalleryImageDraggable) || body.classList.contains('waifuMode');
             const shouldRemoveWidth = newWidth < 128 || 
                 (worldInfoHidden && (drawer === null ? true : drawerHidden) && shouldHideContent && hasNoVisiblePanels);
 
@@ -127,10 +128,11 @@ export function watchForChangesAndResize() {
         const validImage = image && image.src && image.src !== 'undefined' && image.src !== window.location.href;
         const validWrapper = wrapper && !wrapper.matches('[style*="display: none"]');
         const validExpression = validImage && validWrapper && !image.matches('[style*="display: none"]');
+        const hasGalleryImageDraggable = body.querySelector('.galleryImageDraggable') !== null;
 
         const worldInfoHidden = worldInfo?.classList.contains('closedDrawer');
         const drawerHidden = drawer === null || drawer?.classList.contains('closedDrawer');
-        const shouldHide = !(hasZoomed || validExpression) || body.classList.contains('waifuMode');
+        const shouldHide = !(hasZoomed || validExpression || hasGalleryImageDraggable) || body.classList.contains('waifuMode');
         const noVisiblePanels = worldInfoHidden && drawerHidden;
 
         if (parseInt(hiddenRef.offsetWidth) < 128 || (noVisiblePanels && shouldHide)) {
