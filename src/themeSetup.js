@@ -71,7 +71,10 @@ export class ThemeSetup {
                 "options": [
                     { "label": "4x4", "value": "4x4" },
                     { "label": "4x3.4", "value": "4x3.4" },
-                    { "label": "4x3", "value": "4x3" }
+                    { "label": "4x3", "value": "4x3" },
+                    { "label": "6x4", "value": "6x4" },
+                    { "label": "8x5", "value": "8x5" }
+
                 ],
                 "controlType": "js" 
             },
@@ -242,10 +245,22 @@ export class ThemeSetup {
             document.body.style.setProperty('--big-avatar-char-width-factor', `4`, 'important');
             document.body.style.setProperty('--big-avatar-char-height-factor', `4`, 'important');
 
-        } else {
-
+        } else if (factor === '4x3.4') {
             document.body.style.setProperty('--big-avatar-char-width-factor', `4`, 'important');
             document.body.style.setProperty('--big-avatar-char-height-factor', `3.4`, 'important');
+        
+        } else if (factor === '6x4') {
+
+            document.body.style.setProperty('--big-avatar-char-width-factor', `6`, 'important');
+            document.body.style.setProperty('--big-avatar-char-height-factor', `4`, 'important');
+
+        } else if (factor === '8x5') {
+
+            document.body.style.setProperty('--big-avatar-char-width-factor', `8`, 'important');
+            document.body.style.setProperty('--big-avatar-char-height-factor', `5`, 'important');
+
+        } else {
+
         }
     }
 

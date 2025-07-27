@@ -1428,7 +1428,7 @@ body.waifuMode #top-bar{
 
 #top-bar {
   border-bottom: unset;
-  background-color: var(--SmartThemeBlurTintColor1);
+  /*background-color: var(--SmartThemeBlurTintColor1);*/
   margin: unset;
   width: unset;
   height: unset;
