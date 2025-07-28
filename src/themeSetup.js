@@ -73,6 +73,7 @@ export class ThemeSetup {
                     { "label": "4x3.4", "value": "4x3.4" },
                     { "label": "4x3", "value": "4x3" },
                     { "label": "6x4", "value": "6x4" },
+                    { "label": "6x6", "value": "6x6" },
                     { "label": "8x5", "value": "8x5" },
                     { "label": "8x7", "value": "8x7" }
 
@@ -254,6 +255,11 @@ export class ThemeSetup {
 
             document.body.style.setProperty('--big-avatar-char-width-factor', `6`, 'important');
             document.body.style.setProperty('--big-avatar-char-height-factor', `4`, 'important');
+
+        } else if (factor === '6x6') {
+
+            document.body.style.setProperty('--big-avatar-char-width-factor', `6`, 'important');
+            document.body.style.setProperty('--big-avatar-char-height-factor', `6`, 'important');
 
         } else if (factor === '8x5') {
 

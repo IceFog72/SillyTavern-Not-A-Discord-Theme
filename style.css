@@ -2416,11 +2416,6 @@ body.big_side-avatars .mes[is_user="false"] .mesAvatarWrapper {
 
 }
 
-body.big_side-avatars .mes[is_user="false"] .mes_block {
-  margin-right: calc(var(--avatar-base-width) * var(--big-avatar-width-factor) * var(--big-avatar-char-width-factor)) !important;
-  margin-left: 12px !important;
-}
-
 body.big_side-avatars .mes[is_user="false"] .mesAvatarWrapper .avatar {
   position: absolute !important;
   top: 0 !important;
@@ -2443,11 +2438,15 @@ body.big_side-avatars .mes[is_user="false"] .mesAvatarWrapper .avatar {
 
 body.big_side-avatars .mes[is_user="true"] .mesAvatarWrapper {
   z-index: 0 !important;
-  
+}
+
+body.big_side-avatars .mes[is_user="false"] .mes_block {
+  margin-right: calc(var(--avatar-base-width) * var(--big-avatar-width-factor) * calc(var(--big-avatar-char-width-factor) - 0.5)) !important;
+  margin-left: 12px !important;
 }
 
 body.big_side-avatars .mes[is_user="true"] .mes_block {
-  margin-left: calc(var(--avatar-base-width) * var(--big-avatar-width-factor) * 3) !important;
+  margin-left: calc(var(--avatar-base-width) * var(--big-avatar-width-factor) * calc(var(--big-avatar-char-width-factor) - 0.5)) !important;
   margin-right: 12px !important;
 }
 
