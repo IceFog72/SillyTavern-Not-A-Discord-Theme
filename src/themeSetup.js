@@ -73,7 +73,8 @@ export class ThemeSetup {
                     { "label": "4x3.4", "value": "4x3.4" },
                     { "label": "4x3", "value": "4x3" },
                     { "label": "6x4", "value": "6x4" },
-                    { "label": "8x5", "value": "8x5" }
+                    { "label": "8x5", "value": "8x5" },
+                    { "label": "8x7", "value": "8x7" }
 
                 ],
                 "controlType": "js" 
@@ -258,6 +259,11 @@ export class ThemeSetup {
 
             document.body.style.setProperty('--big-avatar-char-width-factor', `8`, 'important');
             document.body.style.setProperty('--big-avatar-char-height-factor', `5`, 'important');
+
+        } else if (factor === '8x7') {
+
+            document.body.style.setProperty('--big-avatar-char-width-factor', `8`, 'important');
+            document.body.style.setProperty('--big-avatar-char-height-factor', `7`, 'important');
 
         } else {
 

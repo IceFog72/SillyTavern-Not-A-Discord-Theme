@@ -2417,7 +2417,7 @@ body.big_side-avatars .mes[is_user="false"] .mesAvatarWrapper {
 }
 
 body.big_side-avatars .mes[is_user="false"] .mes_block {
-  margin-right: calc(var(--avatar-base-width) * var(--big-avatar-width-factor) * var(--big-avatar-char-height-factor)) !important;
+  margin-right: calc(var(--avatar-base-width) * var(--big-avatar-width-factor) * var(--big-avatar-char-width-factor)) !important;
   margin-left: 12px !important;
 }
 
