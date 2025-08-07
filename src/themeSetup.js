@@ -55,6 +55,16 @@ export class ThemeSetup {
             },
             {
                 "type": "slider",
+                "varId": "NSDbig_side-avatars-opacity",
+                "displayText": "Text on avatar opacity",
+                "default": "0.3",
+                "min": 0,
+                "max": 0.99,
+                "step": 0.01,
+                "controlType": "css"
+            },
+            {
+                "type": "slider",
                 "varId": "NSDbgImageOpacity",
                 "displayText": "Bg Image Opacity",
                 "default": "1",
@@ -100,6 +110,13 @@ export class ThemeSetup {
                 "displayText": "Auto Hide Filter/Search Block",
                 "default": false,
                 "controlType": "js" 
+            },
+            {
+                "type": "color",
+                "varId": "NSDbig_side-avatars-Color",
+                "displayText": "Text on avatar Color",
+                "default": "rgba(214, 214, 214, 1)",
+                "controlType": "css"
             },
             {
                 "type": "color",

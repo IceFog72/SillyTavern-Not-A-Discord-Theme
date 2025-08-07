@@ -24,6 +24,8 @@ MIT License
   --big-avatar-char-width-factor: 4;
   --big-avatar-char-height-factor: 3.4;
 
+  --NSDbig_side-avatars-opacity: 0.3;
+
   --NSDAnimation-duration: 0;
 
   --NSDexpressionVisibility: collapse;
@@ -34,6 +36,7 @@ MIT License
   --NSDThemeBG2Color: rgba(40, 40, 45, 1);
   --NSDThemeBG3Color: rgba(34, 35, 39, 1);
   --NSDThemeBG4Color: rgba(32, 32, 36, 1);
+  --NSDbig_side-avatars-Color: rgba(214, 214, 214, 1);
 
   --NSDTheme1Color: rgba(102, 103, 113, 1);
 
@@ -2383,9 +2386,10 @@ body.bubblechat .welcomePanel{
 body.big_side-avatars .mesIDDisplay,
 body.big_side-avatars .mes_timer,
 body.big_side-avatars .tokenCounterDisplay {
-  opacity: 0.3 !important;
+  opacity: var(--NSDbig_side-avatars-opacity) !important;
   text-align: end !important;
   margin-right: 6px !important;
+  color: var(--NSDbig_side-avatars-Color) !important;
 }
 
 body.big_side-avatars .mes {
@@ -2520,4 +2524,8 @@ max-height: 100% !important;
   min-height: 100px;
   width: var(--expression-image-lorebook-width) !important;
   box-sizing: border-box;
+}
+
+.swipe_right, .swipe_left, .swipes-counter {
+  color: var(--NSDbig_side-avatars-Color) !important;
 }
